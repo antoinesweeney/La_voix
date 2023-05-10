@@ -29,7 +29,7 @@ Class   Furniture
 
 !------------------------------------------------------------------------------!
 ! Définitions des objets
-Room    piece1 "pi@`ece blanche"
+Object    piece1 "pi@`ece blanche"
   with  description "Une pi@`ece blanche et lisse, digne d'un laboratoire hollywoodien. Au nord, une ouverture laisse entrevoir une autre pi@`ece lumineuse. ",
         n_to piece2,
         cant_go "Il n'y a pas de porte ni m@^eme de fen@^etre ou d'ouverture de ce c@^ot@'e.";
