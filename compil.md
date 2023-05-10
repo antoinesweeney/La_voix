@@ -1,6 +1,6 @@
 # Compilation - La voix
 
-*Idées lancées lors du premier cours et lors du 7 mai*
+### 3 - 9 mai
 
 Idées pour un jeu.
 
@@ -73,7 +73,7 @@ Je pourrais faire une scène avec l'administration kafkaïenne de l'université.
 
 Dans le fond, ça pourrait parler de santé mentale, avec la lumière qui baisse graduellement jusqu'au noir complet. 
 
-***
+### 10 au 16 mai
 
 Une autre possibilité plus positive, la personnage doit prendre la parole (dans un colloque? pour une consultation des étudiants à l'Université sur la santé mentale?), à la fin elle pourrait enfermer le joueur dans le noir, mais elle part. Ça pourrait aussi être comme ça que l'on gagne/perd?
 
