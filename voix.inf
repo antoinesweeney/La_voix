@@ -4,8 +4,8 @@ Constant Story "La voix - LCO603";
 Constant Headline "^Par Antoine Sweeney^";
 Constant MANUAL_PRONOUNS;
 
-Include "Parser";               ! L'analyseur de texte
-Include "VerbLib";            ! Les verbes
+Include "Parser";  ! L'analyseur de texte
+Include "VerbLib"; ! Les verbes
 
 Global memory_visited = 0; 
 
@@ -67,22 +67,35 @@ Room memory_lane
   with description "le ruban du passe",
   before [;
   go: 
-  if (noun == n_obj && memory_visited == 0) {
-    memory_visited = 1;
-    return false;
-    }
-  if (noun == n_obj && memory_visited == 2) {
-    PlayerTo (souvenir2);
-    return true;
-    }
-  if (noun == n_obj && memory_visited == 31) {
-    PlayerTo (souvenir3a);
-    return true;
-    }
-  if (noun == n_obj && memory_visited == 32) {
-    PlayerTo (souvenir3b);
-    return true;
-    }
+    if (noun == n_obj && memory_visited ~= 0)
+      switch (memory_visited) {
+        2: PlayerTo (souvenir2);
+        return true;
+        31: PlayerTo (souvenir3a);
+        return true;
+        32: PlayerTo (souvenir3b);
+        return true; 
+        41: PlayerTo (souvenir4a);
+        return true; 
+        42: PlayerTo (souvenir4b);
+        return true; 
+        51: PlayerTo (souvenir5a);
+        return true; 
+        52: PlayerTo (souvenir5b);
+        return true; 
+        53: PlayerTo (souvenir5c);
+        return true; 
+        54: PlayerTo (souvenir5d);
+        return true; 
+        55: PlayerTo (souvenir5e);
+        return true; 
+        61: PlayerTo (souvenir6a);
+        return true; 
+        62: PlayerTo (souvenir6b);
+        return true; 
+        63: PlayerTo (souvenir6c);
+        return true; 
+        default: return false; }
   ],
   s_to chambre,
   n_to souvenir1;
@@ -130,10 +143,53 @@ Memory souvenir2
   e_to souvenir3b;
 
 Memory souvenir3a
-  with description "souvenir piscine";
+  with description "souvenir piscine",
+  n_to souvenir4a;
 
 Memory souvenir3b
-  with description "souvenir ballon";
+  with description "souvenir ballon",
+  n_to souvenir4b;
+
+Memory souvenir4a
+  with description "souvenir voiture, gauche camping, nord fete.",
+  w_to souvenir5a,
+  e_to souvenir5e,
+  n_to souvenir5b;
+
+Memory souvenir4b
+  with description "souvenir sous-sol, droite instrument, nord foret.",
+  e_to souvenir5d,
+  w_to souvenir5e,
+  n_to souvenir5c;
+
+Memory souvenir5a
+  with description "souvenir camping",
+  n_to souvenir6a; 
+
+Memory souvenir5b
+  with description "souvenir fete",
+  n_to souvenir6a; 
+
+Memory souvenir5c
+  with description "souvenir foret",
+  n_to souvenir6b;
+
+Memory souvenir5d
+  with description "souvenir instrument",
+  n_to souvenir6b;
+
+Memory souvenir5e
+  with description "souvenir fete foraine",
+  n_to souvenir6c;
+
+Memory souvenir6a
+  with description "souvenir final 1";
+
+Memory souvenir6b
+  with description "souvenir final 2";
+
+Memory souvenir6c
+  with description "souvenir final 1";
 
 
 !--------------------objets----------------------------------------------!
