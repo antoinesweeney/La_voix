@@ -7,62 +7,138 @@ Constant MANUAL_PRONOUNS;
 Include "Parser";               ! L'analyseur de texte
 Include "VerbLib";            ! Les verbes
 
-Global exemple = 0; ! exemple d'une variable globale
+Global memory_visited = 0; 
 
 !------------------------------------------------------------------------------!
-                               ! Routine d'initialisation
+! Routine d'initialisation
 [ Initialise;
-    location = piece1;
+    location = chambre;
     lookmode = 2;
-    player.description = "Vous semblez @^etre un scientifique.";
-    "^Bienvenue dans l'exemple d'Inform!^";
+    player.description = "Vous etes une etudiante";
+    "^Ceci n'est pas un jeu. Et il n'y a pas grand chose a voir non plus.";
 ];
 
 !------------------------------------------------------------------------------!
 ! Définition des classes
 
-Class   Room
-  has   light;
+Class Room
+  has light;
 
-Class   Furniture
-  has  static supporter;
+Class Furniture
+  has static supporter scenery;
+
+Class Memory
+  with s_to chambre,
+  cant_go "Les murs du souvenir sont cotonneux.",
+  has light; !ôter la lumière et faire en sorte que le joueur doit trouver un objet lumineux.
 
 !------------------------------------------------------------------------------!
-! Définitions des objets
-Object    piece1 "pi@`ece blanche"
-  with  description "Une pi@`ece blanche et lisse, digne d'un laboratoire hollywoodien. Au nord, une ouverture laisse entrevoir une autre pi@`ece lumineuse. ",
-        n_to piece2,
-        cant_go "Il n'y a pas de porte ni m@^eme de fen@^etre ou d'ouverture de ce c@^ot@'e.";
+! Définitions des lieux
 
-Room    piece2 "pi@`ece blanche avec pi@'edestal"
-  with  description "Le m@^eme genre de pi@`ece que la pr@'ec@'edante. Seulement, cette fois-ci, vous pouvez distinguer un pi@'edestal en verre, sur lequel est pos@'e un livre. ",
-           before  [;
-                             read:     if (glasses has worn) {
-                                          deadflag = 2;
-                                          return true;
-                                                                            }
-                                          else print_ret "Vous ne pouvez lire sans vos lunettes!";
-                              take:   print_ret "Si j'@'etais vous, je m'en abstiendrais.";
-                      ],
-        s_to piece1,
-        cant_go "Il n'y a pas de porte ni m@^eme de fen@^etre ou d'ouverture de ce c@^ot@'e.";
+Room chambre
+  with description "Une chambre",
+  n_to memory_lane,
+  s_to magasin,
+  w_to salle_etude,
+  e_to salle_a_manger;
 
-Furniture piedestal "pi@'edestal" piece2
-  with  name 'piedestal' 'pedestal' 'verre',
-        description "Le pi@'edestal est une pi@`ece de verre forg@'ee d'un seul mouvement. Il n'y a ni d@'ecorations ni moulures pour couvrir sa nudit@'e. Puisque la pi@`ece est blanche, le pi@'edestal semble blanc aussi. ",
-         has scenery;
+Room salle_etude
+  with description "salle etude",
+  e_to chambre,
+  cant_go "mur invisible";
+
+Room magasin
+  with description "le magasin",
+  d_to salle_pause,
+  n_to chambre,
+  cant_go "Elle ne peut pas s'enfuir du travail";
+
+Room salle_pause
+  with description "une salle de pause",
+  u_to magasin,
+  cant_go "Il n'y a pas d'issue";
+
+Room salle_a_manger
+  with description "la salle a manger",
+  w_to chambre,
+  cant_go "Elle n'a pas tres envie de se promener, sinon pour retourner dans sa chambre.";
+
+Room memory_lane
+  with description "le ruban du passe",
+  before [;
+  go: 
+  if (noun == n_obj && memory_visited == 0) {
+    memory_visited = 1;
+    return false;
+    }
+  if (noun == n_obj && memory_visited == 2) {
+    PlayerTo (souvenir2);
+    return true;
+    }
+  if (noun == n_obj && memory_visited == 31) {
+    PlayerTo (souvenir3a);
+    return true;
+    }
+  if (noun == n_obj && memory_visited == 32) {
+    PlayerTo (souvenir3b);
+    return true;
+    }
+  ],
+  s_to chambre,
+  n_to souvenir1;
+
+Room hangar
+  has ~light;
+
+!--------------------Furniture---------------------------------------!
+
+Furniture table "table" salle_a_manger
+  with  name 'table',
+  description "Une belle table",
+  has female; 
+
+!--------------------------------------------------------------------!
+
+
+!--------------------Memory lane---------------------------------------!
+
+
+Memory souvenir1
+  with description "souvenir initial",
+  before [;
+  go: if (noun == n_obj) {
+    memory_visited = 2;
+    return false;
+  }
+  ],
+  n_to souvenir2;
+
+Memory souvenir2
+  with description "souvenir d'enfance, a gauche piscine, droite le ballon.",
+  before [;
+  go:
+  if (noun == w_obj) {
+    memory_visited = 31;
+    return false;
+  }
+  if (noun == e_obj) {
+    memory_visited = 32;
+    return false;
+  }
+  ],
+  w_to souvenir3a,
+  e_to souvenir3b;
+
+Memory souvenir3a
+  with description "souvenir piscine";
+
+Memory souvenir3b
+  with description "souvenir ballon";
+
 
 !--------------------objets----------------------------------------------!
 
-Object glasses "lunettes" piece1
-  with  description "Des lunettes en m@'etal pour la lecture. ",
-          name 'lunette' 'lunettes',
-  has pluralname clothing;
 
-Object  livre "livre" piece2
-  with  name 'livre' 'bouquin' 'grimmoire',
-        description "Un livre de papier v@'elin. Sur sa couverture, vous pouvez lire ~l'incroyable secret d'Inform 6~. ",
-has scenery;
 
 
 !------------------------------------------------------------------------------!

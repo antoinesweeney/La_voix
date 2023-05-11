@@ -18,7 +18,7 @@ Idées pour un jeu.
 - Ne pas écouter les commandes du joueurs
 
 - Non narration, non jeu, non lieux
-    - Spacialisation poétique
+    - Spatialisation poétique
 
 - Montrer des bouts de codes
     - Expliciter les limites du médium (à la fin?)
@@ -84,3 +84,5 @@ Il faudrait que chaque pièce représente quelque chose de différent (non pas u
 Il pourrait y avoir d'autres clins d'œil aux jeux vidéo: il faut souffler dessus pour que ça fonctionne (en parlant d'un gâteau de fête, d'un vœu), le mur invisible, apparaître dans un lieu opposé (par le biais d'une scène), la maîtrise sera déclassée par une future génération, ça ne connecte pas (il faut les pairer, en parlant d'un couple), un élément qui irradie (il brille), une personne qui a un point d'interrogation sur la tête, être perdu dans son inventaire (sac-à-dos), mauvais mouvements, car elle se mélange dans les commandes, la crème solaire apporte une meilleure défense au soleil. À voir. 
 
 En fait, si le joueur gagne, il est enfermé dans le noir, car la personnage principale prend contrôle de sa vie et n'a plus besoin qu'on lui dise quoi faire. 
+
+Il faudrait de la lumière pour explorer le memory lane. Sinon c'est noir.
