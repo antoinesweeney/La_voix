@@ -152,34 +152,94 @@ Memory souvenir3b
 
 Memory souvenir4a
   with description "souvenir voiture, gauche camping, nord fete.",
+  before [;
+  go:
+  if (noun == w_obj) {
+    memory_visited = 51;
+    return false;
+  }
+  if (noun == e_obj) {
+    memory_visited = 55;
+    return false;
+  }
+  if (noun == n_obj) {
+    memory_visited = 52;
+    return false;
+  }
+  ],
   w_to souvenir5a,
   e_to souvenir5e,
   n_to souvenir5b;
 
 Memory souvenir4b
   with description "souvenir sous-sol, droite instrument, nord foret.",
+  before [;
+  go:
+  if (noun == w_obj) {
+    memory_visited = 55;
+    return false;
+  }
+  if (noun == e_obj) {
+    memory_visited = 54;
+    return false;
+  }
+  if (noun == n_obj) {
+    memory_visited = 53;
+    return false;
+  }
+  ],
   e_to souvenir5d,
   w_to souvenir5e,
   n_to souvenir5c;
 
 Memory souvenir5a
   with description "souvenir camping",
+  before [;
+  go: if (noun == n_obj) {
+    memory_visited = 61;
+    return false;
+  }
+  ],
   n_to souvenir6a; 
 
 Memory souvenir5b
   with description "souvenir fete",
+  before [;
+  go: if (noun == n_obj) {
+    memory_visited = 61;
+    return false;
+  }
+  ],
   n_to souvenir6a; 
 
 Memory souvenir5c
   with description "souvenir foret",
+  before [;
+  go: if (noun == n_obj) {
+    memory_visited = 62;
+    return false;
+  }
+  ],
   n_to souvenir6b;
 
 Memory souvenir5d
   with description "souvenir instrument",
+  before [;
+  go: if (noun == n_obj) {
+    memory_visited = 62;
+    return false;
+  }
+  ],
   n_to souvenir6b;
 
 Memory souvenir5e
   with description "souvenir fete foraine",
+  before [;
+  go: if (noun == n_obj) {
+    memory_visited = 63;
+    return false;
+  }
+  ],
   n_to souvenir6c;
 
 Memory souvenir6a
