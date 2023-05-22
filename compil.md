@@ -86,3 +86,15 @@ Il pourrait y avoir d'autres clins d'œil aux jeux vidéo: il faut souffler dess
 En fait, si le joueur gagne, il est enfermé dans le noir, car la personnage principale prend contrôle de sa vie et n'a plus besoin qu'on lui dise quoi faire. 
 
 Il faudrait de la lumière pour explorer le memory lane. Sinon c'est noir.
+
+### 17 au 23 mai
+
+Son père est mort, et sa mère est devenue une veille femme sèche qui ne s'est jamais vraiment remise de son deuil, ce que sa fille ne comprend pas et cela est source de conflit/mésentente: elle lui dit d'ailleurs des choses qu'elle regrette à ce propos. 
+
+À la fin, lors de la conférence de l'Université sur la santé mentale, elle prend la parole pour un long monologue où elle déclare mettre en pause ses études, et qu'il ne faut pas être chevronné à perdurer envers et contre tout: il est parfois sage de savoir mettre sur pause ou même abandonner.
+
+Elle quitte l'Université et part faire un voyage au Mexique de 6 mois. Ça pourrait être une histoire qui aborde l'échec, mais positivement et sereinement. 
+
+Travailler des thèmes bipartites: l'océan (la pensée récurrente et l'évasion - le souvenir), la fenêtre (l'évasion vers le souvenir, le rappel de la condition).
+
+Elle serait touchée à un moment par un poème religieux, même si elle ne l'est pas. Ce poème la travaille. Elle tentera à son tour d'en écrire un.
