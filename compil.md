@@ -98,3 +98,23 @@ Elle quitte l'Université et part faire un voyage au Mexique de 6 mois. Ça pour
 Travailler des thèmes bipartites: l'océan (la pensée récurrente et l'évasion - le souvenir), la fenêtre (l'évasion vers le souvenir, le rappel de la condition).
 
 Elle serait touchée à un moment par un poème religieux, même si elle ne l'est pas. Ce poème la travaille. Elle tentera à son tour d'en écrire un.
+
+Elle tente de faire sens d'impression isolée et hétéroclite, mais ne parvient pas à obtenir une image d'ensemble de sa vie, de son destin. Elle est habitée par des images de son père, la fenêtre, sa mère qui dépérit, ses souvenirs d'enfance.
+
+Ça serait drôle, si, dans l'une des projections où elle enseigne, elle se fâche contre sa classe qui ne participe pas et pète un plomb: c'est ça, vous en avez rien à faire de la culture, le joyeau de l'humanité, on pourrait tout aussi bien aller brûler toutes les forêt tout de suite, que ça finisse, qu'il n'y ait plus rien à disserter, ni texte ni société humaine ni rêve ni grandeur, qu'un champ plat dévasté et carbonisé parce qu'est-ce qui nous attend d'autre? Ça serait comme une scène de théâtre, une séquence, dans cette idée que sa vie est une succession de pièces? Littéralement?
+
+Elle se demande à quoi ça sert d'écrire après tant d'autres, ce qu'il y a à apporter dans un ensemble déjà autant saturé. Elle ne trouve pas de fenêtre d'échappatoire en littérature, ne voit plus les fenêtres en tant enseignante, donc perd pied.
+
+À la fin elle part au Mexique, et en épilogue, au bord de l'océan, trouve son père. Elle fait la paix et écrit un poème. Elle pourrait lui donner un objet en lien avec le dernier souvenir visité du memory lane. 
+
+Elle pourrait se trouver laide et trouver la beauté dans la littérature et penser pouvoir y participer tout en souhaitant avoir été un mannequin, c'est-à-dire avoir pu participer de manière pus directe à la beauté, et plus facilement aussi. Ça pourrait me permettre de brancher le poème qui traîne dans mes affaires sur le sujet.
+
+***
+
+Au lieu d'enfermer le joueur dans une pièce noire, ça serait plus intéressant de le déstabiliser, en lui donnant l'illusion qu'il se trouve en réalité quelque part. Cela pourrait être réalisé à l'aide de switch random: une qui accompagne un before go et qui montre un message de déplacement, une qui affiche des message aléatoire de ce qui est rencontré sur le chemin. Tout de même, le lieu serait sombre, incertain, conceptuel. Un non lieu mais qui laisse penser qu'il pourrait y avoir quelque chose. 
+
+Au lieu d'avoir la voix en inventaire, ça pourrait être la parole! Comme ça, le personnage prend la parole durant la conférence. Il faudrait d'ailleurs que je repense le spectre, peut-être une version iéalisée d'elle-même, comme une projection d'elle mais riche par exemple.
+
+Ça serait nice d'avoir une scène ou une séquence avec sa mère qui appraît à chaque endroit, assise sur son fauteil et la fixant. (Pour une séquence, ça pourrait être une routine appelée **en loop**).
+
+### 24 au 30 mai

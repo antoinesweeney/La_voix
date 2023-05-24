@@ -267,5 +267,5 @@ Include "FrenchG";
  ];
 
 Extend 'lire' first
-*                         -> Read
+*                    -> Read
 * noun               -> Read;
