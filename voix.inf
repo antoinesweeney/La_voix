@@ -5,9 +5,26 @@ Constant Headline "^Par Antoine Sweeney^";
 Constant MANUAL_PRONOUNS;
 
 Include "Parser";  ! L'analyseur de texte
+
+Object LibraryMessages
+  with before  [;
+    Miscellany:
+      if (lm_n == 9) "^Vous vous sentez compl@`etement seul.";
+      ];
+
 Include "VerbLib"; ! Les verbes
 
 Global memory_visited = 0; 
+
+Global mandatory_scenes = 0; ! Il faut que le joueur ait dormi, parlé à sa mère dans la cuisine et visité le momry lane jusqu'au bout
+Global sleep = 0;
+Global conversation = 0;
+Global final_memory = 0;
+Global alert_ending = 0;
+Global stride_count = 0;
+Global alert_memory = 0;
+Global player_bad = 0;
+Global hallucination = 0;
 
 !------------------------------------------------------------------------------!
 ! Routine d'initialisation
@@ -22,6 +39,17 @@ Global memory_visited = 0;
 ! Définition des classes
 
 Class Room
+  with each_turn [;
+    Stridescount();
+    if (hallucination == true) {
+      print "Votre mere vous regarde depuis le fauteil."; }
+    ],
+    before [;
+    go:
+     if (mandatory_scenes == 2 && stride_count == 12 && player notin salle_a_manger && player notin sous_sol && noun ~= e_obj) {
+      SceneMotherTalk();
+      return true; }
+  ],
   has light;
 
 Class Furniture
@@ -37,6 +65,20 @@ Class Memory
 
 Room chambre
   with description "Une chambre",
+  before [;
+
+    if (noun == bed) <<sleep>>;
+
+    sleep: if (sleep == false) { 
+     sleep = true;
+     hallucination = true;
+     mandatory_scenes = mandatory_scenes + 1;
+     print "scene nocturne mere partout";
+     return true; }
+  go: if (noun == n_obj && hallucination == true)
+    print_ret "Isabelle ne peut s'enfuir dans ses souvenirs.";
+  ],
+  !d_to blackbox, pour le test à la fin 
   n_to memory_lane,
   s_to magasin,
   w_to salle_etude,
@@ -60,8 +102,27 @@ Room salle_pause
 
 Room salle_a_manger
   with description "la salle a manger",
+  before [;
+    go: if (noun == d_obj) {
+    hallucination = false;
+    print "fin de l'hallucination^^";
+    return false; }
+  ],
   w_to chambre,
+  n_to salon,
+  d_to sous_sol,
   cant_go "Elle n'a pas tres envie de se promener, sinon pour retourner dans sa chambre.";
+
+Room salon "salon"
+  with description "salon",
+  s_to salle_a_manger,
+  cant_go "La salle a manger est au sud.";
+
+Room sous_sol
+  with description "sous-sol",
+  u_to salle_a_manger,
+  cant_go "En haut se trouve la salle a manger";
+
 
 Room memory_lane
   with description "le ruban du passe",
@@ -100,8 +161,80 @@ Room memory_lane
   s_to chambre,
   n_to souvenir1;
 
-Room hangar
+Object blackbox ""
+  with
+  description "",
+  turns_move 0,
+  turns_wait 0,
+  encounterinsects 0,
+  encounterdog 0,
+  encounterghost 0,
+  encounterform 0,
+
+  before [;
+
+    touch, take, attack:
+
+    if (noun == form || noun == dog || noun == ghost || noun == insects) <<talk noun>>;
+
+    smell: 
+
+      print_ret "Vous ne sentez que votre propre sueur. C'est horrible.";
+
+    listen:
+
+      print_ret "Vous entendez de l'eau clapoter au loin.";
+
+    look: 
+
+      if (blackbox hasnt light)
+      print_ret "Tout ce que vous voyez semble compos@'e d'ombres fuyantes.";
+
+    go:
+
+    if (self.turns_move == 20) deadflag = 3;
+      self.turns_move = self.turns_move + 1;
+    if (player_bad == true) {
+        print "Tout en tra@^inant du pied, vous poussez un r@^ale de douleur.^^";}
+
+      switch (random (20)) {
+
+      1: print_ret "vous apercevez une lumiere lointaine @`a l'est. Puis elle s'@'eteint.";
+      2: print_ret "Vous entendez un bref cri @`a l'ouest.";
+      3: if (self.encounterghost == false) {Thingslight(ghost); self.encounterghost = true; print_ret "Un spectre appara@^it.";} return false;
+      4: if (self.encounterform == false) {Thingslight(form); self.encounterform = true; print_ret "Vous heurtez une forme indistincte.";} return false;
+      5: print_ret "Vous ressentez une douleur, votre poitrine est opprim@'ee.";
+      6: if (self.encounterdog == false) {Thingslight(dog); self.encounterdog = true; print_ret "Vous entendez un hal@`etement.";} return false;
+      7: print_ret "Vous vous demandez vraiment ce que vous faites ici.";
+      8: if (self.encounterinsects == false) {Thingslight(insects); self.encounterinsects = true; print_ret "Des insectes se faufilent dans vos pantalons, ils sont nombreux et de petite taille.";} return false;
+      9: player_bad = true; print_ret "Pris d'un malaise, vous tombez au sol. Vous vous relevez difficilement.";
+      10 to 12: print_ret "vous faites quelques pas dans cette direction";
+      13 to 14: print_ret "Vous allez par l@`a, mais sans grande conviction.";
+      15: print_ret "Vraiment? Bon, ok. Vous allez par l@`a. Qu'y a-t-il d'autre @`a faire de toute mani@`ere que de se promener dans le noir? N'est-ce donc pas divertissant?";
+      default: return false;
+    }
+
+  wait: 
+
+    if (self.turns_wait == 6)
+      print_ret "Vous ne voulez plus attendre d@'esormais.";
+
+    self.turns_wait = self.turns_wait + 1;
+    switch (self.turns_wait) {
+
+      2: print_ret "Vous vous impatientez.";
+      4: print_ret "Vous avez plut@^ot envie d'explorer.";
+      6: print_ret "Comme vous avez vraiment envie d'explorer, vous faites le choix judicieux d'aller au nord.^^Vous marchez quelques pas au nord.";
+    }
+    
+  ], 
+  n_to "Vous marchez quelques pas au nord",
+  s_to "vous vous dirigez au sud",
+  e_to "Vous vous d@'eplacez a l'est",
+  w_to "Vous allez @`a l'ouest",
   has ~light;
+
+Room hangar;
 
 !--------------------Furniture---------------------------------------!
 
@@ -110,11 +243,16 @@ Furniture table "table" salle_a_manger
   description "Une belle table",
   has female; 
 
+Furniture bed "lit" chambre
+  with name 'lit',
+  article 'le',
+  description "le lit.",
+  has container open enterable male;
+
 !--------------------------------------------------------------------!
 
 
 !--------------------Memory lane---------------------------------------!
-
 
 Memory souvenir1
   with description "souvenir initial",
@@ -127,7 +265,7 @@ Memory souvenir1
   n_to souvenir2;
 
 Memory souvenir2
-  with description "souvenir d'enfance, a gauche piscine, droite le ballon.",
+  with description "souvenir a la foire, a gauche souvenir a la piscine, droite souvenir avec un ballon.",
   before [;
   go:
   if (noun == w_obj) {
@@ -143,15 +281,29 @@ Memory souvenir2
   e_to souvenir3b;
 
 Memory souvenir3a
-  with description "souvenir piscine",
+  with description "souvenir a la piscine",
+  before [;
+  go: 
+  if (noun == n_obj) {
+    memory_visited = 41;
+    return false; 
+  } 
+  ],
   n_to souvenir4a;
 
 Memory souvenir3b
-  with description "souvenir ballon",
+  with description "souvenir avec le ballon",
+  before [;
+  go: 
+  if (noun == n_obj) {
+    memory_visited = 42;
+    return false; 
+  } 
+  ],
   n_to souvenir4b;
 
 Memory souvenir4a
-  with description "souvenir voiture, gauche camping, nord fete.",
+  with description "souvenir dans la voiture, a gauche souvnir de camping, au nord souvenir de fete.",
   before [;
   go:
   if (noun == w_obj) {
@@ -172,7 +324,7 @@ Memory souvenir4a
   n_to souvenir5b;
 
 Memory souvenir4b
-  with description "souvenir sous-sol, droite instrument, nord foret.",
+  with description "souvenir dans le sous-sol, a droite souvenir avec un instrument, au nord souvenir dans une foret.",
   before [;
   go:
   if (noun == w_obj) {
@@ -193,50 +345,60 @@ Memory souvenir4b
   n_to souvenir5c;
 
 Memory souvenir5a
-  with description "souvenir camping",
+  with description "souvenir au camping",
   before [;
   go: if (noun == n_obj) {
     memory_visited = 61;
+    final_memory = true;
+    mandatory_scenes = mandatory_scenes + 1;
     return false;
   }
   ],
   n_to souvenir6a; 
 
 Memory souvenir5b
-  with description "souvenir fete",
+  with description "souvenir a la fete",
   before [;
   go: if (noun == n_obj) {
     memory_visited = 61;
+    final_memory = true;
+    mandatory_scenes = mandatory_scenes + 1;
     return false;
   }
   ],
   n_to souvenir6a; 
 
 Memory souvenir5c
-  with description "souvenir foret",
+  with description "souvenir dans une foret",
   before [;
   go: if (noun == n_obj) {
     memory_visited = 62;
+    final_memory = true;
+    mandatory_scenes = mandatory_scenes + 1;
     return false;
   }
   ],
   n_to souvenir6b;
 
 Memory souvenir5d
-  with description "souvenir instrument",
+  with description "souvenir avec un instrument",
   before [;
   go: if (noun == n_obj) {
     memory_visited = 62;
+    final_memory = true;
+    mandatory_scenes = mandatory_scenes + 1;
     return false;
   }
   ],
   n_to souvenir6b;
 
 Memory souvenir5e
-  with description "souvenir fete foraine",
+  with description "souvenir fete a la fete foraine",
   before [;
   go: if (noun == n_obj) {
     memory_visited = 63;
+    final_memory = true;
+    mandatory_scenes = mandatory_scenes + 1;
     return false;
   }
   ],
@@ -254,8 +416,97 @@ Memory souvenir6c
 
 !--------------------objets----------------------------------------------!
 
+Object ghost "spectre" hangar
+with description "Un spectre livide.",
+  name 'spectre' 'fantome',
+  life [;
+    Thingsleave(ghost);
+    print_ret "Le spectre hurle, se tord et s'envole.";
+  ],
+has animate male;
+
+Object dog "animal" hangar
+with description "Une b@^ete horrible",
+  name 'haletement' 'chien' 'loup' 'bete' 'animal',
+  life [;
+    Thingsleave(dog);
+    player_bad = true;
+    print_ret "L'animal vous mord le molet, et s'enfuit en glapissant.";
+  ],
+has animate male;
+
+Object insects "insectes" hangar
+with description "Une horde d'insectes.",
+  name 'insecte' 'insectes//p' 'horde',
+  life [; 
+    Thingsleave(insects);
+    player_bad = true;
+    print_ret "Les insectes s'enfoncent plus profond@'ement dans vos v@^etements. Certains vous percent la peau et p@'en@`etrent en vous.";
+  ],
+has animate male pluralname;
+
+Object form "forme" hangar
+with description "Son aspect change dans l'obscurit@'e.",
+  name 'forme' 'chose',
+  life [; 
+    Thingsleave(form);
+    print_ret "La forme semble s'animer, et fuit en silence.";
+  ],
+has animate female;
 
 
+!---------------------Routines---------------------------------------------!
+
+[ DeathMessage; print "C'est termin@'e, vous avez @'epuis@'e ce qu'il y avait @`a faire. Vous tournez en rond dans une bo@^ite noire comme une fourmi dans un bocal. Allez prendre une marche, comme dans votre quartier par exemple, ce sera plus int@'eressant il me semble."; ];
+
+[Thingslight x;
+  give blackbox light;
+  move x to blackbox;
+];
+
+[Thingsleave x;
+  give blackbox ~light;
+  move x to hangar;
+];
+
+[SceneMotherTalk;
+  mandatory_scenes = mandatory_scenes +1;
+  conversation = true;
+  PlayerTo(salle_a_manger, 1);
+  print "convo avec la mere";
+  return true;
+
+];
+
+[Stridescount;
+
+if (hallucination == 0) {
+
+  if (stride_count < 12) {
+    stride_count = stride_count + 1; }
+
+  if (stride_count > 11 && alert_ending == 0 && mandatory_scenes == 3) {
+    stride_count = stride_count + 1; }
+
+  if (stride_count >= 15 && alert_ending == 0 && mandatory_scenes == 3) {
+
+    print "Il est temps d'aller prendre la parole pour la conference sur la sante mentale.";
+    alert_ending = true;
+    return false; }
+
+  if (stride_count >= 6 && sleep ~= true) {
+    switch (random(3)) {
+    1: print "Isabelle a sommeil et epuise, voudrait prendre une sieste.";
+    return false; 
+    default: return false; } }
+
+  if (stride_count == 12 && sleep == true && alert_memory == false && final_memory == false && player notin chambre && player notin memory_lane) {
+    alert_memory = true;
+    print "^Isabelle se sent nostalgique.";
+    return false; }
+
+  }
+]; 
 
 !------------------------------------------------------------------------------!
 ! Fichier de la grammaire française
@@ -266,6 +517,18 @@ Include "FrenchG";
  "Lire quel livre?";
  ];
 
+[ TalkSub;
+ if (noun == player) print_ret "Rien d'inattendu.";
+ if (RunLife(noun,##Talk) ~=false) return; !consult life[; Talk: ]
+ print_ret "@`A ce moment, vous ne savez que dire.";
+ ];
+
 Extend 'lire' first
 *                    -> Read
 * noun               -> Read;
+
+Verb 'flatter'
+* noun               -> Touch;
+
+Extend 'dormir' 
+* 'in' / 'into' noun  -> Sleep;

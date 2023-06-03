@@ -1,0 +1,25 @@
+# Le fauteil de ma mère
+
+Le fauteil de ma mère, c'est le fauteil de l'inquisition depuis lequel elle siège, souveraine et implacable. C'est le siège du pouvoir, d'où fusent les ordres, les questions sifflantes, les remarques superflues mais proncées tout de même. Son faux cuir brun bouette s'est amincie là où se posent les coudes, les avants-bras. Son mécanisme d'inclinaison grince à rendre l'âme, mais tient bon, à l'image de l'âme de sa posseusseure. En raison de sa maladie, ma mère y passait le plus clair de son temps. Elle n'en sortait que pour faire les courses, cuisiner ou faire du ménage. Elle y dormait même, car elle était plus à l'aise en position assise que couchée.  
+
+Je n'ai jamais eu la chance des autres adolescente qui reviennent un peu trop tard d'une fête et qui rentrent incognito dans la maison sur la pointe des pieds. Au coeur de la nuit, même lorsqu'aucun son n'agite le quartier et que je fais bien attention à être silencieuse comme un chat, les yeux de ma mère s'ouvrent et brillent d'une joie discrète de pouvoir défouler toutes les pensées qui couvent sous son crâne de jour comme de nuit; car non, ce n'mest certainement pas le sommeil qui l'empêcherai de couvrir des reprimandes, des anxiétés sans fondement, des piques bien fourbie.
+
+Le fauteil est le moule de l'esprit de ma mère: son étroitesse un peu usée qui colle à la peau, sa molesse qui fait que l'on s'y enfonce un peu trop, sans jamais y être correctement confortable, sa vue sur le monde aussi. Le fauteil permet d'accéder à la vue que donne la baie-vitrée sur notre quartier tranquille et sans histoire, sur la télévision et sur les faits et gestes de sa fille. Trois sources éternelles de visionnement du petit monde de ma mère, prise dans sa maldie autant que dans son fauteil, aggripant désepérement les accoudoir de son geste anxieux autocentré et nerveux qui lui permet de se rappeler qu'il n'existe que cela: la rue du quartier, sa fille, la télévision. 
+
+Ma mère entrevoit des dangers partout, et c'est pire depuis que nous sommes seuls. Elle ne peut plus comprendre les gens qui voyage, ceux qui courrent la nuit dans les rues de la ville ou même ceux qui font des randonnées en forêt; tout cela dépasse de loin son monde constitué d'une portée de regard depuis le fauteil, ce satané fauteil qui l'avalera, là où elle s'endormira de son dernier sommeil, un filet de bave collé à la lèvre, morte dans son fauteil, une dernière pensée à se demander pourquoi je ne suis pas encore rentrée, pourquoi je veux tellement partir en voyage alors que je suis une femme seule, et comment cela se fait-il que je sois seule. 
+
+Ma mère se réveille en même temps que moi. Nécessairement, puisque dès que je franchis le seuil de ma porte au matin, à 6h si je dois aller travailler, ma présence perturbe son sommeil fragile. Ainsi, les questions peuvent commencer dès mes premiers pas hors de mon lit. Les questions sur ma journée précédantes, sur la journée en cours, sur mes derniers agissement, sur les choses que j'ai acheté, mangé, pensé, regardé, entendu, senti, fait, pas fait, que je pourrai faire, et sur les gens que je vois. Et à chaque échange, ma mère a le don pour le commentaire de trop, celui qui n'ajoute rien, qui me fait serrer les dents, et qui conforte l'insanité de nos interactions.
+
+
+
+
+
+
+
+
+
+
+
+
+
+

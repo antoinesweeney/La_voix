@@ -117,4 +117,31 @@ Au lieu d'avoir la voix en inventaire, ça pourrait être la parole! Comme ça, 
 
 Ça serait nice d'avoir une scène ou une séquence avec sa mère qui appraît à chaque endroit, assise sur son fauteil et la fixant. (Pour une séquence, ça pourrait être une routine appelée **en loop**).
 
-### 24 au 30 mai
+### 31 mai au 6 juin
+
+Voici les différentes scènes et textes nécessaires pour ma petite histoire (on pourrait dire que certains sont mes *assets*):
+
+#### Facultatifs
+
+- Trois textes *pop-up* déclenché par le joueur par des livres sur les bureaux:
+    - La fenêtre;
+    - Le fauteil;
+    - Le bureau.
+
+- Trois scène *pop-up* contextuelles:
+    - La boîte de verre;
+    - L'épilogue au Mexique;
+    - La caisse au travail.
+
+#### Obligatoires
+
+- Trois scènes jouables:
+    - Les apparitions de la mère; 
+    - L'interrogatoire à la cuisine;
+    - Prendre la parole à l'université.
+    
+- Trois souvenirs principaux avec son père (et ~10 secondaires très courts): 
+    - L'océan;
+    - Le camping;
+    - La montgolfière.
+
