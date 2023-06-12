@@ -123,20 +123,20 @@ Voici les différentes scènes et textes nécessaires pour ma petite histoire (o
 
 #### Facultatifs
 
-- Trois textes *pop-up* déclenché par le joueur par des livres sur les bureaux:
-    - La fenêtre;
-    - Le fauteil;
-    - Le bureau.
+- Trois textes *pop-up* déclenché par le joueur par des livres sur les surfaces planes:
+    - La fenêtre; <!--Journal intime dans la chambre... sur le lit?-->
+    - Le fauteil; <!--Carnet sur une petite tables ronde à côté du fauteil [meuble d'appoint?]-->
+    - Le bureau.  <!--Feuille sur le bureau du père-->
 
 - Trois scène *pop-up* contextuelles:
-    - La boîte de verre;
+    - La boîte de verre; <!--en fonçant dans la vitre en verre la première fois ou en travaillant au bureau, chacune des actions déclenche la même cinématique qui ne peut être déclenchée qu'une seule fois en tout.--->
     - L'épilogue au Mexique;
-    - La caisse au travail.
+    - La caisse au travail. <!---en parlant avec une caissière ou en interagissant avec la caisse.-->
 
 #### Obligatoires
 
 - Trois scènes jouables:
-    - Les apparitions de la mère; 
+    - Les apparitions de la mère; <!--La scène se termine au sous-sol, sa mère crie son nom et la réveille, elle fait du snomanbulsime.--->
     - L'interrogatoire à la cuisine;
     - Prendre la parole à l'université.
     
@@ -145,3 +145,14 @@ Voici les différentes scènes et textes nécessaires pour ma petite histoire (o
     - Le camping;
     - La montgolfière.
 
+### 7 au 13 juin
+
+Ça serait intéressant si je pouvais connecter les éléments de la boîte noire à l'histoire. Comme si le personnage a une phobie des insectes et n'aime pas les chiens. 
+
+À la fin des trois interactions obligatoires (convesation, les souvenirs, et le rêve) qui préludent la prise de parole, move dad to chambre, ensuite, mettre un before [; go: if (dad in chambre) print_ret "vous ne pouvez partir sans parler à votre père tout de même";], et à la suite de l'interaction (talk to), move dad to hangar, give voice to player, et là la parole est dans l'inventaire du personnage; donc, elle a accès à la conférence dès le début, mais au micro, n'a pas la parole pour parler devant tous. Son père lui dirait de la retrouver au Mexique. 
+
+Est-ce bien nécessaire de rendre l'obscurité dans la boîte noire? Que se passe-t-il s'il n'y en a pas? Ou plus simplement, au lieu de mettre des objets avec lesquelles le joueur interragit, ça serait que des print_ret?
+
+Coder la rue/l'extérieur aussi, mais rendre cela enfermé: soit je connecte quatre lieux en carré, soit je simule les mouvements par un print_ret. Il n'y aurait rien de particulier dans ce lieux, sinon l'ullustration renforcée de son enfermement.
+
+### 14 au 21 juin

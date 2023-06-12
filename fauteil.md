@@ -9,17 +9,3 @@ Le fauteil est le moule de l'esprit de ma mère: son étroitesse un peu usée qu
 Ma mère entrevoit des dangers partout, et c'est pire depuis que nous sommes seuls. Elle ne peut plus comprendre les gens qui voyage, ceux qui courrent la nuit dans les rues de la ville ou même ceux qui font des randonnées en forêt; tout cela dépasse de loin son monde constitué d'une portée de regard depuis le fauteil, ce satané fauteil qui l'avalera, là où elle s'endormira de son dernier sommeil, un filet de bave collé à la lèvre, morte dans son fauteil, une dernière pensée à se demander pourquoi je ne suis pas encore rentrée, pourquoi je veux tellement partir en voyage alors que je suis une femme seule, et comment cela se fait-il que je sois seule. 
 
 Ma mère se réveille en même temps que moi. Nécessairement, puisque dès que je franchis le seuil de ma porte au matin, à 6h si je dois aller travailler, ma présence perturbe son sommeil fragile. Ainsi, les questions peuvent commencer dès mes premiers pas hors de mon lit. Les questions sur ma journée précédantes, sur la journée en cours, sur mes derniers agissement, sur les choses que j'ai acheté, mangé, pensé, regardé, entendu, senti, fait, pas fait, que je pourrai faire, et sur les gens que je vois. Et à chaque échange, ma mère a le don pour le commentaire de trop, celui qui n'ajoute rien, qui me fait serrer les dents, et qui conforte l'insanité de nos interactions.
-
-
-
-
-
-
-
-
-
-
-
-
-
-

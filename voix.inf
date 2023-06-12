@@ -474,6 +474,9 @@ has animate female;
   conversation = true;
   PlayerTo(salle_a_manger, 1);
   print "convo avec la mere";
+  if (YesOrNo()) {
+    Convoa();}
+    else {Convob();}
   return true;
 
 ];
@@ -508,6 +511,59 @@ if (hallucination == 0) {
   }
 ]; 
 
+!----------convo---------------------------------------------------------------!
+
+[Convoa;
+print "conversation, partie A";
+if (YesOrNo()) {
+Convoc();}
+else {Convod();}
+];
+
+[Convob;
+print "conversation, partie B";
+if (YesOrNo()) {
+Convoe();}
+else {Convof();}
+];
+
+[Convoc;
+print "conversation, partie C";
+convog();
+];
+
+[Convod;
+print "conversation, partie D";
+convog();
+];
+
+[Convoe;
+print "conversation, partie E";
+convoh();
+];
+
+[Convof;
+print "conversation, partie F";
+convoh();
+];
+
+[Convog;
+print "conversation, partie G";
+convoi();
+];
+
+[Convoh;
+print "conversation, partie H"
+convoi();
+];
+
+[Convoi;
+print "conversation, partie I, finale";
+return true;
+];
+
+
+
 !------------------------------------------------------------------------------!
 ! Fichier de la grammaire française
 Include "FrenchG";
@@ -531,4 +587,4 @@ Verb 'flatter'
 * noun               -> Touch;
 
 Extend 'dormir' 
-* 'in' / 'into' noun  -> Sleep;
+* 'dans' noun  -> Sleep;
