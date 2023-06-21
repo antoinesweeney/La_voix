@@ -23,7 +23,7 @@ Global final_memory = 0;
 Global alert_ending = 0;
 Global stride_count = 0;
 Global alert_memory = 0;
-Global player_bad = 0;
+!Global player_bad = 0;
 Global hallucination = 0;
 
 !------------------------------------------------------------------------------!
@@ -75,8 +75,11 @@ Room chambre
      mandatory_scenes = mandatory_scenes + 1;
      print "scene nocturne mere partout";
      return true; }
-  go: if (noun == n_obj && hallucination == true)
-    print_ret "Isabelle ne peut s'enfuir dans ses souvenirs.";
+  go: if (player in chambre && hallucination == true) {
+  if (noun == n_obj) print_ret "Caroline ne peut s'enfuir dans ses souvenirs.";
+  if (noun == s_obj) print_ret "Caroline ne peut pas s'enfuir au travail";
+  if (noun == w_obj) print_ret "Caroline ne peut pas s'enfuir a l'ecole.";
+}
   ],
   !d_to blackbox, pour le test à la fin 
   n_to memory_lane,
@@ -87,7 +90,12 @@ Room chambre
 Room salle_etude
   with description "salle etude",
   e_to chambre,
+  n_to salle_conferance,
   cant_go "mur invisible";
+
+Room salle_conferance
+  with description "Salle de conferance",
+  s_to salle_etude;
 
 Room magasin
   with description "le magasin",
@@ -161,78 +169,78 @@ Room memory_lane
   s_to chambre,
   n_to souvenir1;
 
-Object blackbox ""
-  with
-  description "",
-  turns_move 0,
-  turns_wait 0,
-  encounterinsects 0,
-  encounterdog 0,
-  encounterghost 0,
-  encounterform 0,
-
-  before [;
-
-    touch, take, attack:
-
-    if (noun == form || noun == dog || noun == ghost || noun == insects) <<talk noun>>;
-
-    smell: 
-
-      print_ret "Vous ne sentez que votre propre sueur. C'est horrible.";
-
-    listen:
-
-      print_ret "Vous entendez de l'eau clapoter au loin.";
-
-    look: 
-
-      if (blackbox hasnt light)
-      print_ret "Tout ce que vous voyez semble compos@'e d'ombres fuyantes.";
-
-    go:
-
-    if (self.turns_move == 20) deadflag = 3;
-      self.turns_move = self.turns_move + 1;
-    if (player_bad == true) {
-        print "Tout en tra@^inant du pied, vous poussez un r@^ale de douleur.^^";}
-
-      switch (random (20)) {
-
-      1: print_ret "vous apercevez une lumiere lointaine @`a l'est. Puis elle s'@'eteint.";
-      2: print_ret "Vous entendez un bref cri @`a l'ouest.";
-      3: if (self.encounterghost == false) {Thingslight(ghost); self.encounterghost = true; print_ret "Un spectre appara@^it.";} return false;
-      4: if (self.encounterform == false) {Thingslight(form); self.encounterform = true; print_ret "Vous heurtez une forme indistincte.";} return false;
-      5: print_ret "Vous ressentez une douleur, votre poitrine est opprim@'ee.";
-      6: if (self.encounterdog == false) {Thingslight(dog); self.encounterdog = true; print_ret "Vous entendez un hal@`etement.";} return false;
-      7: print_ret "Vous vous demandez vraiment ce que vous faites ici.";
-      8: if (self.encounterinsects == false) {Thingslight(insects); self.encounterinsects = true; print_ret "Des insectes se faufilent dans vos pantalons, ils sont nombreux et de petite taille.";} return false;
-      9: player_bad = true; print_ret "Pris d'un malaise, vous tombez au sol. Vous vous relevez difficilement.";
-      10 to 12: print_ret "vous faites quelques pas dans cette direction";
-      13 to 14: print_ret "Vous allez par l@`a, mais sans grande conviction.";
-      15: print_ret "Vraiment? Bon, ok. Vous allez par l@`a. Qu'y a-t-il d'autre @`a faire de toute mani@`ere que de se promener dans le noir? N'est-ce donc pas divertissant?";
-      default: return false;
-    }
-
-  wait: 
-
-    if (self.turns_wait == 6)
-      print_ret "Vous ne voulez plus attendre d@'esormais.";
-
-    self.turns_wait = self.turns_wait + 1;
-    switch (self.turns_wait) {
-
-      2: print_ret "Vous vous impatientez.";
-      4: print_ret "Vous avez plut@^ot envie d'explorer.";
-      6: print_ret "Comme vous avez vraiment envie d'explorer, vous faites le choix judicieux d'aller au nord.^^Vous marchez quelques pas au nord.";
-    }
-    
-  ], 
-  n_to "Vous marchez quelques pas au nord",
-  s_to "vous vous dirigez au sud",
-  e_to "Vous vous d@'eplacez a l'est",
-  w_to "Vous allez @`a l'ouest",
-  has ~light;
+!Object blackbox ""
+!  with
+!  description "",
+!  turns_move 0,
+!  turns_wait 0,
+!  encounterinsects 0,
+!  encounterdog 0,
+!  encounterghost 0,
+!  encounterform 0,
+!
+!  before [;
+!
+!    touch, take, attack:
+!
+!    if (noun == form || noun == dog || noun == ghost || noun == insects) <<talk noun>>;
+!
+!    smell: 
+!
+!      print_ret "Vous ne sentez que votre propre sueur. C'est horrible.";
+!
+!    listen:
+!
+!      print_ret "Vous entendez de l'eau clapoter au loin.";
+!
+!    look: 
+!
+!      if (blackbox hasnt light)
+!      print_ret "Tout ce que vous voyez semble compos@'e d'ombres fuyantes.";
+!
+!    go:
+!
+!    if (self.turns_move == 20) deadflag = 3;
+!      self.turns_move = self.turns_move + 1;
+!    if (player_bad == true) {
+!        print "Tout en tra@^inant du pied, vous poussez un r@^ale de douleur.^^";}
+!
+!      switch (random (20)) {
+!
+!      1: print_ret "vous apercevez une lumiere lointaine @`a l'est. Puis elle s'@'eteint.";
+!      2: print_ret "Vous entendez un bref cri @`a l'ouest.";
+!      3: if (self.encounterghost == false) {Thingslight(ghost); self.encounterghost = true; print_ret "Un spectre appara@^it.";} return false;
+!      4: if (self.encounterform == false) {Thingslight(form); self.encounterform = true; print_ret "Vous heurtez une forme indistincte.";} return false;
+!      5: print_ret "Vous ressentez une douleur, votre poitrine est opprim@'ee.";
+!      6: if (self.encounterdog == false) {Thingslight(dog); self.encounterdog = true; print_ret "Vous entendez un hal@`etement.";} return false;
+!      7: print_ret "Vous vous demandez vraiment ce que vous faites ici.";
+!      8: if (self.encounterinsects == false) {Thingslight(insects); self.encounterinsects = true; print_ret "Des insectes se faufilent dans vos pantalons, ils sont nombreux et de petite taille.";} return false;
+!      9: player_bad = true; print_ret "Pris d'un malaise, vous tombez au sol. Vous vous relevez difficilement.";
+!      10 to 12: print_ret "vous faites quelques pas dans cette direction";
+!      13 to 14: print_ret "Vous allez par l@`a, mais sans grande conviction.";
+!      15: print_ret "Vraiment? Bon, ok. Vous allez par l@`a. Qu'y a-t-il d'autre @`a faire de toute mani@`ere que de se promener dans le noir? N'est-ce donc pas divertissant?";
+!      default: return false;
+!    }
+!
+!  wait: 
+!
+!    if (self.turns_wait == 6)
+!      print_ret "Vous ne voulez plus attendre d@'esormais.";
+!
+!    self.turns_wait = self.turns_wait + 1;
+!    switch (self.turns_wait) {
+!
+!      2: print_ret "Vous vous impatientez.";
+!      4: print_ret "Vous avez plut@^ot envie d'explorer.";
+!      6: print_ret "Comme vous avez vraiment envie d'explorer, vous faites le choix judicieux d'aller au nord.^^Vous marchez quelques pas au nord.";
+!    }
+!    
+!  ], 
+!  n_to "Vous marchez quelques pas au nord",
+!  s_to "vous vous dirigez au sud",
+!  e_to "Vous vous d@'eplacez a l'est",
+!  w_to "Vous allez @`a l'ouest",
+!  has ~light;
 
 Room hangar;
 
@@ -416,58 +424,12 @@ Memory souvenir6c
 
 !--------------------objets----------------------------------------------!
 
-Object ghost "spectre" hangar
-with description "Un spectre livide.",
-  name 'spectre' 'fantome',
-  life [;
-    Thingsleave(ghost);
-    print_ret "Le spectre hurle, se tord et s'envole.";
-  ],
-has animate male;
 
-Object dog "animal" hangar
-with description "Une b@^ete horrible",
-  name 'haletement' 'chien' 'loup' 'bete' 'animal',
-  life [;
-    Thingsleave(dog);
-    player_bad = true;
-    print_ret "L'animal vous mord le molet, et s'enfuit en glapissant.";
-  ],
-has animate male;
-
-Object insects "insectes" hangar
-with description "Une horde d'insectes.",
-  name 'insecte' 'insectes//p' 'horde',
-  life [; 
-    Thingsleave(insects);
-    player_bad = true;
-    print_ret "Les insectes s'enfoncent plus profond@'ement dans vos v@^etements. Certains vous percent la peau et p@'en@`etrent en vous.";
-  ],
-has animate male pluralname;
-
-Object form "forme" hangar
-with description "Son aspect change dans l'obscurit@'e.",
-  name 'forme' 'chose',
-  life [; 
-    Thingsleave(form);
-    print_ret "La forme semble s'animer, et fuit en silence.";
-  ],
-has animate female;
 
 
 !---------------------Routines---------------------------------------------!
 
 [ DeathMessage; print "C'est termin@'e, vous avez @'epuis@'e ce qu'il y avait @`a faire. Vous tournez en rond dans une bo@^ite noire comme une fourmi dans un bocal. Allez prendre une marche, comme dans votre quartier par exemple, ce sera plus int@'eressant il me semble."; ];
-
-[Thingslight x;
-  give blackbox light;
-  move x to blackbox;
-];
-
-[Thingsleave x;
-  give blackbox ~light;
-  move x to hangar;
-];
 
 [SceneMotherTalk;
   mandatory_scenes = mandatory_scenes +1;
@@ -499,17 +461,17 @@ if (hallucination == 0) {
 
   if (stride_count >= 6 && sleep ~= true) {
     switch (random(3)) {
-    1: print "Isabelle a sommeil et epuise, voudrait prendre une sieste.";
+    1: print "Caroline a sommeil et epuise, voudrait prendre une sieste.";
     return false; 
     default: return false; } }
 
   if (stride_count == 12 && sleep == true && alert_memory == false && final_memory == false && player notin chambre && player notin memory_lane) {
     alert_memory = true;
-    print "^Isabelle se sent nostalgique.";
+    print "^Caroline se sent nostalgique.";
     return false; }
 
   }
-]; 
+];
 
 !----------convo---------------------------------------------------------------!
 
@@ -553,7 +515,7 @@ convoi();
 ];
 
 [Convoh;
-print "conversation, partie H"
+print "conversation, partie H";
 convoi();
 ];
 

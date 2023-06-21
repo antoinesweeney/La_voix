@@ -156,3 +156,13 @@ Est-ce bien nécessaire de rendre l'obscurité dans la boîte noire? Que se pass
 Coder la rue/l'extérieur aussi, mais rendre cela enfermé: soit je connecte quatre lieux en carré, soit je simule les mouvements par un print_ret. Il n'y aurait rien de particulier dans ce lieux, sinon l'ullustration renforcée de son enfermement.
 
 ### 14 au 21 juin
+
+Voir le scoring (à la fin)
+
+**Guider le joueur dans l'hallucination: bloquer le travail, la salle d'études**
+
+Le joueur est le père qui guide «d'en haut» le personnage.
+
+Dans le texte sur la fenêtre, parler de l'impression de grandeur et du ciel, non pas de l'océan (sera adapté selon ce que le joueur aura vu dans les souvenirs)
+
+Mettre des message aléatoires du personnage qui se demande pourquoi elle fait cela. 
