@@ -166,3 +166,19 @@ Le joueur est le père qui guide «d'en haut» le personnage.
 Dans le texte sur la fenêtre, parler de l'impression de grandeur et du ciel, non pas de l'océan (sera adapté selon ce que le joueur aura vu dans les souvenirs)
 
 Mettre des message aléatoires du personnage qui se demande pourquoi elle fait cela. 
+
+### 22 au 30 juin
+
+ajouter des indicateur de locuteur dans les convos avec collègues + vérifier pour dans l'ensemble du jeu
+
+Ajouter les descriptions de pièces, les couloirs et leurs cadres, les meubles et la déco
+
+coder la mère
+
+Lors de l'hallucination, déplacer temporairement la mère au hangar et place un double maléfique
+
+ajouter le livre 2 seulement dans la description du salon durant le rêve
+
+Le jeu indique (1x) que le joueur devrait prendre la parole à la conférence de l'université. Or, lorsque le joueur arrive au micro et essaye d'interagir avec l'objet, Caroline a la bouche sèche et ne sait pas quoi dire, on propose alors au joueur d'aller dans les affaires de son père au sous-sol pour avoir plus d'inspiration. Lorsqu'elle retourne dans le sous-sol, elle rencontre son père. Alors il lui donne la parole. Il pourrait jaser avec, lui donner la parole et lorsqu'elle rouvre les yeux, elle est à nouveau devant le micro, cette fois-ci avec la parole dans son inventaire. 
+
+Avant la scène finale, la salle de conférence est vide. Elle se remplie qu'après la conversation avec la mère. 

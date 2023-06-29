@@ -6,11 +6,11 @@ Constant MANUAL_PRONOUNS;
 
 Include "Parser";  ! L'analyseur de texte
 
-Object LibraryMessages
-  with before  [;
-    Miscellany:
-      if (lm_n == 9) "^Vous vous sentez compl@`etement seul.";
-      ];
+!Object LibraryMessages
+!  with before  [;
+!    Miscellany:
+!      if (lm_n == 9) "^Vous vous sentez compl@`etement seul.";
+!      ];
 
 Include "VerbLib"; ! Les verbes
 
@@ -31,7 +31,7 @@ Global hallucination = 0;
 [ Initialise;
     location = chambre;
     lookmode = 2;
-    player.description = "Vous etes une etudiante";
+    player.description = "Laurie est une etudiante";
     "^Ceci n'est pas un jeu. Et il n'y a pas grand chose a voir non plus.";
 ];
 
@@ -42,13 +42,16 @@ Class Room
   with each_turn [;
     Stridescount();
     if (hallucination == true) {
-      print "Votre mere vous regarde depuis le fauteil."; }
+      print "^Votre m@`ere vous regarde d'un @oeil per@ccant depuis son fauteuil."; }
     ],
     before [;
     go:
-     if (mandatory_scenes == 2 && stride_count == 12 && player notin salle_a_manger && player notin sous_sol && noun ~= e_obj) {
-      SceneMotherTalk();
-      return true; }
+      if (mandatory_scenes == 2 && stride_count == 12) {
+      if (player in chambre && noun == n_obj) {SceneMotherTalk(); return true;}
+      if (player in salle_a_manger && noun ~= n_obj) {SceneMotherTalk(); return true;}
+      if (player in couloir_house && noun == w_obj) {SceneMotherTalk(); return true;}
+      if (player in street && noun ~= n_obj) {SceneMotherTalk(); return true;}
+      }
   ],
   has light;
 
@@ -60,6 +63,9 @@ Class Memory
   cant_go "Les murs du souvenir sont cotonneux.",
   has light; !ôter la lumière et faire en sorte que le joueur doit trouver un objet lumineux.
 
+Class Npc
+  has animate;
+
 !------------------------------------------------------------------------------!
 ! Définitions des lieux
 
@@ -67,70 +73,134 @@ Room chambre
   with description "Une chambre",
   before [;
 
+    if (noun == book1) {
+
+      print "Coralie se saisie de son journal.^^~Partout o@`u je suis enferm@'ee se trouve une fen@^etre. ^^@`A mon sens, une fen@^etre n'est pas ce qui ouvre sur le monde; c'est un rappel constant d'une inaccessibilit@'e @`a port@'ee de regard, c'est une forme bleue dont l'exigu@:it@'e me nargue et me retourne sans cesse. C'est un amas de points brillants dans le ciel qui, la nuit, par leur d@'enombrement qui diss@'emine leur pr@'esence lumineuse, effare. ^^La fen@^etre est contextuelle et renvoie @`a diff@'erent mode de mon @^etre d@'ependamment d'o@`u je regarde, et ce, m@^eme s'il elle n'a qu'@`a offrir cet @'eternel rectangle, ce bout de ciel qui pendouille accroch@'e au mur comme une peinture oubli@'ee l@`a par quelque peintre morose et sans ambition; plut@^ot miroir que peinture, elle renfrogne autant qu'elle fascine. ^^Au travail, elle me conscientise sur mon ali@'enation, sur ma vie et mon @^etre que je vends et que j'automatise @`a travers les m@^emes gestes r@'ep@'et@'es sans avoir la conscience de les r@'ep@'eter, sinon r@'etroactivement; @`a l'@'ecole, elle m'appelle @`a partir loin des livres, loin de ceux que j'aime et que je honnis, loin des @'elucubrations ampoul@'ees et artificieuses, orgueilleuses et vaines culbutes intellectuelles bonnes @`a amuser la foule du cirque des universitaires; dans ma chambre, elle renvoie @`a cette solitude familiale que rien ne perturbe, ce silence pesant de la maison, de ma m@`ere au salon qui @'ecoute, car elle n'a que cela @`a faire.^^J'ai vu le ciel vaste, quand j'@'etais petite. J'ai des souvenirs diffus du sifflement du vent, de la ligne bleue de l'horizon, mais surtout de la puissance sauvage de la nature, sa brutalit@'e crue qui rend toute petite et tellement insignifiante. J'avais lu @cca @`a plusieurs reprises, de diff@'erentes sources, mais de le vivre m'a marqu@'ee. J'@'etais avec mon p@`ere, peut-@^etre ma m@`ere @'etait-elle rest@'ee @`a l'h@^otel? Elle n'allait jamais bien lorsqu'on voyageait; elle @'etait toujours malade, p@^ale, horriblement p@^ale, et geignait sans arr@^et.";
+
+      print "^^La fen@^etre me rappelle @`a la fois mon enfermement spatial, tout ce @`a quoi je n'ai pas droit, toutes ces terres que mes foul@'ees ne d@'evalent pas, toutes ces mers et ces oc@'eans qui me sont interdits; elle me rappelle aussi ma condition: celle d'@^etre prise dans des pi@`eces, celle d'une personne qui devra vivre dans des pi@`eces, mourir dans une pi@`ece, @^etre enferm@'ee dans une pi@`ece sous forme de cendre. Ma vie est une succession de pi@`eces. Mais quelque part, dans un coin de ma t@^ete, il a y cette @'etendue vaste et mon p@`ere qui me tient la main. @`A travers le rectangle de ciel, je peux aussi voir cela.^^Lorsque je me projette, j'entrevois cette succession de pi@`eces comme un long tunnel @'eclair@'e par la lumi@`ere des ampoules et des n@'eons. Je laisse derri@`ere moi mon p@`ere, le ciel -car je dois bien finir par les laisser et les oublier- et je m'installe dans une classe: ma classe. Et @`a mon tour, j'enferme trente @'etudiants dans un espace r@'eduit. Des @'etudiants qui ne veulent rien savoir de Corneille et Racine, du jans@'enisme et du j@'esuitisme, rien savoir de ce que les @^etres humains vivaient, conceptualisaient, esp@'eraient, pleuraient, cr@'eaient de leurs mains, de leurs r@^eves, de leurs tripes, aujourd'hui comme autrefois. Je ne vois que trente paires d'yeux, toutes vers moi tourn@'ees, anxieuses, blas@'ees ou vides. Non, je ne vois plus de fen@^etres. Mais vraiment, qu'attendais-je d'autre en baissant la t@^ete sur de l'encre et du papier, si ce n'@'etait de ne plus voir le ciel et tout ce qu'il couvre?~^^Elle le lance ensuite sur son bureau.";
+
+      return true;
+
+
+    }
+
+    if (noun == computer && self hasnt general) {
+      give self general;
+      print_ret "@`A l'@'ecran il est possible de lire un courriel:^^~Bonjour Coralie,^^nous avons bien re@ccu votre demande pour un report de session en raison de votre sant@'e. Malheureusement, la session est par trop avanc@'ee pour permettre cela. Si vous avez besoin d'aide, vous pouvez vous adresser au Centre de services aux @'etudiants, ils pourraient vous trouver un sp@'ecialiste qui saurait vous aider. Vous pouvez aussi essayer de faire une d@'erogation au r@`eglement, mais il faudrait je pense passer par le directeur du programme; or, il prend g@'en@'eralement une semaine avant de r@'epondre et je crois de toute mani@`ere qu'il ne peut pas prendre cette d@'ecision sans l'aval du comit@'e pour la sant@'e et la justice des @'etudiants et leur pr@'esident est pr@'esentement absent pour les deux prochaines semaines. Vous pouvez aussi contacter votre gestionnaire de dossier qui pourrait peut-@^etre avoir une solution @`a laquelle je n'ai pas pens@'e.^^Bonne chance et bon courage, ^^Andr@'ee, intervenante et aide g@'en@'erale aux @'etudiants~";
+    } else if (noun == computer && self has general) print_ret "Coralie n'a plus tr@`es envie d'@^etre @`a l'ordinateur ni m@^eme d'y toucher; il lui semble que les gens perdent d@'ej@`a assez de temps comme cela dans la vie @`a le passer devant des @'ecrans rectangulaires en deux dimensions au lieu que d'@^etre sous l'infini ciel bleu.";
+
     if (noun == bed) <<sleep>>;
 
     sleep: if (sleep == false) { 
      sleep = true;
      hallucination = true;
      mandatory_scenes = mandatory_scenes + 1;
-     print "scene nocturne mere partout";
+     print "^Le lit est trempe. Il fait noir; ce doit @^etre nuit encore. Toute en sueur, elle se l@`eve, mais difficilement, puisqu'un mal de t@^ete la ralentit. Elle sent que sa respiration est courte, mais se sent trop mal pour rester dans son lit humide.^Elle se dit que de marcher devrait lui faire un peu de bien.^";
      return true; }
-  go: if (player in chambre && hallucination == true) {
-  if (noun == n_obj) print_ret "Caroline ne peut s'enfuir dans ses souvenirs.";
-  if (noun == s_obj) print_ret "Caroline ne peut pas s'enfuir au travail";
-  if (noun == w_obj) print_ret "Caroline ne peut pas s'enfuir a l'ecole.";
-}
+  go: if (hallucination == true && noun == n_obj) print_ret "Caroline ne peut s'enfuir dans ses souvenirs.";
   ],
   !d_to blackbox, pour le test à la fin 
   n_to memory_lane,
-  s_to magasin,
-  w_to salle_etude,
+  e_to couloir_house;
+
+Room couloir_house "couloir"
+  with description "couloir avec des cadres.",
+  w_to chambre,
   e_to salle_a_manger;
+
 
 Room salle_etude
   with description "salle etude",
-  e_to chambre,
-  n_to salle_conferance,
-  cant_go "mur invisible";
+  before [;
+    go: if (self hasnt general) {
+    if (noun == n_obj || noun == w_obj) {
+    give self general;
+    print_ret "Caroline se cogne contre la fen@^etre. Elle regarde au loin, par del@`a la salle d'@'etude, la montagne qui l'invite @`a venir la parcourir. Elle laisse une petite bu@'ee sur la vitre, puis prend un peu de recul. Soudain, il lui semble que les proportions de la salle changent. La salle grossit, grossit, et ce grossissement prend de la vitesse. Les lignes des meubles filent vers le haut, les formes d@'efilent. Elle se demande si la salle grossit, ou si elle rapetisse, et en vrai n'a aucun moyen de le savoir. Un vent frais passe par la fen@^etre entrouverte, et s'engouffre dans l'@'etroite salle.^Les piles de papier accumul@'e sur le bureau cascadent sur Caroline, qui se fait enterrer sous papiers. Elle s'en sort qu'avec difficult@'e, mais d@'echante rapidement, car les volumes aussi se mettent @`a tomber, comme si, anim@'e d'une volont@'e propre, ils eussent voulu l'assassiner, l'@'ecraser chair et os pour la r@'eduire en une compote organique. Caroline se r@'efugie sous le bureau, se croyant @`a tort @`a l'abri, puisque son souffle lui manque. Elle se prend la gorge @`a deux mains. Elle n'arrive plus @`a respirer. L'air ne passe plus. Elle devient toute rouge. Elle enfonce alors une main dans le fond de son gosier, et en ressort une boulette de papier, gluant de salive. Elle tousse de longues minutes, la gorge en feu."; }}
+  ],
+  e_to street,
+  s_to couloir_uni,
+  cant_go "Coralie se bute contre la fenetre.";
 
 Room salle_conferance
   with description "Salle de conferance",
-  s_to salle_etude;
+  n_to couloir_uni,
+  cant_go "La seule sortie est au nord";
+
+Room couloir_uni
+  with description "un couloir sans vie, sans fenetre, digne d'une clinique.",
+  s_to salle_conferance,
+  n_to salle_etude;
 
 Room magasin
   with description "le magasin",
   d_to salle_pause,
-  n_to chambre,
+  n_to street,
   cant_go "Elle ne peut pas s'enfuir du travail";
 
 Room salle_pause
-  with description "une salle de pause",
+  with description [;
+
+    print "description de la salle de pause^.";
+
+    if (self hasnt visited) print "Lorsqu'elle arrive dans la salle de pause pour son heure du d@^iner, deux coll@`egues sont d@'ej@`a en train de manger leur lunch et ont une discussion enjou@'ee.^~Ben oui, c'est quoi l'affaire, @cca pas de sens!^- C'est comme si, parce que tu dis que t'es une femme, l@`a tu peux aller dans toilettes des femmes?^- Man, les gens sont rendus fous. Moi j'essaye m@^eme pu de comprendre. ^- Pis l'affaire, c'est qu'y faudrait qu'on embarque l@`a-dedans! C'est comme, y peuvent pas juste vivre leur affaire d'leur c@^ot@'e, faut qu'on participe!^- Pfff. Moi jamais. Si j'vois un client qui m'dis que c'est ~madame~ au lieu de ~monsieur~ hey l@`a, common, tu veux juste savoir sont o@`u les p@^ates genre, s'tu vraiment si important comment j't'appelle?^- En tout cas si j'vois des femmes dans les toilettes des hommes @cca m'd@'erange pas.~^Les deux rient tr@`es forts ensemble.^~ Ben pour les toilettes, avance Coralie tout en d@'epliant les articles de sa bo@^ite @`a lunch, on pourrait pas comme avoir aussi des toilettes neutres individuelles?^- Ah les jeunes! Vous avez r@'eponse @`a toute!^- ~On aurait juste @`a construire des toilettes neutres partout~ fit l'autre en l'imitant avec une voix fluette.^Coralie ignore le commentaire et l'imitation de son coll@`egue, se disant que si elle avait r@'eagi @`a chaque impertinence de ses coll@`egues, elle aurait perdu son emploi de longue date.^- Non ben c'est juste que construire plein de toilettes juste pour des gens un peu crack pot, @cca sert @`a rien.^- Ben oui, c'est quoi la suite, ils vont s'identifier comme des extraterrestres pis l@`a faudra leur construire des ovnis?^Les deux coll@`egues repartent de plus belle, et postillonnent un peu de nourriture sur la table dans leur fou rire. Voyant que Caroline reste de marbre, l'un tente alors de l'inclure dans une discussion qui pourrait l'amener @`a ce qu'ils @'echangent.^~Anyway, c'est toute une histoire, c't'affaire-l@`a. @cCa me d@'epasse parce que j'suis un boomer, mais vous les jeunes, la rel@`eve, vous @^etes plus l@`a-dedans, on vous laisse @cca! Parlant de rel@`eve, rappelle-moi, Coralie, tu voulais faire quoi plus tard d@'ej@`a?^- J'pense que j'vais enseigner au C@'egep.^- En quoi donc?^- Ben en litt@'erature, c'est l@`a-d'ans que j'@'etudie.^- Ah ok ok. Pis c'est quoi que tu peux faire @`a part de @cca avec des @'etudes en litt@'erature?^- Pas grand-chose. C'est soit tu vas dans l'enseignement, secondaire, c@'egep ou universit@'e, soit tu vas dans les m@'edias genre Radio-Canada ou ben le domaine de l'@'edition pour faire des livres. Apr@`es si tu parles d'autres langues, tu peux toujours faire de la traduction, mais j'parle juste fran@ccais. Faque enseignement C@'egep. ^- @cCa pas l'air de te tenter full.~^Elle hausse les @'epaules, parce qu'elle ne sait pas quoi dire sinon que, effectivement, @cca ne lui tente pas ~full~. ^Ses deux coll@`egues, rattrap@'es par la r@'ealit@'e de la pause qui se termine toujours trop vite pour manger et relaxer, lui souhaitent bon app@'etit et retournent en haut travailler, l'un exclame ~bon, faut qu'on y aille! Le devoir nous appelle!~.";
+
+    else print "La salle de pause est d@'esormais vide.";
+
+  ],
   u_to magasin,
-  cant_go "Il n'y a pas d'issue";
+  cant_go "Il n'y a pas d'issue. Il faut remonter les marches et entrer dans ce hachoir qu'est le travail.";
 
 Room salle_a_manger
   with description "la salle a manger",
   before [;
-    go: if (noun == d_obj) {
+    go: if (noun == d_obj && hallucination == true) {
     hallucination = false;
-    print "fin de l'hallucination^^";
+    print "^~Qu'est-ce que tu fais!~ Lui crie sa m@`ere.^^Caroline ouvre les yeux. Elle est dans le sous-sol. Comment a-t-elle atterri l@`a? Elle ne s'en souvient plus trop. Comme si un autre avait dirig@'e ses pas. Sa m@`ere se plante dans le cadre de la porte qui m@`ene en bas.^^~Bon c'est quoi, faudra barrer 'a porte astheure? c'est rendu que tu vas dans le bureau la nuit pour fouiller dans ses trucs?^- Ben non maman, j'pense que j'fais du somnambulisme.~ Elle lui fit de gros yeux.^~J'te'l'dis! Genre c'est toi qui m'a r@'eveill@'ee!^- Ben oui c'est @cca, prend moi pour une valise! voyons donc. Y'@'e pus l@`a, y'@'e pus l@`a. Faudrait que tu passes @`a autre chose, Caroline.^- Ben peut-@^etre qu'on pourrait comme vider le sous-sol aussi?^- Eille! On va vider le sous-sol quand je vais d@'ecider qu'on vide le sous-sol. L@`a va te r'coucher, pis arr@^ete d'aller au sous-sol la nuit, tu m'a fait peur.^- Ok j'vais essayer de mettre de quoi devant ma porte pour la bloquer.~^Sa m@`ere roule des yeux pour bien lui faire comprendre qu'elle n'y croit pas du tout. Puis retourne dans son fauteuil en lui disant bonne nuit.~";
     return false; }
   ],
-  w_to chambre,
+  w_to couloir_house,
   n_to salon,
   d_to sous_sol,
-  cant_go "Elle n'a pas tres envie de se promener, sinon pour retourner dans sa chambre.";
+  s_to street;
+
+Room street "Rue"
+  with description "exterieur, les oiseaux pleurent.",
+  before [;
+  go: if (hallucination == true && noun ~= n_obj) print_ret "Caroline ne peut s'enfuir de sa m@`ere qui la regarde.";
+  ],
+  n_to salle_a_manger,
+  s_to magasin,
+  w_to salle_etude;
 
 Room salon "salon"
   with description "salon",
+  before [;
+
+    if (noun == book2 && self hasnt general) {
+      give self general;
+      move book2 to player;
+      print "Intrigu@'ee de ne pas avoir aper@ccu un de ses journaux tra@^iner l@`a plus t@^ot, Coralie le ramasse, appr@'ehensive. Elle le feuill@`ete au hasard.^^~Le fauteuil de ma m@`ere, c'est le fauteuil de l'inquisition depuis lequel elle si@`ege, souveraine et implacable. C'est le si@`ege du pouvoir, d'o@`u fusent les ordres, les questions sifflantes, les remarques superflues, mais prononc@'ees tout de m@^eme. Son faux cuir brun bouette s'est aminci l@`a o@`u se posent les coudes, les avant-bras. Son m@'ecanisme d'inclinaison grince @`a rendre l'@^ame, mais tient bon, @`a l'image de l'@^ame de son possesseur. En raison de sa maladie, ma m@`ere y passait le plus clair de son temps. Elle n'en sortait que pour faire les courses, cuisiner ou faire du m@'enage. Elle y dormait m@^eme, car elle @'etait plus @`a l'aise en position assise que couch@'ee.  ^^Je n'ai jamais eu la chance des autres adolescentes qui reviennent un peu trop tard d'une f@^ete et qui rentrent incognito dans la maison sur la pointe des pieds. Au c@oeur de la nuit, m@^eme lorsqu'aucun son n'agite le quartier et que je fais bien attention @`a @^etre silencieuse comme un chat, les yeux de ma m@`ere s'ouvrent et brillent d'une joie discr@`ete de pouvoir d@'efouler toutes les pens@'ees qui couvent sous son cr@^ane de jour comme de nuit; car non, ce n'est certainement pas le sommeil qui l'emp@^echerait de couvrir des r@'eprimandes, des anxi@'et@'es sans fondement, des piques bien fourbies.^^Le fauteuil est le moule de l'esprit de ma m@`ere: son @'etroitesse un peu us@'ee qui colle @`a la peau, sa mollesse qui fait que l'on s'y enfonce un peu trop, sans jamais y @^etre correctement confortable, sa vue sur le monde aussi. Le fauteuil permet d'acc@'eder @`a la vue que donne la baie vitr@'ee sur notre quartier tranquille et sans histoire, sur la t@'el@'evision et sur les faits et gestes de sa fille. Trois sources @'eternelles de visionnement du petit monde de ma m@`ere, prise dans sa maladie autant que dans son fauteuil, agrippant d@'esesp@'er@'ement les accoudoirs de son geste anxieux autocentr@'e et nerveux qui lui permet de se rappeler qu'il n'existe que cela: la rue du quartier, sa fille, la t@'el@'evision.";
+      print "^^Ma m@`ere entrevoit des dangers partout, et c'est pire depuis que nous sommes seuls. Elle ne peut plus comprendre les gens qui voyagent, ceux qui courent la nuit dans les rues de la ville ou m@^eme ceux qui font des randonn@'ees en for@^et; tout cela d@'epasse de loin son monde constitu@'e d'une port@'ee de regard depuis le fauteuil, ce satan@'e fauteuil qui l'avalera, l@`a o@`u elle s'endormira de son dernier sommeil, un filet de bave coll@'e @`a la l@`evre, morte dans son fauteuil, une derni@`ere pens@'ee @`a se demander pourquoi je ne suis pas encore rentr@'ee, pourquoi je veux tellement partir en voyage alors que je suis une femme seule, et comment cela se fait-il que je sois seule. ^^Ma m@`ere se r@'eveille en m@^eme temps que moi. N@'ecessairement, puisque d@`es que je franchis le seuil de ma porte au matin, @`a 6h si je dois aller travailler, ma pr@'esence perturbe son sommeil fragile. Ainsi, les questions peuvent commencer d@`es mes premiers pas hors de mon lit. Les questions sur ma journ@'ee pr@'ec@'edente, sur la journ@'ee en cours, sur mes derniers agissements, sur les choses que j'ai achet@'ees, mang@'e, pens@'e, regard@'e, entendu, senti, fait, pas fait, que je pourrai faire, et sur les gens que je vois. Et @`a chaque @'echange, ma m@`ere a le don pour le commentaire de trop, celui qui n'ajoute rien, qui me fait serrer les dents, et qui conforte l'insanit@'e de nos interactions.~^^Se disant qu'elle ne peut le laisser plus longtemps @`a cet endroit, Coralie referme le petit livre rouge et le range dans ses poches.";
+      return true; }
+  ],
   s_to salle_a_manger,
   cant_go "La salle a manger est au sud.";
 
 Room sous_sol
   with description "sous-sol",
+  before [;
+
+    if (noun == book3) {
+    
+    print "Coralie prend d@'elicatement le livre sur le bureau.^^~Mon p@`ere @'etait un patenteux comme nul autre dans le quartier. Lorsqu'il s'asseyait @`a son bureau pour dessiner un plan, il finissait immanquablement par trouver une solution originale. Il pouvait passer des apr@`es-midi @`a scier, coudre, assembler, coller, d@'ecouper, clouer, polir, sabler, vernir. Il r@'eparait la porte de la shed du voisin, nivelait la marche @`a l'entr@'ee d'un portique, installait des dalles de c@'eramique, taillait l'arbre de Mme M@'erisie en face, tondait la pelouse. Rien ne pouvait l'arr@^eter. Des fois, je ~l'aidais~, c'est-@`a-dire que j'apportais mes jouets et je m'installais pr@`es de lui alors qu'il r@'efl@'echissait au prochain probl@`eme du voisinage @`a attaquer. Apr@`es que @cca grosse veine au front ait puls@'e pendant un bon quart d'heure, il me regardait tout souriant et me lan@ccait: ~pr@^et pour une aventure?~ Alors on embarquait dans le pick-up, et c'@'etait parti pour une vir@'ee chez tel voisin, tel ami loin dans un village au sud, telle tante.^^Lorsqu'il bricolait dans le sous-sol, ma m@`ere @'etait toujours exasp@'er@'ee: ~Mais qu'est-ce qu'il fait donc? Pacling paclang. Ben voyons!~ Et moi je r@'epondais, toujours la m@^eme chose: ~Il construit une fus@'ee, maman~. Dans ma t@^ete d'enfant, quelque part attenant @`a l'atelier, une entr@'ee d@'erob@'ee devait mener @`a une pi@`ece secr@`ete o@`u mon p@`ere assemblait un engin spatial. J'avais envie qu'il nous emm@`ene loin de la terre, voir la lune, ou mars. Il en aurait @'et@'e capable. Sur la lune ma m@`ere n'aurait plus eu mal, elle aurait @'et@'e lib@'er@'ee par la gravit@'e de ses articulations douloureuses.^^Mon p@`ere ne lisait jamais. C'@'etait trop sophistiqu@'e pour lui. Il n'avait pas le temps de toute mani@`ere, pour s'asseoir, tourner des pages les unes apr@`es les autres. Dans sa t@^ete o@`u les id@'ees et les projets s'enfilaient @`a cent @`a l'heure, cette activit@'e s@'edentaire @'etait pour lui incompr@'ehensible. S'il avait un apr@`es-midi de libre, et que personne n'avait besoin de lui, il pr@'ef@'erait de loin assembler un ordinateur, bidouiller des composantes @'electroniques. Des pi@`eces pour l'ordinateur de la fus@'ee, me disais-je. Mon p@`ere ne jugeait pas vraiment mes amies, ce que je portais, ce que je pensais faire d'une journ@'ee de cong@'e, les films que j'@'ecoutais: il @'etait trop simple pour juger. Au pire, il avait un haussement d'@'epaules qui indiquait que @cca le d@'epassait un peu. Il @'etait donc ma carte secr@`ete lorsque j'argumentais avec ma m@`ere: ~papa a dit que @cca le d@'erange pas!~.";
+    
+    print "^^Assis @`a son bureau, perdu dans ses notes et ses plans, mon p@`ere me semblait un personnage tout droit sorti d'une s@'erie. Il pouvait tout r@'eparer, il aidait la veuve et l'orphelin, chargeait peu, voir rien du tout selon la situation. Il a essay@'e quelques fois de m'apprendre des trucs, comment clouer dans un trou @'evas@'e, comment bien mesurer l'angle avant la pose d'une tablette, comment trouver o@`u se trouve le ~2x4~ derri@`ere le mur, etc. Mais j'@'etais tellement nulle pour manipuler les outils, tellement mauvaise de mes mains qu'il finit par abandonner. En revanche il m'amena jusqu'@`a la fin @`a chacune de ses aventures. M@^eme lorsque j'avais vieilli et qu'il devait parfois me convaincre @`a l'aide d'une carotte au bout du b@^aton: ~On ira voir un film apr@`es au cin@'ema, tu choisiras!~. ^^Si ma m@`ere restait clou@'ee @`a son fauteuil, mon p@`ere avait des sandales ail@'ees: il allait partout, touchait @`a tout. C'est donc avec lui que j'ai visit@'e d'autres villes, quand il touchait un surplus au travail, que j'ai camp@'e, vu la mer et fait des randonn@'ees en for@^et. Ensuite, de retour @`a la maison, ma m@`ere nous @'ecoutait et commentait nos sorties, l'@oeil mi-songeur, mi-jaloux; mais @cca, j'ai pu le comprendre bien plus tard que de nous @'ecouter souriant devait lui co@^uter plus qu'il n'en paraissait.~^^Elle le repose ensuite le livre sur le bureau.";
+
+    return true; }
+
+  ],
   u_to salle_a_manger,
   cant_go "En haut se trouve la salle a manger";
-
 
 Room memory_lane
   with description "le ruban du passe",
@@ -138,40 +208,27 @@ Room memory_lane
   go: 
     if (noun == n_obj && memory_visited ~= 0)
       switch (memory_visited) {
+        1: PlayerTo (souvenir1);
+        return true;
         2: PlayerTo (souvenir2);
-        return true;
-        31: PlayerTo (souvenir3a);
-        return true;
-        32: PlayerTo (souvenir3b);
         return true; 
-        41: PlayerTo (souvenir4a);
+        3: PlayerTo (souvenir3);
         return true; 
-        42: PlayerTo (souvenir4b);
+        4: PlayerTo (souvenir4);
         return true; 
-        51: PlayerTo (souvenir5a);
+        5: PlayerTo (souvenir5);
         return true; 
-        52: PlayerTo (souvenir5b);
-        return true; 
-        53: PlayerTo (souvenir5c);
-        return true; 
-        54: PlayerTo (souvenir5d);
-        return true; 
-        55: PlayerTo (souvenir5e);
-        return true; 
-        61: PlayerTo (souvenir6a);
-        return true; 
-        62: PlayerTo (souvenir6b);
-        return true; 
-        63: PlayerTo (souvenir6c);
+        6: PlayerTo (souvenir6);
         return true; 
         default: return false; }
   ],
   s_to chambre,
-  n_to souvenir1;
+  n_to souvenir0;
 
-!Object blackbox ""
+!Opter pour une séquence prédéterminée à laquelle se surimpose des événements aléatoires
+
+!Object blackbox 
 !  with
-!  description "",
 !  turns_move 0,
 !  turns_wait 0,
 !  encounterinsects 0,
@@ -181,40 +238,18 @@ Room memory_lane
 !
 !  before [;
 !
-!    touch, take, attack:
+!      print_ret "Vous vous sentez mal a l'aise";
 !
-!    if (noun == form || noun == dog || noun == ghost || noun == insects) <<talk noun>>;
-!
-!    smell: 
-!
-!      print_ret "Vous ne sentez que votre propre sueur. C'est horrible.";
-!
-!    listen:
-!
-!      print_ret "Vous entendez de l'eau clapoter au loin.";
-!
-!    look: 
-!
-!      if (blackbox hasnt light)
-!      print_ret "Tout ce que vous voyez semble compos@'e d'ombres fuyantes.";
-!
-!    go:
-!
-!    if (self.turns_move == 20) deadflag = 3;
-!      self.turns_move = self.turns_move + 1;
-!    if (player_bad == true) {
-!        print "Tout en tra@^inant du pied, vous poussez un r@^ale de douleur.^^";}
+!     go: return false;
 !
 !      switch (random (20)) {
 !
 !      1: print_ret "vous apercevez une lumiere lointaine @`a l'est. Puis elle s'@'eteint.";
 !      2: print_ret "Vous entendez un bref cri @`a l'ouest.";
-!      3: if (self.encounterghost == false) {Thingslight(ghost); self.encounterghost = true; print_ret "Un spectre appara@^it.";} return false;
 !      4: if (self.encounterform == false) {Thingslight(form); self.encounterform = true; print_ret "Vous heurtez une forme indistincte.";} return false;
 !      5: print_ret "Vous ressentez une douleur, votre poitrine est opprim@'ee.";
 !      6: if (self.encounterdog == false) {Thingslight(dog); self.encounterdog = true; print_ret "Vous entendez un hal@`etement.";} return false;
 !      7: print_ret "Vous vous demandez vraiment ce que vous faites ici.";
-!      8: if (self.encounterinsects == false) {Thingslight(insects); self.encounterinsects = true; print_ret "Des insectes se faufilent dans vos pantalons, ils sont nombreux et de petite taille.";} return false;
 !      9: player_bad = true; print_ret "Pris d'un malaise, vous tombez au sol. Vous vous relevez difficilement.";
 !      10 to 12: print_ret "vous faites quelques pas dans cette direction";
 !      13 to 14: print_ret "Vous allez par l@`a, mais sans grande conviction.";
@@ -257,170 +292,138 @@ Furniture bed "lit" chambre
   description "le lit.",
   has container open enterable male;
 
-!--------------------------------------------------------------------!
+Furniture computer "ordinateur" chambre
+  with name 'ordi' 'ordinateur' 'portable' 'pc',
+  description "Un ordi",
+  has male;
+
+Furniture book1 "journal" chambre
+  with description "journal intime",
+  name 'journal' 'livre' 'carnet',
+  has male;
+
+Object book2 "livre" salon
+  with description "Coralie regarde son journal rouge et caresse la couverture du doigt, mais ne compte pas le lire tout de suite.",
+  before [;
+    read: <<examine self>>;
+  ],
+  name 'journal' 'livre' 'carnet',
+  has male;
+
+Furniture book3 "carnet" sous_sol
+  with description "carnet",
+  name 'journal' 'livre' 'carnet',
+  has male;
+
+!-----------------------------NPC---------------------------------------!
+
+
+!La mère
+
+Npc client "cliente" magasin
+  with description "Une cliente. Clairement un Karen.",
+  life [;
+    remove client;
+    print_ret "~Bonjour, vous allez bien? demande Caroline en lui souriant.^- No, not really actually, dit-elle avec une face de b@oeuf.^- Oh, ok, so I serve you in English, right?^- What, you cannot? fait-elle exasp@'er@'ee.^- I'll do my best, mam. Mais la cliente pousse un long soupir ostentatoire.^- Ok, I was here yesterday, and I bought this, now it's already broken.^- You have the... heu comment d@'ej@`a.^- Sorry what?^- I mean, the receipt, you have it?^- I was there yesterday, isn't in your system?^- Well, for refund to work, we ask the client for the receipt, you see.^- No I don't. I won't budge an inch before I get my refund. Caroline voit dans son regard qu'elle n'est pas l@`a pour plaisanter.^- Ok, perfect, I'll go get you my manager. Et la cliente soupira de plus belle.^- I hope he can speak with me properly.~^^Caroline ignore le dernier commentaire de la cliente, se disant que si elle r@'eagissait @`a chaque commentaire impertinent des clients, elle aurait perdu sa job depuis longtemps. Elle entre dans le bureau de son boss.^^~Ryan? aurais-tu cinq minutes, s'il te pla@^it? Y'a une cliente frue qui veut se faire rembourser pis a l'a pas son re@ccu.^- Ben a peut pas. Dis-y qu'@`a peut pas. J't'occup@'e.^- J'y ai d@'ej@`a dis, @cca! Mais ils veulent toute te parler, ts@'e. J'suis l@`a pour rien, pour d@'ecorer.^- Ben non, t'es l@`a pour tenir la caisse pis faire payer les clients. Bon, dis-y qu'@`a vienne @`a la caisse un, je vais aller lui parler dans 5m.^- Aussi, j'm'e sens pas full bien aujourd'hui. J'peux-tu @^etre coup@'e deux heures plus t@^ot?^- Qu'est-ce t'a? maugr@'ee-t-il.^- Ben j'ai mal @`a t@^ete, je commence @`a @^etre congestionn@'ee, pis j'me sens vraiment pas bien.^- Attends, laisse-moi checker le planning d'aujourd'hui, dit-il en sortant une feuille plastifi@'ee. Non, aujourd'hui @cca sera vraiment pas possible, parce que Cheng arrive une heure plus tard que d'habitude, faque on aurait juste deux personnes sur le plancher, pis comme c'est vendredi y'aura beaucoup de monde tant@^ot.^- Ok. En passant la cliente s't'une anglo. Bonne chance, laisse-t-elle tomber, sachant que Ryan se d@'ebrouille encore moins bien qu'elle en anglais. Mais elle l'avait dit avec une pointe d'ironie, f@^ach@'ee de devoir travailler malade.~^^Coralie sort du bureau, mais la cliente est d@'ej@`a partie ailleurs. Probablement @'ecrire un mauvais review sur Google.";
+  ],
+  name 'cliente' 'client' 'femme' 'karen',
+has female proper;
 
 
 !--------------------Memory lane---------------------------------------!
 
-Memory souvenir1
-  with description "souvenir initial",
+Memory souvenir0
+  with description "C'@'etait une journ@'ee chaude de juillet ou les grillons chantaient. Comme il n'y avait aucun nuage @`a l'horizon, mon p@`ere  m'avait propos@'e de visiter un jardin. Je me souvenais de toutes les fleurs color@'ees, align@'ees en rang@'ees bien droites. Et de la pr@'esentation du r@^ole important des plantes dans la nature et des pollinisateurs pr@'ec@'edant la visite. Le jardin @'etait garni d'arches en pierres et de bancs en bois offrant une vue pittoresque. J'@'etais encore petite, mais je ne me souvenais plus exactement de mon @^age. Alors qu'on se tenait la main, je lui avais demand@'e, au milieu des fleurs ~papa, c'est qui Dieu?~.Quoiqu'il ne sembl@^at pas embarrass@'e, il prit un moment pour r@'epondre en laissant un regard pensif observer les abeilles qui butinaient. ~Ce n'est pas une personne comme toi ou moi que tu peux voir ou toucher~. ~Mais pourquoi tu penses qu'il existe d'abord?~^Il m'a r@'epondu par une all@'egorie dont je me souviendrai toujours.^~C'est un peu comme ce jardin. On nous offre de le visiter, bri@`evement, le temps d'une marche. Et en retour, pour @^etre reconnaissants de cette offre, nous devons en prendre soin: ne pas piler sur les fleurs, ne pas d@'eranger les abeilles, ne pas laisser tra@^iner de d@'echets. Et on doit aussi appr@'ecier la qualit@'e du travail des employ@'es. Ils ont travaill@'e fort pour que ce jardin soit beau et agr@'eable. Ils ne sont pas l@`a pr@'esentement, on ne les voit pas, il n'y a pas d'employ@'e qui se prom@`ene. Et pourtant, leur pr@'esence est partout. Tu peux la voir dans la mani@`ere qu'ils ont eu de penser au chemin des promeneurs, d'avoir pens@'e mettre un banc l@`a par @'egard pour qu'on puisse se reposer, @`a la composition des couleurs pour que @cca soit joli et balanc@'e. ~^~Papa je comprends pas~ avais-je r@'epondu.^~Ce n'est pas bien grave~ avait-il conclu en frottant ma t@^ete.^^@`A l'est se trouve un souvenir sur les cours de piano, @`a l'ouest un souvenir de f@^ete.",
   before [;
-  go: if (noun == n_obj) {
+  go: if (noun == e_obj) {
+    memory_visited = 1;
+    return false;
+  }
+  if (noun == w_obj) {
     memory_visited = 2;
     return false;
   }
   ],
-  n_to souvenir2;
+  e_to souvenir1,
+  w_to souvenir2;
+
+Memory souvenir1
+  with description "Je ha@:issais mes cours de piano. Ma professeure, madame Beaumont, @'etait une vieille femme s@`eche et s@'ev@`ere. C'@'etait un personnage tout droit sorti d'une @'emission sans budget d'un r@'ealisateur en manque d'inspiration. Elle portait toujours la m@^eme jupe, o@`u du moins le m@^eme mod@`ele, advenant qu'elle en e@^ut plusieurs identiques, les m@^emes souliers noirs @`a talon, et avait de ces tics insupportables: elle claquait de la langue et disait toujours ~pla@^it-il~ avec l'accent tonique mis sur ~ai~. Sa d@'emarche, ses gestes, son humeur: tout @'etait carr@'e. Comme la r@'egularit@'e des gammes qu'elle nous faisait pratiquer. Dans sa t@^ete @cca devait @^etre noir et blanc comme les touches du piano. Il y a avait les bons et les mauvais @'el@`eves. Moi j'@'etais dans la partie noire de sa t@^ete. Elle m'avait prise en grippe. Une fois, alors que mon p@`ere passait me chercher en revenant du travail, j'ai @'eclat@'e en larme dans la voiture. Mes parents savaient d@'ej@`a que je n'aimais pas ces cours, mais ils pensaient que c'@'etait une bonne chose que je m'y pratique. @cCa me faisait ~sortir de la maison~. Je pense qu'il avaient sous-estim@'e ma sinc@'erit@'e quand je me plaignais de Mme Beaumont. En tout cas, ce fut mon dernier cours, ce jour-l@`a.^^@`A l'est se trouve un souvenir sur un road trip, @`a l'ouest un souvenir sur une visite au mus@'ee.",
+  before [;
+  go:
+  if (noun == w_obj) {
+    memory_visited = 3;
+    return false;
+  }
+  if (noun == e_obj) {
+    memory_visited = 4;
+    return false;
+  }
+  ],
+  w_to souvenir3,
+  e_to souvenir4;
 
 Memory souvenir2
-  with description "souvenir a la foire, a gauche souvenir a la piscine, droite souvenir avec un ballon.",
-  before [;
-  go:
-  if (noun == w_obj) {
-    memory_visited = 31;
-    return false;
-  }
-  if (noun == e_obj) {
-    memory_visited = 32;
-    return false;
-  }
-  ],
-  w_to souvenir3a,
-  e_to souvenir3b;
-
-Memory souvenir3a
-  with description "souvenir a la piscine",
+  with description "Pour l'une de mes f@^etes, on @'etait all@'e @`a la plage. Moi et mes amies d'@'ecole, on jouait dans le sable pendant que mon p@`ere dorait au soleil et que ma m@`ere flottait. On avait apport@'e notre radio rouge chrom@'ee, plant@'e dans une butte. Mes parents nous avaient promis qu'ils paieraient la cr@`eme glac@'ee pour tout le monde par la suite. Alors que je d@'ebattais avec Sophie si la princesse devait habiter la tourelle de droite ou de gauche, ma m@`ere cria. Jamais je n'ai vu mon p@`ere se lever de la sorte, comme une balle, comme piqu@'e d'un tison ardent. Dans son empressement il renversa m@^eme notre ch@^ateau, r@'esultat d'@^apres d@'elib@'erations sur sa disposition. Ma m@`ere @'etait en train de se noyer. Alors, j'ai laiss@'e ce qu'il restait de mon ch@^ateau et j'ai accouru @`a la gr@`eve pour mieux voir. Ma m@`ere @'etait emport@'ee par le courant! Elle semblait vouloir se d@'ebattre, mais ses mouvements @'etaient limit@'es. Mon p@`ere la ramena au large. Plus de peur que de mal: le pire avait @'et@'e @'evit@'e. Mais @cca avait, comme qui dirait, tu@'e l'ambiance. On est rentr@'e directement @`a la maison, et on a d@'epos@'e sur le chemin du retour Sophie et Marjorie. Personne n'eut de cr@`eme glac@'ee ce jour-l@`a.^^@`A l'est se trouve un souvenir sur un road trip, @`a l'ouest un souvenir sur une visite au mus@'ee.^",
   before [;
   go: 
-  if (noun == n_obj) {
-    memory_visited = 41;
+  if (noun == e_obj) {
+    memory_visited = 4;
     return false; 
-  } 
+  }
+  if (noun == w_obj) {
+    memory_visited = 3;
+    return false;
+  }
   ],
-  n_to souvenir4a;
+  e_to souvenir4,
+  w_to souvenir3;
 
-Memory souvenir3b
-  with description "souvenir avec le ballon",
+Memory souvenir3
+  with description "C'est une journ@'ee sp@'eciale parce que ma m@`ere sortait rarement du quartier o@`u elle avait grandi et o@`u elle habitait d@'esormais. Nous allions tous les trois au mus@'ee. J'@'etais tellement excit@'ee! Pour que ce f@^ut possible cependant, nous avons d@^u emprunter une chaise roulante @`a l'accueil. Les tableaux faisaient forte impression sur moi, j'aimais l'alliage des couleurs, les vues sur une autre @'epoque, sur d'autres soci@'et@'es. J'@'etais fascin@'ee, mais ma m@`ere, elle, s'ennuyait @`a mourir. Elle critiquait chaque tableau ~bon, une autre femme tout nue, y'avaient une fixation l@`a-dessus avant?~, ce @`a quoi mon p@`ere r@'eponde ~bah on est dans une exposition dont le th@`eme c'est la sensualit@'e~, ou encore ~c'est quoi @cca? quatre carr@'es de couleur sur fond blanc, moi aussi je peux faire @cca!~. Ce @`a quoi mon p@`ere r@'epondait ~ben l@`a on est dans la salle des avant-gardistes du 20e si@`ecle, donc c'est pour @cca~. C'est moi qui avais d@^u accompagner ma m@`ere aux toilettes, j'avais @'et@'e tellement contente de pouvoir lui @^etre utile, mais finalement elle s'en @'etait sortie bien seule.^^@`A l'est se trouve un souvenir sur une vue sur l'oc@'ean, @`a l'ouest un souvenir sur une vue depuis la montagne.",
   before [;
   go: 
-  if (noun == n_obj) {
-    memory_visited = 42;
+  if (noun == w_obj) {
+    memory_visited = 5;
+    final_memory = true;
+    mandatory_scenes = mandatory_scenes + 1;
     return false; 
   } 
+  if (noun == e_obj) {
+    memory_visited = 6;
+    final_memory = true;
+    mandatory_scenes = mandatory_scenes + 1;
+    return false;
+  }
   ],
-  n_to souvenir4b;
+  w_to souvenir5,
+  e_to souvenir6;
 
-Memory souvenir4a
-  with description "souvenir dans la voiture, a gauche souvnir de camping, au nord souvenir de fete.",
+Memory souvenir4
+  with description "C'@'etait une sortie extraordinaire parce qu'on avait fait beaucoup de voiture pour y aller. On faisait rarement autant de route. Le plus souvent, quand on allait en voiture en dehors de notre ville, c'@'etait pour aller voir matante Diane, qui habitait plus au nord. Et on y allait, bien s@^ur, tous les trois. L@`a, je n'@'etais qu'avec mon p@`ere. Il avait mis son CD pr@'ef@'er@'e de Simon et Garfunkel. On allait monter en bateau pour voir les baleines! ^~On va finir comme Jonas dans la baleine~ m'avait-il dit pour me taquiner en me lan@ccant un clin d'@oeil.^Alors je m'imaginais ces terribles g@'eantes cr@'eatures m'avaler tout rond et finir dans leur estomac comme Jonas duquel mon p@`ere me racontait souvent l'histoire.^^@`A l'est se trouve un souvenir sur une vue sur l'oc@'ean, @`a l'ouest un souvenir sur une vue depuis la montagne.",
   before [;
   go:
-  if (noun == w_obj) {
-    memory_visited = 51;
-    return false;
-  }
   if (noun == e_obj) {
-    memory_visited = 55;
+    memory_visited = 6;
+    final_memory = true;
+    mandatory_scenes = mandatory_scenes + 1;
     return false;
   }
-  if (noun == n_obj) {
-    memory_visited = 52;
-    return false;
-  }
-  ],
-  w_to souvenir5a,
-  e_to souvenir5e,
-  n_to souvenir5b;
-
-Memory souvenir4b
-  with description "souvenir dans le sous-sol, a droite souvenir avec un instrument, au nord souvenir dans une foret.",
-  before [;
-  go:
   if (noun == w_obj) {
-    memory_visited = 55;
-    return false;
-  }
-  if (noun == e_obj) {
-    memory_visited = 54;
-    return false;
-  }
-  if (noun == n_obj) {
-    memory_visited = 53;
-    return false;
-  }
-  ],
-  e_to souvenir5d,
-  w_to souvenir5e,
-  n_to souvenir5c;
-
-Memory souvenir5a
-  with description "souvenir au camping",
-  before [;
-  go: if (noun == n_obj) {
-    memory_visited = 61;
+    memory_visited = 5;
     final_memory = true;
     mandatory_scenes = mandatory_scenes + 1;
     return false;
   }
   ],
-  n_to souvenir6a; 
+  e_to souvenir6,
+  w_to souvenir5;
 
-Memory souvenir5b
-  with description "souvenir a la fete",
-  before [;
-  go: if (noun == n_obj) {
-    memory_visited = 61;
-    final_memory = true;
-    mandatory_scenes = mandatory_scenes + 1;
-    return false;
-  }
-  ],
-  n_to souvenir6a; 
+Memory souvenir5
+  with description "C'est mon plus beau souvenir. Quand je suis triste, ou bien que je me sens prise en @'etau dans mes responsabilit@'es, j'y reviens, encore et toujours. Nous avions grimp@'e la montagne tout l'avant-midi, sentier apr@`es sentier. Nous avions pris une pause, @`a mi-chemin, sur le belv@'ed@`ere. J'aimais beaucoup ces marches, nous discutions de tout et de rien, on ressassait de vieux souvenirs. Mais apr@`es tout, la famille sert beaucoup @`a @cca. C'est moi qui avais pr@'epar@'e tous les vivres, les sandwichs, les trempettes et les boissons. «C'est excellent!» avait dit mon p@`ere, la bouche pleine. En chemin, on avait crois@'e une fleur unique, si belle qu'on prit un moment pour la contempler. «@cCa me rappelle, dit mon p@`ere en brisant le silence, la fois o@`u on @'etait all@'e dans un jardin voir les fleurs, tu t'en souviens?^- Heu non @cca ne me dit rien.^- Ah bon, fit mon p@`ere qui essaya de cacher sa d@'eception. C'est dr@^ole les souvenirs, @cca part, @cca vient. Peut-@^etre qu'un jour notre visite au jardin ressurgira de nulle part, @`a cause d'une odeur, d'une couleur, ou juste comme @cca.^- Ben j'pas mal certaine que je souviendrai de notre randonn@'ee!^- C'est pas grave, l'important, c'est d'appr@'ecier quand @cca arrive, apr@`es, @cca n'a plus d'importance. Vivre dans ses souvenirs c'est pas une bonne chose, j'pense.^- T'es dr@^ole toi, r@'etorquai-je, on fait juste @cca, se rappeler de nos souvenirs depuis tant@^ot!^- Oui c'est vrai! Quand on les partage avec les autres, les souvenirs deviennent pr@'ecieux. Seul, @cca ne m@`ene nulle part. Bon allez! »^^Puis, lorsqu'on fut au sommet, il y avait une esp@`ece de petit plateau de roche, qui donnait sur un panorama imprenable. Je me souviens du panorama trop grand pour @^etre capt@'e d'un coup d'@oeil, qui enveloppe, dissout l'@^etre dans sa circularit@'e, de la profondeur de la vue, en laquelle le regard s'engouffre et se perd. Et dans tous ces vertiges jou@'es mis simultan@'ement en sc@`ene par la montagne, je me suis sentie libre de traverser toutes les landes, franchir toutes les fronti@`eres, si libre qu'aucun mur ne pourrait jamais m'enfermer. «Papa, c'est tellement beau».^^Laurie se dit qu'elle a assez remu@'e de souvenirs: il est temps pour elle de retourner dans sa chambre, au sud.";
 
-Memory souvenir5c
-  with description "souvenir dans une foret",
-  before [;
-  go: if (noun == n_obj) {
-    memory_visited = 62;
-    final_memory = true;
-    mandatory_scenes = mandatory_scenes + 1;
-    return false;
-  }
-  ],
-  n_to souvenir6b;
-
-Memory souvenir5d
-  with description "souvenir avec un instrument",
-  before [;
-  go: if (noun == n_obj) {
-    memory_visited = 62;
-    final_memory = true;
-    mandatory_scenes = mandatory_scenes + 1;
-    return false;
-  }
-  ],
-  n_to souvenir6b;
-
-Memory souvenir5e
-  with description "souvenir fete a la fete foraine",
-  before [;
-  go: if (noun == n_obj) {
-    memory_visited = 63;
-    final_memory = true;
-    mandatory_scenes = mandatory_scenes + 1;
-    return false;
-  }
-  ],
-  n_to souvenir6c;
-
-Memory souvenir6a
-  with description "souvenir final 1";
-
-Memory souvenir6b
-  with description "souvenir final 2";
-
-Memory souvenir6c
-  with description "souvenir final 1";
-
+Memory souvenir6
+  with description "C'est mon plus beau souvenir. Quand je suis triste, ou bien que je me sens prise en @'etau dans mes responsabilit@'es, j'y reviens, encore et toujours. Nous avions voyag@'e en Irlande, moi et lui seulement. Nous avions long@'e un fjord, parlant peu, impr@'egn@'e par la grandeur du paysage. J'avais les chevilles endolories, mais je ne me serais plainte pour rien au monde. J'@'etais l@`a, pleinement. Je me sentais aval@'e par le bleu du ciel, absorb@'e par la nature: qu'une pr@'esence parmi tant d'autres, ni plus importante, ni moins. Je me souviens les sourires d'encouragement de mon p@`ere, ses dents blanches, ses petites attentions (me tendre sa bouteille d'eau parce que j'avais vid@'e la mienne, me proposer de faire des pauses, me rappeler de mettre de la cr@`eme solaire). Pour le moment qu'@`a dur@'e cette randonn@'ee, je me suis sentie compl@`etement libre, un sentiment grisant: libre de toutes les pi@`eces, libre enfin d'envelopper le ciel bleu de mes bras, libre de crier, de pleurer. Et puis, enfin, il y eut l'oc@'ean. La premi@`ere fois que vous arrivez devant l'oc@'ean, il y a n@'ecessairement un choc. L'immensit@'e du ciel se double de celle de l'eau: l'horizon le plus ultime que peut contempler l'@oeil humain: vertigineux. Les cheveux au vent, dans la lumi@`ere d'un apr@`es-midi lumineux, nous nous sommes souri. Et compris.^^Laurie se dit qu'elle a assez remu@'e de souvenirs: il est temps pour elle de retourner dans sa chambre, au sud.";
 
 !--------------------objets----------------------------------------------!
 
@@ -429,20 +432,19 @@ Memory souvenir6c
 
 !---------------------Routines---------------------------------------------!
 
-[ DeathMessage; print "C'est termin@'e, vous avez @'epuis@'e ce qu'il y avait @`a faire. Vous tournez en rond dans une bo@^ite noire comme une fourmi dans un bocal. Allez prendre une marche, comme dans votre quartier par exemple, ce sera plus int@'eressant il me semble."; ];
+[ DeathMessage; print "C'est termin@'e, vous avez @'epuis@'e ce qu'il y avait @`a faire. Vous tournez en rond dans une bo@^ite noire comme une fourmi dans un bocal. Allez prendre une marche, comme dans votre quartier par exemple, ce sera plus int@'eressant, non?"; ];
 
 [SceneMotherTalk;
   mandatory_scenes = mandatory_scenes +1;
   conversation = true;
-  PlayerTo(salle_a_manger, 1);
-  print "convo avec la mere";
+  PlayerTo(salon, 1);
+  print "~Caroline!~ crie sa m@`ere, surprenant Caroline dans son mouvement qui s'arr@^ete net. ~Caroline!~ poursuit-elle. ~Bon, faut vraiment que j'y aille, se dit-elle~. Elle se dirige donc en direction de sa m@`ere. Une fois au salon, sa m@`ere l'attend dans son fauteuil. ~Qu'est-ce qu'y a? demande Caroline.^^- La biblioth@`eque vient d'appeler @`a maison, dit sa m@`ere sur un ton qui laisse pr@'esager quelque chose de sensible.^- Ok, ouin pis?^- Bah. Y para@^it que t'as un livre en retard.^- Ben oui j'ai un livre en retard, dit Caroline.^- Bah, @cca s'appelle 'Comment budg@'eter: 25 trucs pour mieux g@'erer ses @'economies en appartement'. Tu penses-tu t'en aller?";
   if (YesOrNo()) {
     Convoa();}
     else {Convob();}
   return true;
 
 ];
-
 [Stridescount;
 
 if (hallucination == 0) {
@@ -455,19 +457,19 @@ if (hallucination == 0) {
 
   if (stride_count >= 15 && alert_ending == 0 && mandatory_scenes == 3) {
 
-    print "Il est temps d'aller prendre la parole pour la conference sur la sante mentale.";
+    print "^Caroline n'en peut plus. Elle est @'epuis@'ee, mais n'a pas sommeil. Un autre genre d'@'epuisement. Elle se dit qu'elle devrait partager son exp@'erience @`a la conf@'erence sur la sant@'e mentale @`a son universit@'e.";
     alert_ending = true;
     return false; }
 
   if (stride_count >= 6 && sleep ~= true) {
-    switch (random(3)) {
-    1: print "Caroline a sommeil et epuise, voudrait prendre une sieste.";
+    switch (random(4)) {
+    1: print "Caroline a sommeil, elle aimerait prendre une sieste.";
     return false; 
     default: return false; } }
 
   if (stride_count == 12 && sleep == true && alert_memory == false && final_memory == false && player notin chambre && player notin memory_lane) {
     alert_memory = true;
-    print "^Caroline se sent nostalgique.";
+    print "^Caroline se sent nostalgique et voudrait plonger dans ses souvenirs.";
     return false; }
 
   }
@@ -476,51 +478,51 @@ if (hallucination == 0) {
 !----------convo---------------------------------------------------------------!
 
 [Convoa;
-print "conversation, partie A";
+print "^- Ben faudrait ben que j'parte @`a mom'nn@'e! J'peux pas moisir ici toute ma vie, l@^ache sec Caroline.^- Comment @cca ~moisir~! fais attention @`a c'que tu dis! tu penses t'en aller cette ann@'ee ou apr@`es ton bac?~^Caroline ne sait pas trop comment r@'epondre @`a sa m@`ere.^~Tu voulais partir cette ann@'ee, c'est @cca? continue sa m@`ere.";
 if (YesOrNo()) {
 Convoc();}
 else {Convod();}
 ];
 
 [Convob;
-print "conversation, partie B";
+print "^- Ben non, c'est juste qu'y'avait des trucs sur comment g@'erer son argent. J'veux dire, @cca peut servir m@^eme si j'habite ici.^- Faque tu penses partir en appartement, pis t'es m@^eme pas capable de me l'dire? Une pointe de tristesse surgit dans l'accusation de sa m@`ere.";
 if (YesOrNo()) {
 Convoe();}
 else {Convof();}
 ];
 
 [Convoc;
-print "conversation, partie C";
+print "^- Ben oui... j'ai commenc@'e @`a y penser, mais y'a rien de d@'ecid@'e, dit-elle, pas trop convaincue.";
 convog();
 ];
 
 [Convod;
-print "conversation, partie D";
+print "^- Non non, je sais pas encore. Peut-@^etre @`a fin de mes @'etudes, dit-elle, pas trop convaincue.";
 convog();
 ];
 
 [Convoe;
-print "conversation, partie E";
+print "^- Ben s'pas facile de te dire des affaires, tu r@'eagis tout l'temps pour des niaiseries... se surprend-elle @`a dire.";
 convoh();
 ];
 
 [Convof;
-print "conversation, partie F";
+print "^- Ben j't'e dis que @cca pas rapport! Si je voulais partir, j't'e l'dirais! s'exclame Caroline.";
 convoh();
 ];
 
 [Convog;
-print "conversation, partie G";
+print "^- M@^eme pas capable de m'dire la v@'erit@'e. Tu l'sais dans l'fond, tu veux juste pas me l'dire! Sa m@`ere commence @`a @^etre exasp@'er@'ee.^- J'te l'dis que c'est juste de m@^eme, j'ai rien planifi@'e! se justifie-t-elle.";
 convoi();
 ];
 
 [Convoh;
-print "conversation, partie H";
+print "^- S'pas facile de me l'dire en pleine face, hein? Je sais ben que tu penses que j'exag@`ere quand tu m'racontes des affaires, mais l@`a, t'aurais pu m'en parler quand m@^eme.^- Ben je voulais juste trouver le bon moment, ts@'e, avance-t-elle, mal @`a l'aise.";
 convoi();
 ];
 
 [Convoi;
-print "conversation, partie I, finale";
+print "^- En tout cas, ma fille veut partir d'la maison pis j'l'apprends d'la biblioth@'ecaire qu'y'appelle pour un livre en r'tard. C't'ordinaire, mettons. C'est bon, c'est correct, tu peux y aller, j'voulais juste savoir pour ton livre.~";
 return true;
 ];
 
