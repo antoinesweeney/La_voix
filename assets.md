@@ -115,18 +115,23 @@ I) - En tout cas, ma fille veut partir d'la maison pis j'l'apprends d'la bibliot
 
 ### Rencontre avec son père
 
-Vous vous affairez à patenter un réfrigérateur cassé du voisin, c'est assez difficile puisque le problème provient du compresseur, et vous pensez que de le démonter permettrait d'identifier s'il est récupérable. Sur votre bureau, vous tournevis sont alignés, ainsi que toutes les vis dévissées. Vous entendez des pas incertains dans l'escalier. C'est Caroline. «Ah, Caro, comment a été ta journée aujourd'hui? lui lancez-vous en lui souriant.» Elle vous regarde, blême, et bouche bée.
+Vous vous affairez à patenter un réfrigérateur cassé du voisin, c'est assez difficile puisque le problème provient du compresseur, et vous pensez que de le démonter permettrait d'identifier s'il est récupérable. Sur votre bureau, vos tournevis sont alignés, ainsi que toutes les vis dévissées. Vous entendez des pas incertains dans l'escalier. C'est Caroline. «Ah, Caro, comment a été ta journée aujourd'hui? lui lancez-vous en lui souriant.» Elle vous regarde, blême, et bouche bée.
 «Bah quoi, tu viens de te rappeler qu'il fallait que tu donnes un lift à Isabelle? Tu l'a oublié? continuez-vous. 
 - Non non. J'avais pas de lift à donner à personne aujourd'hui, dit-elle d'un ton presque inaudible.
 - R'garde, viens voir. Coralie s'approche de vous. C'est le frigo à Marco, mais j'pense que l'compresseur est kaput. 
 - Tu vas-tu pouvoir le réparer? vous répond-elle. 
-- Hum... J'pas sûr. Tsé, des fois, quand le problème est trop compliqué, c'est mieux d'abandonner. Hein hein, ne'm fais pas ces yeux-là! Acheter des nouvelles pièces pour réparer le compresseur, ça va coûter à peine moins cher qu'un frigo neuf. Ça vaut juste pas tout le trouble. Pis c'est pas une mauvaise chose, des fois, de lâcher la patate, tu devrais essayer. On peut pas toute faire dans vie, parce qu'on est des êtres limités, faque on fait c'qu'on peut pis d'notre mieux pis ben c'est déjà ça. Tsé Caroline, j'aimerais ça pouvoir t'aider plus que ça, lui dites-vous en posant votre main sur son épaule, mais j'pense que ça serait le meilleur conseil que j'peux te donner.» Vous l'encouragez avec un sourire, avant de poursuivre «t'a pas rien n'à prouver à personne. Tes notes, ton argent, ton rôle au travail, c'est pas toi, c'est pas ta vie. Ça aide les gens à se faire une idée de t'es qui... mais quand tu vas rencontrer des gens qui comptent vraiment, tes vrais amis là, ton chum, ton argent, tes diplômes, ou ben savoir si t'es manager ou caissière, ça va leur passer dix pieds au-dessus d'leu' têtes! Bon, j'pense que t'es ben occupée, hein? J'vas t'laisser partir.»
+- Hum... J'pas sûr. Tsé, des fois, quand le problème est trop compliqué, c'est mieux d'abandonner. Hein hein, fais-moi pas ces yeux-là! Acheter des nouvelles pièces pour réparer le compresseur, ça va coûter à peine moins cher qu'un frigo neuf. Ça vaut juste pas le trouble. Pis c'est pas une mauvaise chose, des fois, de lâcher la patate, tu devrais essayer. On peut pas toute faire dans vie, parce qu'on est des êtres limités, faque on fait c'qu'on peut pis d'notre mieux pis ben c'est déjà ça. Tsé Caroline, j'aimerais ça pouvoir t'aider plus que ça, lui dites-vous en posant votre main sur son épaule, mais j'pense que ça serait le meilleur conseil que j'peux te donner.» Vous l'encouragez avec un sourire, avant de poursuivre «t'a pas rien à prouver à personne. Tes notes, ton argent, ton rôle au travail, c'est pas toi, c'est pas ta vie. Ça aide les gens à se faire une idée de t'es qui... mais quand tu vas rencontrer des gens qui comptent vraiment, tes vrais amis là, ton chum: ton argent, tes diplômes, ou ben savoir si t'es manager ou caissière, ça va leur passer dix pieds au-dessus d'leu' têtes! Bon, j'pense que t'es ben occupée, hein? J'vas t'laisser partir.»
 
-Vous vous levez afin d'éteindre Caroline.
+Vous vous levez afin d'éteindre Caroline. Puis vous la regardez droit dans les yeux. 
+
+«Ça pas l'air d'aller fort fort.» Coralie secoue la tête, émotive.
+«Ben dans des moments comme ça, c'est important que dise comment tu te sentes, faut pas que tu gardes toute ça à l'intérieur. Qu'est-ce que t'as qui va pas? Qu'est-ce que t'as à dire? J'te donne la parole. Prends-la.»
+
+Coralie reçoit la parole (disponible depuis l'inventaire).
 
 ### Prise de parole
 
-Caroline prendre le micro d'une main hésitante. Elle se racle la gorge, qu'elle trouve sèche. Elle a un blanc. Une centaine de personnes rivent leurs yeux sur elle, mais elle ne sait pas quoi dire. Que doit-elle dire? L'organisateur la dévisage. Elle commence à avoir chaud. Elle pense qu'elle devrait peut-être trouver ce qu'elle a vraiment à dire avant de prendre le micro. Peut-être que, pour trouver l'inspiration, elle pourrait aller dans le bureau de son père fouiller un peu?
+Caroline prend le micro d'une main hésitante. Elle se racle la gorge, qu'elle trouve sèche. Elle a un blanc. Elle semble sans voix. Une centaine de personnes rivent leurs yeux sur elle, mais elle ne sait pas quoi dire. Que doit-elle dire? L'organisateur la dévisage. Elle commence à avoir chaud. Elle pense qu'elle devrait peut-être trouver ce qu'elle a vraiment à dire avant de prendre le micro. Peut-être que, pour trouver l'inspiration, elle pourrait aller dans le bureau de son père fouiller un peu?
 
 Caroline est enfin sûre d'elle. Elle sait ce qu'elle a à dire. Elle se ressaisit, et saisit le micro.
 
