@@ -148,7 +148,7 @@ Room chambre "La chambre de Caroline"
      if (sleep == true) print_ret "Caroline a assez dormi.";
   go: if (hallucination == true && noun == n_obj) print_ret "Caroline ne peut s'enfuir dans ses souvenirs.";
 
-    if (chambre hasnt general && mandatory_scenes ~=2){
+    if (chambre hasnt general && mandatory_scenes ~=2 && hallucination == false){
       if (book1 in player || book2 in player || book3 in player) {
         if (noun == n_obj && flashlight in player) {
           switch (random(3)) {
@@ -311,7 +311,7 @@ Room street "Les rues du quartier"
   before [;
   go: if (hallucination == true && noun ~= n_obj) {print_ret "Caroline ne peut s'enfuir de sa m@`ere qui la regarde. Peut-@^etre qu'elle ferait mieux d'aller la voir et de la confronter. Elle doit @^etre au salon.";}
 
-    if (street hasnt general && mandatory_scenes ~= 2){
+    if (street hasnt general && mandatory_scenes ~= 2 && hallucination == false){
     if (noun == s_obj || noun == w_obj){
       switch (random(6)) {
       1: give street general;
