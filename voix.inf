@@ -309,7 +309,17 @@ Room salle_a_manger "La salle @`a manger"
 Room street "Les rues du quartier"
   with description "@`A l'ext@'erieur, dans la banlieue, il n'y a rien @`a voir ni @`a faire. Les oiseaux pleurent. Les propri@'etaires de maison, une fois avoir tondu leur pelouse, rentre chez eux et ferment les lumi@`eres @`a 21h45 tapante. Ensuite c'est le silence intersid@'eral.^^@`A l'ouest, Caroline peut prendre le bus pour se rendre @`a son universit@'e: un long trajet d'une heure. Au sud, elle peut se rendre @`a son lieu de travail qui est tout pr@`es de chez elle.",
   before [;
-  go: if (hallucination == true && noun ~= n_obj) {print_ret "Caroline ne peut s'enfuir de sa m@`ere qui la regarde. Peut-@^etre qu'elle ferait mieux d'aller la voir et de la confronter. Elle doit @^etre au salon.";}
+  go: 
+    if (hallucination == true && noun ~= n_obj) {print_ret "Caroline ne peut s'enfuir de sa m@`ere qui la regarde. Peut-@^etre qu'elle ferait mieux d'aller la voir et de la confronter. Elle doit @^etre au salon.";}
+
+    if (noun == w_obj) {
+    if (book1 notin player && book2 notin player && book3 notin player){
+
+        print_ret "Caroline pense que si elle va @`a l'universit@'e, elle aimerait bien avoir son journal avec elle au cas o@`u elle aurait du temps @`a tuer pour @'ecrire.";
+
+      }
+      print "Caroline se rend au terminus et embarque dans un bus. Durant le long trajet d'une heure, elle regarde par la fen@^etre et pense @`a sa vie. Une fois arriv@'ee, elle se rend @`a la biblioth@`eque de son universit@'e et passe par une salle d'@'etude o@`u elle s'arr@^ete pour @'ecrire un peu dans son journal.^^Pour rentrer chez elle, elle sait qu'elle devra @`a nouveau refaire le trajet, et retourner au terminus @`a l'ouest.^^";
+      return false; }
 
     if (street hasnt general && mandatory_scenes ~= 2 && hallucination == false){
     if (noun == s_obj || noun == w_obj){
@@ -320,14 +330,6 @@ Room street "Les rues du quartier"
       return true;
       default: return false;}}}
 
-    if (noun == w_obj) {
-      if (book1 notin player && book2 notin player && book3 notin player){
-
-        print_ret "Caroline pense que si elle va @`a l'universit@'e, elle aimerait bien avoir son journal avec elle au cas o@`u elle aurait du temps @`a tuer pour @'ecrire.";
-
-      }
-      print "Caroline se rend au terminus et embarque dans un bus. Durant le long trajet d'une heure, elle regarde par la fen@^etre et pense @`a sa vie. Une fois arriv@'ee, elle se rend @`a la biblioth@`eque de son universit@'e et passe par une salle d'@'etude o@`u elle s'arr@^ete pour @'ecrire un peu dans son journal.^^Pour rentrer chez elle, elle sait qu'elle devra @`a nouveau refaire le trajet, et retourner au terminus @`a l'ouest.^^";
-      return false; }
   ],
   n_to salle_a_manger,
   s_to magasin,
