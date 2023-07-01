@@ -207,6 +207,7 @@ Mettre des message aléatoires du personnage qui se demande pourquoi elle fait c
 
 ~~Coder la mère + organisateur~~
     ~~En conversation, elle critique le fait que sa fille étudie les lettres et cite l'exemple de ce cousin xy qui s'est acheté une maison.~~
+
 ---
 
 ##### Quality control
@@ -219,10 +220,15 @@ Mettre des message aléatoires du personnage qui se demande pourquoi elle fait c
 
 ##### Finishing
 
-Redesigner la salle noire et opter pour une séquence prédeterminée avec un ou deux événements aléatoires.
+<!---Redesigner la salle noire et opter pour une séquence prédeterminée avec un ou deux événements aléatoires.---->
 
 Ajouter des «caroline ne sait pas trop pourquoi elle va dans cette direction, comme si un autre eut décidé pour elle». Si temps est, des fois faire en sorte qu'elle n'écoute pas les intrants de l'utilisateur, elle n'en fait «qu'à sa tête».
     Implémenter des switch dans des lieux nodaux, avec 1/4 des chances qu'un évènement arrive, il faut qu'au moins un évènement arrive par partie, où Caroline décide de ne pas écouter le joueur. Mettre l'attribut général pour ça. Ou créer une variable locale si general est déjà utilisé dans un point nodal.
+    1) si le joueur se dirige vers les souvenirs avec la lampe torche et qu'il possède un journal, il y a possibilité que Caroline aille dans la salle d'études étudier
+    Caroline décide de faire demi-tour. En fait, cela ne lui tentait pas tellement d'aller explorer ses souvenirs tout de suite. Elle se rend au terminus de sa ville, puis fait le long trajet vers son université, et se demande à quoi l'humanité ressemblera après la chute du capitalisme. Probablement quelque chose comme Mad Max. Une fois arrivée, elle se dirige vers la bibliothèque et s'installe dans l'une des salles d'études pour écrire dans son journal.
+    2) si le joueur se dirige vers l'université ou le travail, Caroline fait demi-tour et va dans sa chambre
+    Caroline n'a pas envie d'être confrontée à ses obligations. Pas maintenant. Elle fait demi-tour, et retourne à la maison. Une fois dans sa chambre, elle s'installe dans son garde-robe et fouille dans ses bacs de souvenirs pendant une bonne heure. Ensuite elle range tout.
+    3) Un message complètement aléatoire: Caroline se demande pourquoi elle fait tout ça, toute cette agitation, il lui semble qu'elle n'est qu'un pantin vidé de ses capacités d'action sur le monde, qu'un autre fait les actions à sa place. Elle ne comprend pas ses propres motivations profondes ni n'arrive à anticiper les superficielles. Elle aimerait mieux tout abandonner que de faire semblant, que "de jouer le jeu". Chaque action qu'elle fait, prise individuellement, lui semble insignifiante, et mise ensemble, donne un charabia indéchiffrable.  
 
 ~~Voir le scoring (à la fin)~~
     ~~lire les trois livre (3)~~ 
@@ -240,5 +246,4 @@ Ajouter des «caroline ne sait pas trop pourquoi elle va dans cette direction, c
 - ~~L'horloge réagit au sommeil~~ x
 - ~~bloquer interaction magasine hallucination~~ x
 - ~~l'ordi ne fonctionne pas toujours~~
-
 - ~~meilleure transition vers le sommeil + écrire que Caroline décide de dormir, comme ça si c'était une autre action ça reste cohérent~~

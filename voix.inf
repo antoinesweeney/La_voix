@@ -29,6 +29,7 @@ Global player_bad = 0;
 Global speak = 0;
 Global alice = 0;
 Global hallucination = 0;
+Global metalepse = 0;
 
 !------------------------------------------------------------------------------!
 ! Routine d'initialisation
@@ -56,6 +57,15 @@ Class Room
       if (player in couloir_house && noun == w_obj) {SceneMotherTalk(); return true;}
       if (player in street && noun ~= n_obj) {SceneMotherTalk(); return true;}
       }
+      if (metalepse == 0 && mandatory_scenes ~= 2) {
+    switch (random(50)) {
+      1: metalepse = 1;
+      print "^^Caroline se demande pourquoi elle fait tout @cca, toute cette agitation, il lui semble qu'elle n'est qu'un pantin vid@'e de ses capacit@'es d'action sur le monde, qu'un autre fait les actions @`a sa place. Elle ne comprend pas ses propres motivations profondes ni n'arrive @`a en anticiper les superficielles. Elle aimerait mieux tout abandonner que de faire semblant, que ~de jouer le jeu~. Chaque action qu'elle fait, prise individuellement, lui semble insignifiante, et mise ensemble, donne un charabia ind@'echiffrable. ^^";
+      return false;
+      50: print_ret "Cela ne lui tente pas pr@'esentement. Essayez un peu plus tard.";
+      default: return false;
+    }}
+
     sleep: if (player notin chambre) print_ret "Caroline aimerait @^etre dans son lit pour dormir, comme tout le monde.";
   ],
   has light;
@@ -119,11 +129,12 @@ Room chambre "La chambre de Caroline"
       print "^^Elle le lance ensuite sur son bureau.^^";}
       return true; }
 
-    if (noun == computer && self hasnt general) {
-      give self general;
+    if (noun == computer && computer hasnt general) {
+      give computer general;
       score = score + 1;
-      print_ret "@`A l'@'ecran il est possible de lire un courriel:^^~Bonjour Caroline,^^nous avons bien re@ccu votre demande pour un report de session en raison de votre sant@'e. Malheureusement, la session est par trop avanc@'ee pour permettre cela. Si vous avez besoin d'aide, vous pouvez vous adresser au Centre de services aux @'etudiants, ils pourraient vous trouver un sp@'ecialiste qui saurait vous aider. Vous pouvez aussi essayer de faire une d@'erogation au r@`eglement, mais il faudrait je pense passer par le directeur du programme; or, il prend g@'en@'eralement une semaine avant de r@'epondre et je crois de toute mani@`ere qu'il ne peut pas prendre cette d@'ecision sans l'aval du comit@'e pour la sant@'e et la justice des @'etudiants et leur pr@'esident est pr@'esentement absent pour les deux prochaines semaines. Vous pouvez aussi contacter votre gestionnaire de dossier qui pourrait peut-@^etre avoir une solution @`a laquelle je n'ai pas pens@'e.^^Bonne chance et bon courage, ^^Andr@'ee, intervenante et aide g@'en@'erale aux @'etudiants~^^";
-    } else if (noun == computer && self has general) {print_ret "Caroline n'a plus tr@`es envie d'@^etre @`a l'ordinateur ni m@^eme d'y toucher; il lui semble que les gens perdent d@'ej@`a assez de temps comme cela dans la vie @`a le passer devant des @'ecrans rectangulaires en deux dimensions au lieu que d'@^etre sous l'infini ciel bleu.^^";}
+      print_ret "@`A l'@'ecran il est possible de lire un courriel:^^~Bonjour Caroline,^^nous avons bien re@ccu votre demande pour un report de session en raison de votre sant@'e. Malheureusement, la session est par trop avanc@'ee pour permettre cela. Si vous avez besoin d'aide, vous pouvez vous adresser au Centre de services aux @'etudiants, ils pourraient vous trouver un sp@'ecialiste qui saurait vous aider. Vous pouvez aussi essayer de faire une d@'erogation au r@`eglement, mais il faudrait je pense passer par le directeur du programme; or, il prend g@'en@'eralement une semaine avant de r@'epondre et je crois de toute mani@`ere qu'il ne peut pas prendre cette d@'ecision sans l'aval du comit@'e pour la sant@'e et la justice des @'etudiants et leur pr@'esident est pr@'esentement absent pour les deux prochaines semaines. Vous pouvez aussi contacter votre gestionnaire de dossier qui pourrait peut-@^etre avoir une solution @`a laquelle je n'ai pas pens@'e.^^Bonne chance et bon courage, ^^Andr@'ee, intervenante et aide g@'en@'erale aux @'etudiants~^^";}
+
+    if (noun == computer && computer has general) {print_ret "Caroline n'a plus tr@`es envie d'@^etre @`a l'ordinateur ni m@^eme d'y toucher; il lui semble que les gens perdent d@'ej@`a assez de temps comme cela dans la vie @`a le passer devant des @'ecrans rectangulaires en deux dimensions au lieu que d'@^etre sous l'infini ciel bleu.^^";}
 
     if (noun == bed) <<sleep>>;
 
@@ -136,6 +147,18 @@ Room chambre "La chambre de Caroline"
      return true; }
      if (sleep == true) print_ret "Caroline a assez dormi.";
   go: if (hallucination == true && noun == n_obj) print_ret "Caroline ne peut s'enfuir dans ses souvenirs.";
+
+    if (chambre hasnt general && mandatory_scenes ~=2){
+      if (book1 in player || book2 in player || book3 in player) {
+        if (noun == n_obj && flashlight in player) {
+          switch (random(3)) {
+          1: give chambre general;
+          print "Caroline d@'ecide de faire demi-tour. En fait, cela ne lui tentait pas tellement d'aller explorer ses souvenirs tout de suite. Elle se rend au terminus de sa ville, puis fait le long trajet vers son universit@'e, et se demande @`a quoi l'humanit@'e ressemblera apr@`es la chute du capitalisme. Probablement quelque chose comme Mad Max. Une fois arriv@'ee, elle se dirige vers la biblioth@`eque et s'installe dans l'une des salles d'@'etudes pour @'ecrire dans son journal.^^";
+          PlayerTo(salle_etude, 2);
+          return true;
+          default: return false;}
+      }}}
+
   ],
   !d_to blackbox, pour le test à la fin 
   n_to memory_lane,
@@ -160,7 +183,7 @@ Room salle_etude "Une salle d'@'etudes"
     if (noun == n_obj || noun == w_obj) {
     alice = true;
     score = score + 1;
-    print_ret "Caroline se cogne contre la fen@^etre. Elle regarde au loin, par del@`a la salle d'@'etude, la montagne qui l'invite @`a venir la parcourir. Elle laisse une petite bu@'ee sur la vitre, puis prend un peu de recul. Soudain, il lui semble que les proportions de la salle changent. La salle grossit, grossit, et ce grossissement prend de la vitesse. Les lignes des meubles filent vers le haut, les formes d@'efilent. Elle se demande si la salle grossit, ou si elle rapetisse, et en vrai n'a aucun moyen de le savoir. Un vent frais passe par la fen@^etre entrouverte, et s'engouffre dans l'@'etroite salle.^Les piles de papier accumul@'e sur le bureau cascadent sur Caroline, qui se fait enterrer sous papiers. Elle s'en sort qu'avec difficult@'e, mais d@'echante rapidement, car les volumes aussi se mettent @`a tomber, comme si, anim@'e d'une volont@'e propre, ils eussent voulu l'assassiner, l'@'ecraser chair et os pour la r@'eduire en une compote organique. Caroline se r@'efugie sous le bureau, se croyant @`a tort @`a l'abri, puisque son souffle lui manque. Elle se prend la gorge @`a deux mains. Elle n'arrive plus @`a respirer. L'air ne passe plus. Elle devient toute rouge. Elle enfonce alors une main dans le fond de son gosier, et en ressort une boulette de papier, gluant de salive. Elle tousse de longues minutes, la gorge en feu.^^"; }}
+    print_ret "Caroline se cogne contre la fen@^etre. Elle regarde au loin, par del@`a la salle d'@'etude, la montagne qui l'invite @`a venir la parcourir. Elle laisse une petite bu@'ee sur la vitre, puis prend un peu de recul. Soudain, il lui semble que les proportions de la salle changent. La salle grossit, grossit, et ce grossissement prend de la vitesse. Les lignes des meubles filent vers le haut, les formes d@'efilent. Elle se demande si la salle grossit, ou si elle rapetisse, et en vrai n'a aucun moyen de le savoir. Un vent frais passe par la fen@^etre entrouverte, et s'engouffre dans l'@'etroite salle.^Les piles de papier accumul@'e sur le bureau cascadent sur Caroline, qui se fait enterrer sous les papiers. Elle s'en sort qu'avec difficult@'e, mais d@'echante rapidement, car les volumes aussi se mettent @`a tomber, comme si, anim@'es d'une volont@'e propre, ils eussent voulu l'assassiner, l'@'ecraser chair et os pour la r@'eduire en une compote organique. Caroline se r@'efugie sous le bureau, se croyant @`a tort @`a l'abri, puisque son souffle lui manque. Elle se prend la gorge @`a deux mains. Elle n'arrive plus @`a respirer. L'air ne passe plus. Elle devient toute rouge. Elle enfonce alors une main dans le fond de son gosier, et en ressort une boulette de papier, gluant de salive. Elle tousse de longues minutes, la gorge en feu.^^"; }}
 
   if (noun == s_obj && self hasnt general) {
     give self general;
@@ -183,7 +206,7 @@ Room salle_conferance "Une salle de conf@'erence"
     print "C'est le temps des contributions du public. Il y a un micro au milieu de la sc@`ene.^^Caroline @`a une envie folle de partager son exp@'erience. Aussi s'approche-t-elle du micro. Devrait-elle partager son exp@'erience et prendre le micro?^^Au nord, vous pouvez retourner @`a la biblioth@`eque, ou aller directement au terminus @`a l'est.";}
     if (mandatory_scenes == 3 && self hasnt general) {
     give self general;
-    print "Coralie arrive en plein milieu de la conf@'erence. Elle se prend une chaise et y assiste pendant de longues minutes. La salle de conf@'erence permet d'accueillir au moins une centaine de personnes, et environ plus d'une cinquantaine d'auditeurs ont pris place. L'organisateur de l'@'ev@`enement est carr@'ement stress@'e et court partout en pointant furieusement du doigt des appareils n@'ecessaires aux conf@'erenciers qui se succ@`edent. Puis vient le temps des contributions du public. Il y a un micro au milieu de la sc@`ene.^^Caroline @`a une envie folle de partager son exp@'erience. Aussi s'approche-t-elle du micro. Devrait-elle partager son exp@'erience et prendre le micro?^^Au nord, vous pouvez retourner @`a la biblioth@`eque, ou aller directement au terminus @`a l'est.";}
+    print "Caroline arrive en plein milieu de la conf@'erence. Elle se prend une chaise et y assiste pendant de longues minutes. La salle de conf@'erence permet d'accueillir au moins une centaine de personnes, et environ plus d'une cinquantaine d'auditeurs ont pris place. L'organisateur de l'@'ev@`enement est carr@'ement stress@'e et court partout en pointant furieusement du doigt des appareils n@'ecessaires aux conf@'erenciers qui se succ@`edent. Puis vient le temps des contributions du public. Il y a un micro au milieu de la sc@`ene.^^Caroline @`a une envie folle de partager son exp@'erience. Aussi s'approche-t-elle du micro. Devrait-elle partager son exp@'erience et prendre le micro?^^Au nord, vous pouvez retourner @`a la biblioth@`eque, ou aller directement au terminus @`a l'est.";}
   ],
   before [;
 
@@ -193,10 +216,10 @@ Room salle_conferance "Une salle de conf@'erence"
       speak = true;
       print_ret "Caroline prend le micro d'une main h@'esitante. Elle se racle la gorge, qu'elle trouve s@`eche. Elle a un blanc. Elle semble sans voix. Une centaine de personnes rivent leurs yeux sur elle, mais elle ne sait pas quoi dire. Que doit-elle dire? L'organisateur la d@'evisage. Elle commence @`a avoir chaud. Elle pense qu'elle devrait peut-@^etre trouver ce qu'elle a vraiment @`a dire avant de prendre le micro. Peut-@^etre que, pour trouver l'inspiration, elle pourrait aller dans le bureau de son p@`ere fouiller un peu?";
     }
-    if (noun == mic && voice in player) {print "Caroline se sent pr@^ete @`a"; style underline; print_ret "prendre la parole.";}
+    if (noun == mic && voice in player) {print "Caroline se sent pr@^ete @`a"; style underline; print_ret " prendre la parole.";}
     if (voice == noun && voice in player) {
-      print "Caroline est enfin s@^ure d'elle. Elle sait ce qu'elle a @`a dire. Elle se ressaisit, et saisit le micro.^^~Merci de m'accorder la parole, dit-elle en adressant un signe de t@^ete @`a l'organisateur. Mon message vous d@'eplaira peut-@^etre, continue-t-elle en balayant l'auditoire, mais je tiens @`a partager ce que je ressens. C'est une conf@'erence sur la sant@'e mentale et la pers@'ev@'erance @`a l'@'ecole. Bon. Par o@`u commencer... Elle prend une pause pour inspirer, alors que la centaine de paires d'yeux, dans cette salle sans fen@^etre et froide de l'universit@'e, sont toujours riv@'ees sur elle. Ben premi@`erement, @cca va faire le brainwashing sur la pers@'ev@'erance. Quand c'est assez dans la vie, c'est assez pis faut savoir arr@^eter. D@'ej@`a je trouve @cca vraiment ironique de mettre ces deux choses-l@`a ensemble, j'veux dire, je pense au contraire que @cca devrait @^etre 'La sant@'e mentale et l'abandon'. Oui oui, vous m'avez compris. L'abandon. Dans la vie, faut savoir l@^acher le morceau, abandonner, l@^acher prise, renoncer. Tu vas pas am@'eliorer ta sant@'e mentale si t'es pris dans une spirale d'obligations scolaires, professionnelles, familiales. Si tu es pris dans l'id@'ee qu'il faut donc absolument que t'ailles une note 'y' dans ton cours 'z', @cca le fera pas.~ @`A ce moment, l'organisateur commence @`a d@'emontrer des signes @'evidents que ce discours va @`a l'encontre de ce qu'il a pr@'evu pour sa conf@'erence, et ses yeux lancent des couteaux. ~Tout @cca, les notes, les dipl@^omes, les titres, les qu'est-ce que tu voudras, c'est valide inque dans le petit monde ferm@'e de l'universit@'e. Moi, je tiens @`a ma sant@'e mentale, alors vous savez ce que j'ai d@'ecid@'e de faire? J'ai d@'ecid@'e de tout quitter. Il est trop tard pour abandonner mes cours qu'on m'a dit par courriel, ben je vais les couler.~";
-      print "L'organisateur s'approche doucement de Caroline, qui d@'ecroche le micro de son support et marche sur la sc@`ene pour le tenir @`a distance. ~Mon emploi de caissi@`ere ou je scanne des produits toute la journ@'ee comme une patate? Fini! Les clients qui me chient dessus parce que je parle pas anglais? Termin@'e! Mon boss qui refuse de me laisser partir @`a maison m@^eme si j'vais pas bien? Qu'i' s@`eche.~ Voyant la tournure injurieuse que prend le discours de Caroline, l'organisateur tente alors de s'imposer plus fermement et d@'eclare ~Oui merci d'avoir partag@'e votre exp@'erience, nous allons maintenant... - L'universit@'e qui refuse que je prenne une session de pause 'parce que la session est trop avanc@'ee'... Ben je vais faire comme Descartes, je vais la quitter, l'universit@'e! Je vais partir loin!~ L'organisateur essaye de prendre le micro des mains de Caroline, qui continue malgr@'e tout. ~Tout ce que je mets de mon argent, de mon temps, de ma sant@'e dans cette business-l@`a, parce qu'on va pas se le cacher, l'universit@'e, c'est juste une grosse business qui sert @`a perp@'etuer les in@'egalit@'es de classes, pour quoi faire en bout de ligne? Pour finir par enseigner moi aussi! Finir dans une @'ecole! Parce que, turns out, en litt@'erature, enseigner c'est comme un des seuls trois d@'ebouch@'es au menu. 20 000 piastres de dettes pour ~ouvrir des portes~... Sont ben ch@`eres, ces trois portes-l@`a. Pis je veux m@^eme pas enseigner, je veux juste partir...~ L'organisateur a d@'ebranch@'e le micro et regarde Caroline d'un @oeil mauvais, l'auditoire est inconfortable. Un homme tousse au fond. Caroline d@'epose le micro au sol, sans bruit, et sort de la salle de conf@'erence.^";
+      print "Caroline est enfin s@^ure d'elle. Elle sait ce qu'elle a @`a dire. Elle se ressaisit, et saisit le micro.^^~Merci de m'accorder la parole, dit-elle en adressant un signe de t@^ete @`a l'organisateur. Mon message vous d@'eplaira peut-@^etre, continue-t-elle en balayant l'auditoire, mais je tiens @`a partager ce que je ressens. C'est une conf@'erence sur la sant@'e mentale et la pers@'ev@'erance @`a l'@'ecole. Bon. Par o@`u commencer... Elle prend une pause pour inspirer, alors que la cinquantaine de paires d'yeux, dans cette salle sans fen@^etre et froide de l'universit@'e, sont toujours riv@'ees sur elle. Ben premi@`erement, @cca va faire le brainwashing sur la pers@'ev@'erance. Quand c'est assez dans la vie, c'est assez pis faut savoir arr@^eter. D@'ej@`a je trouve @cca vraiment ironique de mettre ces deux choses-l@`a ensemble, j'veux dire, je pense au contraire que @cca devrait @^etre 'La sant@'e mentale et l'abandon'. Oui oui, vous m'avez compris. L'abandon. Dans la vie, faut savoir l@^acher le morceau, abandonner, l@^acher prise, renoncer. Tu vas pas am@'eliorer ta sant@'e mentale si t'es pris dans une spirale d'obligations scolaires, professionnelles, familiales. Si tu es pris dans l'id@'ee qu'il faut donc absolument que t'ailles une note 'y' dans ton cours 'z', @cca le fera pas.~ @`A ce moment, l'organisateur commence @`a d@'emontrer des signes @'evidents que ce discours va @`a l'encontre de ce qu'il a pr@'evu pour sa conf@'erence, et ses yeux lancent des couteaux. ~Tout @cca, les notes, les dipl@^omes, les titres, les qu'est-ce que tu voudras, c'est valide inque dans le petit monde ferm@'e de l'universit@'e. Moi, je tiens @`a ma sant@'e mentale, alors vous savez ce que j'ai d@'ecid@'e de faire? J'ai d@'ecid@'e de tout quitter. Il est trop tard pour abandonner mes cours qu'on m'a dit par courriel, ben je vais les couler.~";
+      print " L'organisateur s'approche doucement de Caroline, qui d@'ecroche le micro de son support et marche sur la sc@`ene pour le tenir @`a distance. ~Mon emploi de caissi@`ere ou je scanne des produits toute la journ@'ee comme une patate? Fini! Les clients qui me chient dessus parce que je parle pas anglais? Termin@'e! Mon boss qui refuse de me laisser partir @`a maison m@^eme si j'vais pas bien? Qu'i' s@`eche.~ Voyant la tournure injurieuse que prend le discours de Caroline, l'organisateur tente alors de s'imposer plus fermement et d@'eclare ~Oui merci d'avoir partag@'e votre exp@'erience, nous allons maintenant... - L'universit@'e qui refuse que je prenne une session de pause 'parce que la session est trop avanc@'ee'... Ben je vais faire comme Descartes, je vais la quitter, l'universit@'e! Je vais partir loin!~ L'organisateur essaye de prendre le micro des mains de Caroline, qui continue malgr@'e tout. ~Tout ce que je mets de mon argent, de mon temps, de ma sant@'e dans cette business-l@`a, parce qu'on va pas se le cacher, l'universit@'e, c'est juste une grosse business qui sert @`a perp@'etuer les in@'egalit@'es de classes, pour quoi faire en bout de ligne? Pour finir par enseigner moi aussi! Finir dans une @'ecole! Parce que, turns out, en litt@'erature, enseigner c'est comme un des seuls trois d@'ebouch@'es au menu. 20 000 piastres de dettes pour 'ouvrir des portes'... Sont ben ch@`eres, ces trois portes-l@`a. Pis je veux m@^eme pas enseigner, je veux juste partir...~ L'organisateur a d@'ebranch@'e le micro et regarde Caroline d'un @oeil mauvais, l'auditoire est inconfortable. Un homme tousse au fond. Caroline d@'epose le micro au sol, sans bruit, et sort de la salle de conf@'erence.^";
       print "^^^...^^^";
       print "Caroline est partie. Elle n'a plus besoin de votre guidance. D@'esormais... il semble n'y avoir plus rien...^^^";
       PlayerTo(blackbox, 2);
@@ -212,7 +235,7 @@ Room salle_conferance "Une salle de conf@'erence"
     share: <<take mic>>;
 
     talk: if (noun ~= organiser && voice notin player) <<take mic>>;
-     if (noun ~= organiser && voice in player) { print "Caroline se sent pr@^ete @`a"; style underline; print_ret "prendre la parole.";}
+     if (noun ~= organiser && voice in player) { print "Caroline se sent pr@^ete @`a"; style underline; print_ret " prendre la parole.";}
      if (noun == organiser && voice in player) print_ret "Ce n'est plus le temps pour la jasette. Caroline doit prendre la parole.";
      if (noun == organiser && mandatory_scenes == 3) print_ret "Ce n'est plus le temps pour jaser avec l'organisateur.";
 
@@ -229,20 +252,20 @@ Room couloir_uni "Un couloir dans l'universit@'e"
   cant_go "Plus au sud se trouve la conf@'erence, en remontant au nord Caroline irait bien @`a nouveau dans la salle d'@'etudes.";
 
 Room magasin "Le magasin o@`u travaille Caroline"
-  with description "Il y a plusieurs caisses enregistreuses, o@`u les clients s'entassent pour acheter leurs provisions. Au fond du magasin, de grandes fen@^etres donnent sur la rue. Dans un coin, il y a le bureau de Ryan, le superviseur de Caroline.^^En bas se trouve la salle de pause, au nord la sortie du magasin.",
+  with description "Il y a plusieurs caisses enregistreuses, o@`u les clients s'entassent pour acheter leurs provisions. Au fond du magasin, de grandes fen@^etres donnent sur la rue. Dans un coin, il y a le bureau de Ryan, le superviseur de Caroline.^^@`A l'est se trouve la salle de pause, au nord la sortie du magasin.",
   before [;
-    if (noun == client || noun == d_obj || noun == n_obj){
+    if (noun == client || noun == e_obj || noun == n_obj){
       return false;
-    } else print_ret "Caroline n'a pas envie de passer plus de temps en cet hideux endroit, ni pour examiner quoi que ce soit ni pour explorer.^^En bas se trouve la salle de pause, au nord la sortie du magasin.";
+    } else print_ret "Caroline n'a pas envie de passer plus de temps en cet hideux endroit, ni pour examiner quoi que ce soit ni pour explorer.^^@`A l'est trouve la salle de pause, au nord la sortie du magasin.";
   ],
-  d_to salle_pause,
+  e_to salle_pause,
   n_to street,
-  cant_go "Elle ne peut pas s'enfuir du travail. ^^En bas se trouve la salle de pause, au nord la sortie du magasin.";
+  cant_go "Elle ne peut pas s'enfuir du travail. ^^@`A l'est se trouve la salle de pause, au nord la sortie du magasin.";
 
 Room salle_pause "La salle de pause"
   with description [;
 
-    print "La salle de pause est miteuse, comme bien des salles de pause d'employ@'es pay@'es au salaire minimum. L'endroit est crasseux, et sent le m@'elange malheureux de toutes sortes de nourritures pass@'ees par le four @`a micro-ondes. Il y a une table commune avec des bancs. La salle est vide. La sortie est par les escaliers, au sud.^";
+    print "La salle de pause est miteuse, comme bien des salles de pause d'employ@'es pay@'es au salaire minimum. L'endroit est crasseux, et sent le m@'elange malheureux de toutes sortes de nourritures pass@'ees par le four @`a micro-ondes. Il y a une table commune avec des bancs. La salle est vide. La sortie est par les escaliers, @'a l'ouest.^";
 
     if (self hasnt visited) print "Lorsqu'elle arrive dans la salle de pause pour son heure du d@^iner, deux coll@`egues sont d@'ej@`a en train de manger leur lunch et ont une discussion enjou@'ee.^~Ben oui, c'est quoi l'affaire, @cca pas de sens!^- C'est comme si, parce que tu dis que t'es une femme, l@`a tu peux aller dans toilettes des femmes?^- Man, les gens sont rendus fous. Moi j'essaye m@^eme pu de comprendre. ^- Pis l'affaire, c'est qu'y faudrait qu'on embarque l@`a-dedans! C'est comme, y peuvent pas juste vivre leur affaire d'leur c@^ot@'e, faut qu'on participe!^- Pfff. Moi jamais. Si j'vois un client qui m'dis que c'est ~madame~ au lieu de ~monsieur~ hey l@`a, common, tu veux juste savoir sont o@`u les p@^ates genre, s'tu vraiment si important comment j't'appelle?^- En tout cas si j'vois des femmes dans les toilettes des hommes @cca m'd@'erange pas.~^Les deux rient tr@`es forts ensemble.^~ Ben pour les toilettes, avance Caroline tout en d@'epliant les articles de sa bo@^ite @`a lunch, on pourrait pas comme avoir aussi des toilettes neutres individuelles?^- Ah les jeunes! Vous avez r@'eponse @`a toute!^- ~On aurait juste @`a construire des toilettes neutres partout~ fit l'autre en l'imitant avec une voix fluette.^Caroline ignore le commentaire et l'imitation de son coll@`egue, se disant que si elle avait r@'eagi @`a chaque impertinence de ses coll@`egues, elle aurait perdu son emploi de longue date.^- Non ben c'est juste que construire plein de toilettes juste pour des gens un peu crack pot, @cca sert @`a rien continue son coll@`egue.^- Ben oui, c'est quoi la suite, ils vont s'identifier comme des extraterrestres pis l@`a faudra leur construire des ovnis? rench@'erit l'autre. ^Ils repartent de plus belle, et postillonnent un peu de nourriture sur la table dans leur fou rire. Voyant que Caroline reste de marbre, l'un tente alors de l'inclure dans une discussion qui pourrait l'amener @`a ce qu'ils @'echangent.^~Anyway, c'est toute une histoire, c't'affaire-l@`a. @cCa me d@'epasse parce que j'suis un boomer, mais vous les jeunes, la rel@`eve, vous @^etes plus l@`a-dedans, on vous laisse @cca! Parlant de rel@`eve, rappelle-moi, Caroline, tu voulais faire quoi plus tard d@'ej@`a?^- J'pense que j'vais enseigner au C@'egep.^- En quoi donc?^- Ben en litt@'erature, c'est l@`a-d'ans que j'@'etudie.^- Ah ok ok. Pis c'est quoi que tu peux faire @`a part de @cca avec des @'etudes en litt@'erature?^- Pas grand-chose. C'est soit tu vas dans l'enseignement, secondaire, c@'egep ou universit@'e, soit tu vas dans les m@'edias genre pour un journal ou ben le domaine de l'@'edition pour faire des livres. Apr@`es si tu parles d'autres langues, tu peux toujours faire de la traduction, mais j'parle juste fran@ccais. Faque enseignement C@'egep. ^- @cCa pas l'air de te tenter full.~^Elle hausse les @'epaules, parce qu'elle ne sait pas quoi dire sinon que, effectivement, @cca ne lui tente pas ~full~. ^Ses deux coll@`egues, rattrap@'es par la r@'ealit@'e de la pause qui se termine toujours trop vite pour manger et relaxer, lui souhaitent bon app@'etit et retournent en haut travailler, l'un exclame ~bon, faut qu'on y aille! Le devoir nous appelle!~.^^";
 
@@ -251,11 +274,11 @@ Room salle_pause "La salle de pause"
   ],
   before [;
 
-    if (noun ~= s_obj) {print_ret "Caroline n'a pas envie de passer plus de temps en cet hideux endroit, ni pour examiner quoi que ce soit ni pour s'asseoir. Il faut qu'elle remonte les marches au sud pour entrer dans ce hachoir qu'est le travail.";}
+    if (noun ~= w_obj) {print_ret "Caroline n'a pas envie de passer plus de temps en cet hideux endroit, ni pour examiner quoi que ce soit ni pour s'asseoir. Il faut qu'elle remonte les marches @'a l'ouest pour entrer dans ce hachoir qu'est le travail.";}
 
   ],
-  s_to magasin,
-  cant_go "Il n'y a pas d'issue. Il faut remonter les marches au sud et entrer dans ce hachoir qu'est le travail.",
+  w_to magasin,
+  cant_go "Il n'y a pas d'issue. Il faut remonter les marches @'a l'ouest et entrer dans ce hachoir qu'est le travail.",
   has scored;
 
 Room salle_a_manger "La salle @`a manger"
@@ -263,12 +286,13 @@ Room salle_a_manger "La salle @`a manger"
   before [;
     go: if (noun == d_obj && hallucination == true) {
     move mother to salon;
+    PlayerTo(sous_sol,1);
     hallucination = false;
     print "^~Qu'est-ce que tu fais!~ Lui crie sa m@`ere.^^Caroline ouvre les yeux. Elle est dans le sous-sol. Comment a-t-elle atterri l@`a? Elle ne s'en souvient plus trop. Comme si un autre avait dirig@'e ses pas. Sa m@`ere se plante dans le cadre de la porte qui m@`ene en bas.^^~Bon c'est quoi, faudra barrer 'a porte astheure? c'est rendu que tu vas dans le bureau la nuit pour fouiller dans ses trucs?^- Ben non maman, j'pense que j'fais du somnambulisme.~ Elle lui fait de gros yeux.^~J'te'l'dis! Genre c'est toi qui m'a r@'eveill@'ee!^- Ben oui c'est @cca, prend moi pour une valise! voyons donc. Y'@'e pus l@`a, y'@'e pus l@`a. Faudrait que tu passes @`a autre chose, Caroline.^- Ben peut-@^etre qu'on pourrait comme vider le sous-sol aussi?^- Eille! On va vider le sous-sol quand je vais d@'ecider qu'on vide le sous-sol. L@`a va te r'coucher, pis arr@^ete d'aller au sous-sol la nuit, tu m'as fait peur.^- Ok j'vais essayer de mettre de quoi devant ma porte pour la bloquer.~^Sa m@`ere roule des yeux pour bien lui faire comprendre qu'elle n'y croit pas du tout. Puis retourne dans son fauteuil en lui disant bonne nuit.~^^";
     return false; }
 
     if (noun == d_obj && speak == true) {   
-      print "Vous vous affairez @`a patenter un r@'efrig@'erateur cass@'e du voisin, c'est assez difficile puisque le probl@`eme provient du compresseur, et vous pensez que de le d@'emonter permettrait d'identifier s'il est r@'ecup@'erable. Sur votre bureau, vos tournevis sont align@'es, ainsi que toutes les vis d@'eviss@'ees. Vous entendez des pas incertains dans l'escalier. C'est Caroline. ~Ah, Caro, comment a @'et@'e ta journ@'ee aujourd'hui? lui lancez-vous en lui souriant.~ Elle vous regarde, bl@^eme, et bouche b@'ee.^~Bah quoi, tu viens de te rappeler qu'il fallait que tu donnes un lift @`a Isabelle? Tu l'a oubli@'e? continuez-vous. ^- Non non. J'avais pas de lift @`a donner @`a personne aujourd'hui, dit-elle d'un ton presque inaudible.^- R'garde, viens voir. Caroline s'approche de vous. C'est le frigo @`a Marco, mais j'pense que l'compresseur est kaput. ^- Tu vas-tu pouvoir le r@'eparer? vous r@'epond-elle. ^- Hum... J'pas s@^ur. Ts@'e, des fois, quand le probl@`eme est trop compliqu@'e, c'est mieux d'abandonner. Hein hein, fais-moi pas ces yeux-l@`a! Acheter des nouvelles pi@`eces pour r@'eparer le compresseur, @cca va co@^uter @`a peine moins cher qu'un frigo neuf. @cCa vaut juste pas le trouble. Pis c'est pas une mauvaise chose, des fois, de l@^acher la patate, tu devrais essayer. On peut pas toute faire dans vie, parce qu'on est des @^etres limit@'es, faque on fait c'qu'on peut pis d'notre mieux pis ben c'est d@'ej@`a @cca. Ts@'e Caroline, j'aimerais @cca pouvoir t'aider plus que @cca, lui dites-vous en posant votre main sur son @'epaule, mais j'pense que @cca serait le meilleur conseil que j'peux te donner.~ Vous l'encouragez avec un sourire, avant de poursuivre ~t'a pas rien @`a prouver @`a personne. Tes notes, ton argent, ton r@^ole au travail, c'est pas toi, c'est pas ta vie. @cCa aide les gens @`a se faire une id@'ee de t'es qui... mais quand tu vas rencontrer des gens qui comptent vraiment, tes vrais amis l@`a, ton chum: ton argent, tes dipl@^omes, ou ben savoir si t'es manager ou caissi@`ere, @cca va leur passer dix pieds au-dessus d'leu' t@^etes!~ Vous marquez une pause de quelques secondes. ~En tout cas, j'suis ben content de t'revoir.~^^Vous vous levez afin d'@'etreindre Caroline. Puis vous la regardez droit dans les yeux. ^^~@cCa pas l'air d'aller fort fort.~ Caroline secoue la t@^ete, @'emotive.^~Ben dans des moments comme @cca, c'est important que tu dises comment tu te sentes, faut pas que tu gardes toute @cca @`a l'int@'erieur. Qu'est-ce que t'as qui va pas? Qu'est-ce que t'as @`a dire? J'te donne la parole. Prends-la.~^^Caroline re@ccoit la parole (disponible depuis l'inventaire).^^";
+      print "Vous vous affairez @`a patenter un r@'efrig@'erateur cass@'e du voisin, c'est assez difficile puisque le probl@`eme provient du compresseur, et vous pensez que de le d@'emonter permettrait d'identifier s'il est r@'ecup@'erable. Sur votre bureau, vos tournevis sont align@'es, ainsi que toutes les vis d@'eviss@'ees. Vous entendez des pas incertains dans l'escalier. C'est Caroline. ~Ah, Caro, comment a @'et@'e ta journ@'ee aujourd'hui? lui lancez-vous en lui souriant.~ Elle vous regarde, bl@^eme, et bouche b@'ee.^~Bah quoi, tu viens de te rappeler qu'il fallait que tu donnes un lift @`a Isabelle? Tu l'a oubli@'e? continuez-vous. ^- Non non. J'avais pas de lift @`a donner @`a personne aujourd'hui, dit-elle d'un ton presque inaudible.^- R'garde, viens voir. Caroline s'approche de vous. C'est le frigo @`a Marco, mais j'pense que l'compresseur est kaput. ^- Tu vas-tu pouvoir le r@'eparer? vous r@'epond-elle. ^- Hum... J'pas s@^ur. Ts@'e, des fois, quand le probl@`eme est trop compliqu@'e, c'est mieux d'abandonner. Hein hein, fais-moi pas ces yeux-l@`a! Acheter des nouvelles pi@`eces pour r@'eparer le compresseur, @cca va co@^uter @`a peine moins cher qu'un frigo neuf. @cCa vaut juste pas le trouble. Pis c'est pas une mauvaise chose, des fois, de l@^acher la patate, tu devrais essayer. On peut pas toute faire dans vie, parce qu'on est des @^etres limit@'es, faque on fait c'qu'on peut pis d'notre mieux pis ben c'est d@'ej@`a @cca. Ts@'e Caroline, j'aimerais @cca pouvoir t'aider plus que @cca, lui dites-vous en posant votre main sur son @'epaule, mais j'pense que @cca serait le meilleur conseil que j'peux te donner.~ Vous l'encouragez avec un sourire, avant de poursuivre ~t'as pas rien @`a prouver @`a personne. Tes notes, ton argent, ton r@^ole au travail, c'est pas toi, c'est pas ta vie. @cCa aide les gens @`a se faire une id@'ee de t'es qui... mais quand tu vas rencontrer des gens qui comptent vraiment, tes vrais amis l@`a, ton chum: ton argent, tes dipl@^omes, ou ben savoir si t'es manager ou caissi@`ere, @cca va leur passer dix pieds au-dessus d'leu' t@^etes!~ Vous marquez une pause de quelques secondes. ~En tout cas, j'suis ben content de t'revoir.~^^Vous vous levez afin d'@'etreindre Caroline. Puis vous la regardez droit dans les yeux. ^^~@cCa pas l'air d'aller fort fort.~ Caroline secoue la t@^ete, @'emotive.^~Ben dans des moments comme @cca, c'est important que tu dises comment tu te sentes, faut pas que tu gardes toute @cca @`a l'int@'erieur. Qu'est-ce que t'as qui va pas? Qu'est-ce que t'as @`a dire? J'te donne la parole. Prends-la.~^^Caroline re@ccoit la parole (disponible depuis l'inventaire).^^";
       move voice to player;
       PlayerTo(salle_conferance, 1);
       print "^^Caroline rouvre les yeux, elle se trouve @`a nouveau devant le micro de la salle de conf@'erance, devant les auditeurs.";
@@ -283,9 +307,18 @@ Room salle_a_manger "La salle @`a manger"
   cant_go "Au nord se trouve le salon, en bas le sous-sol et au sud la porte d'entr@'ee de la maison. @`A l'ouest il y a le couloir qui m@`ene @`a la chambre de Caroline.";
 
 Room street "Les rues du quartier"
-  with description "@`A l'ext@'erieur, dans la banlieue, il n'y a rien @`a voir ni @`a faire. Les oiseaux pleurent. Les propri@'etaires de maison, une fois avoir tondu leur pelouse, rentre chez eux et ferment les lumi@`eres @`a 9h45 tapante. Ensuite c'est le silence intersid@'eral.^^@`A l'ouest, Caroline peut prendre le bus pour se rendre @`a son universit@'e: un long trajet d'une heure. Au sud, elle peut se rendre @`a son lieu de travail qui est tout pr@`es de chez elle.",
+  with description "@`A l'ext@'erieur, dans la banlieue, il n'y a rien @`a voir ni @`a faire. Les oiseaux pleurent. Les propri@'etaires de maison, une fois avoir tondu leur pelouse, rentre chez eux et ferment les lumi@`eres @`a 21h45 tapante. Ensuite c'est le silence intersid@'eral.^^@`A l'ouest, Caroline peut prendre le bus pour se rendre @`a son universit@'e: un long trajet d'une heure. Au sud, elle peut se rendre @`a son lieu de travail qui est tout pr@`es de chez elle.",
   before [;
-  go: if (hallucination == true && noun ~= n_obj) print_ret "Caroline ne peut s'enfuir de sa m@`ere qui la regarde. Peut-@^etre qu'elle ferait mieux d'aller la voir et de la confronter.";
+  go: if (hallucination == true && noun ~= n_obj) print_ret "Caroline ne peut s'enfuir de sa m@`ere qui la regarde. Peut-@^etre qu'elle ferait mieux d'aller la voir et de la confronter. Elle doit @^etre au salon.";
+
+    if (street hasnt general && mandatory_scenes ~= 2){
+    if (noun == s_obj || noun == w_obj){
+      switch (random(6)) {
+      1: give street general;
+      print "Caroline n'a pas envie d'@^etre confront@'ee @`a ses obligations. Pas maintenant. Elle fait demi-tour, et retourne @`a la maison. Une fois dans sa chambre, elle s'installe dans son garde-robe et fouille dans ses bacs de souvenirs pendant une bonne heure. Ensuite elle range tout.^^";
+      PlayerTo(memory_lane,2);
+      return true;
+      default: return false;}}}
 
     if (noun == w_obj) {
       if (book1 notin player && book2 notin player && book3 notin player){
@@ -303,8 +336,10 @@ Room street "Les rues du quartier"
 
 Room salon "Le salon"
   with description [; 
-  print "Dans le salon, la m@`ere @`a Caroline est assise dans son fauteuil et regarde la t@'el@'evision sans r@'eellement l'@'ecouter. @`A c@^ot@'e d'elle, sa petite table d'appoint renferme plusieurs magazines. La baie vitr@'ee donne vue sur le voisinage. Un grand tapis permet de charger l'@'electricit@'e en le frottant des pieds.";
-  if (hallucination == true) {print "Sur la table d'appoint, vous voyez un petit livre rouge.^^Vous entendez un bruit @'etrange au sous-sol.^^";}
+  if (hallucination == true) {print "Le fauteuil du salon est vide et pourtant... Caroline sent la pr@'esence de sa m@`ere... elle a l'impression qu'elle la regarde depuis son fauteuil tout de m@^eme. ";}
+  if (hallucination ~= true) { print "Dans le salon, la m@`ere @`a Caroline est assise dans son fauteuil et regarde la t@'el@'evision sans r@'eellement l'@'ecouter. @`A c@^ot@'e d'elle, sa petite table d'appoint renferme plusieurs magazines.";}
+  print "La baie vitr@'ee donne vue sur le voisinage. Un grand tapis permet de charger l'@'electricit@'e en le frottant des pieds.";
+  if (hallucination == true) {print " Sur la table d'appoint, vous voyez un petit livre rouge.^^Vous entendez un bruit @'etrange au sous-sol.^^";}
   print "^^Au sud se trouve la salle @`a manger.";
   ], 
   before [;
@@ -401,9 +436,7 @@ Object blackbox "Enferm@'e"
   with
   turns_move 0,
   turns_wait 0,
-  encounterinsects 0,
   encounterdog 0,
-  encounterghost 0,
   encounterform 0,
 
   before [;
@@ -411,10 +444,10 @@ Object blackbox "Enferm@'e"
      go:
 
      if (self.turns_move == 12){
-        print "Vous croyez apercevoir une lumi@`ere bleue se profiler @`a l'horizon. Et vous sentez un courant d'air passer.";}
+        print "Vous croyez apercevoir une lumi@`ere bleue se profiler @`a l'horizon. Et vous sentez un courant d'air passer. ";}
 
       if (self.turns_move == 15){
-        print "La lumi@`ere que vous aviez aper@ccue grossit de pas en pas. Le vent que vous aviez senti se fait plus fort. @`A mesure que vous vous dirigez vers cette lumi@`ere, vous vous couvrez les yeux. Vous voyez... Vous voyez votre fille? Que fait-elle dans un endroit pareil? Non... elle semble... ailleurs, et heureuse. Vous la voyez distinctement d@'esormais.^^^Caroline ne regrette pas son choix: le Chili @'etait sur sa liste depuis des ann@'ees. Elle grimpe les derniers m@`etres du sentier, les jambes en compote et inspire une bonne bouff@'ee d'air frais de l'air chaud et sec. Elle pourrait penser @`a ce moment @`a matante Diane qui doit appeler sa m@`ere chaque soir pour s'assurer que tout va bien, @`a sa m@`ere qui a p@'et@'e une crise de nerfs lorsqu'elle apprit les intentions de sa fille, @`a ses professeurs d'universit@'e ou @`a sa gestionnaire de dossier qui lui @'ecrivent des courriels pour savoir o@`u elle est pass@'ee, ou encore @`a Ryan qui ne sait rien de son d@'epart: Caroline a tout simplement disparu. Mais elle ne pense @`a rien de tout cela, non. Elle ne fait que sentir ses muscles qui br@^ulent, sa gorge s@`eche, ses yeux @'eblouis par un soleil implacable et les bretelles de son sac @`a dos qui @'eraflent sa peau meurtrie par les coups de soleil et cette irr@'esistible libert@'e. Elle marche encore quelques foul@'ees, sifflotant 'Mrs. Robinson'. Au sommet du plateau de la montagne, elle peut enfin apercevoir tout d'un coup: l'oc@'ean, le ciel bleu, les cr@^etes de la cha@^ine: l'infiniment vaste. Mais avant d'@^etre absorb@'ee par ces visions vertigineuses, elle remarque une fleur, seule. ~Ce qu'elle est unique~, murmure-t-elle. Puis elle se sourit @`a elle-m@^eme, d'un sourire complice.^^";
+        print "La lumi@`ere que vous aviez aper@ccue grossit de pas en pas. Le vent que vous aviez senti se fait plus fort. @`A mesure que vous vous dirigez vers cette lumi@`ere, vous vous couvrez les yeux. Vous voyez... Vous voyez votre fille? Que fait-elle dans un endroit pareil? Non... elle semble... ailleurs, et heureuse. Vous la voyez distinctement d@'esormais.^^^Caroline ne regrette pas son choix: le Chili @'etait sur sa liste depuis des ann@'ees. Elle grimpe les derniers m@`etres du sentier, les jambes en compote et inspire une bonne bouff@'ee d'air chaud et sec. Elle pourrait penser @`a ce moment @`a matante Diane qui doit appeler sa m@`ere chaque soir pour s'assurer que tout va bien, @`a sa m@`ere qui a p@'et@'e une crise de nerfs lorsqu'elle apprit les intentions de sa fille, @`a ses professeurs d'universit@'e ou @`a sa gestionnaire de dossier qui lui @'ecrivent des courriels pour savoir o@`u elle est pass@'ee, ou encore @`a Ryan qui ne sait rien de son d@'epart: Caroline a tout simplement disparu. Mais elle ne pense @`a rien de tout cela, non. Elle ne fait que sentir ses muscles qui br@^ulent, sa gorge s@`eche, ses yeux @'eblouis par un soleil implacable et les bretelles de son sac @`a dos qui @'eraflent sa peau meurtrie par les coups de soleil et cette irr@'esistible libert@'e. Elle marche encore quelques foul@'ees, sifflotant 'Mrs. Robinson'. Au sommet du plateau de la montagne, elle peut enfin apercevoir tout d'un coup: l'oc@'ean, le ciel bleu, les cr@^etes de la cha@^ine: l'infiniment vaste. Mais avant d'@^etre absorb@'ee par ces visions vertigineuses, elle remarque une fleur, seule. ~Ce qu'elle est unique~, murmure-t-elle. Puis elle se sourit @`a elle-m@^eme, d'un sourire complice.^^";
         if (score >= 9 && score ~=12) print "Avec ce score, vous @^etes un v@'eritable curieux!";
         if (score == 12) print "Vous avez un score parfait! Vous @^etes une v@'eritable fouine!";
         deadflag = 3;
@@ -425,7 +458,7 @@ Object blackbox "Enferm@'e"
 
       1: print_ret "vous apercevez une lumiere lointaine @`a l'est. Puis elle s'@'eteint.";
       2: print_ret "Vous entendez un bref cri @`a l'ouest.";
-      4: if (self.encounterform == false) {self.encounterform = true; print_ret "Vous heurtez une forme indistincte.";} return false;
+      4: if (self.encounterform == false) {self.encounterform = true; print_ret "Vous heurtez une forme indistincte, elle fuit devant vous.";} return false;
       5: print_ret "Vous ressentez une douleur, votre poitrine est opprim@'ee.";
       6: if (self.encounterdog == false) {self.encounterdog = true; print_ret "Vous entendez un hal@`etement.";} return false;
       7: print_ret "Vous vous demandez vraiment ce que vous faites ici.";
@@ -446,7 +479,7 @@ Object blackbox "Enferm@'e"
 
       2: print_ret "Vous vous impatientez.";
       4: print_ret "Vous avez plut@^ot envie d'explorer.";
-      6: print_ret "Comme vous avez vraiment envie d'explorer, vous faites le choix judicieux d'aller au nord.^^Vous marchez quelques pas au nord.";
+      6: print_ret "Comme vous avez vraiment envie de bouger, vous faites le choix judicieux d'aller au nord.^^Vous marchez quelques pas au nord.";
     }
     
   ], 
@@ -464,7 +497,7 @@ Room hangar;
 Furniture clock "horloge" chambre
   with description [;
     if (sleep == true)
-    print "L'horloge indique 18h";
+    print "Caroline n'est plus certaine de savoir comment lire l'heure... comme si elle avait oubli@'e...";
     else print "L'horloge indique 12h30";
   ],
   name 'horloge' 'heure',
@@ -503,12 +536,10 @@ Furniture bed "lit" chambre
   has container open enterable male;
 
 Furniture computer "ordinateur" chambre
-  with name 'ordi' 'ordinateur' 'portable' 'pc',
+  with name 'ordi' 'ordinateur' 'portable' 'pc' 'ecran',
   description "Un ordi",
   before [;
-
-    examine, SwitchOn, SwitchOff, push, pull: <<take noun>>;
-
+    read, examine, SwitchOn, SwitchOff, push, pull: <<take noun>>;
   ],
   has male switchable;
 
@@ -591,6 +622,7 @@ Furniture magasines "magasines et livres" salon
 
 Furniture window "baie-vitr@'e" salon
   with description "@`A travers la fen@^etre Caroline regarde le voisinage. quelques secondes. Il ne se passe rien. Les voisins de la banlieue sont aussi amusant qu'un paquet de pierres tombales.",
+  name 'baie' 'vitree' 'fenetre' 'vitre',
   before [;
     look: <<examine self>>;
   ],
@@ -734,10 +766,11 @@ Npc mother "la m@`ere de Caroline" salon
    life [;
     Talk, Ask, Tell: self.times_spoken_to = self.times_spoken_to + 1;
     switch (self.times_spoken_to) {
-    1: print_ret "Qu'est-c@'e qu'y'a? T'est pas suppos@'ee @^etre au travail aujourd'hui? ou @`a l'universit@'e? Me semble que les mardis t'est occup@'ee d'habitude.";
+    1: print_ret "~Qu'est-c@'e qu'y'a? T'est pas suppos@'ee @^etre au travail aujourd'hui? ou @`a l'universit@'e? Me semble que les mardis t'est occup@'ee d'habitude.~";
     2: score = score + 1; 
-    print_ret "Hier matante Diane @`a m'a appel@'e. Imagines-toi donc que ton cousin, Henry, y vient de s'acheter une maison. Ben oui! une maison toi. Y'@'e @`a peine plus vieux que toi. @cCa, c'est parce qu'y'@'e @'electricien avec sa propre buisness pis c'est vraiment payant. Toi t'a m@^eme pas termin@'e l'@'ecole encore pis t'es endett@'ee. @cCa sert-tu vraiment @`a que'que chose donc c'que tu fais? T'as fini quand d@'ej@`a?";
-    default: print_ret "J'suis en train de lire une recette pour le g@^ateau de f@^ete @`a Anita.";}
+    print_ret "~Hier matante Diane @`a m'a appel@'e. Imagines-toi donc que ton cousin, Henry, y vient de s'acheter une maison. Ben oui! une maison toi. Y'@'e @`a peine plus vieux que toi. @cCa, c'est parce qu'y'@'e @'electricien avec sa propre buisness pis c'est vraiment payant. Toi t'as m@^eme pas termin@'e l'@'ecole encore pis t'es endett@'ee. @cCa sert-tu vraiment @`a que'que chose donc c'que tu fais? T'as fini quand d@'ej@`a?~";
+    default: if (conversation ~= true) print_ret "~J'suis en train de lire une recette pour le g@^ateau de f@^ete @`a Anita.~";
+    else print_ret "~C'est bon, tu peux partir si c'est ce que tu veux. Je suis tr@`es bien seule. J'm'e d@'ebrouille.~ Mais @cca voix trahit ses @'emotions.";}
      ],
   has female proper;
 
@@ -747,8 +780,8 @@ Npc organiser "l'organisateur de la conf@'erence" salle_conferance
     Talk, Ask, Tell: self.times_spoken_to = self.times_spoken_to + 1;
     switch (self.times_spoken_to) {
     1: score = score +1;
-     print_ret "Quoi? Qu'y a-t-il?";
-    default: print_ret "Je suis occup@'e, mais revenez plus tard!";}
+     print_ret "~Quoi? Qu'y a-t-il?~";
+    default: print_ret "~Je suis occup@'e, mais revenez plus tard!~";}
      ],
   name 'organisateur' 'homme' 'responsable',
   has male proper;
