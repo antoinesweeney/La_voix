@@ -1,5 +1,7 @@
 # Instructions
 
+Vous pouvez [jouer en ligne](https://iplayif.com/?story=https%3A%2F%2Fgithub.com%2Fantoinesweeney%2FLa_voix%2Fraw%2Fmaster%2Fvoix-final.z5) ou télécharger [Lectrote](https://github.com/erkyrath/lectrote) et le ficher voix.inf et l'exécuter.
+
 Ceci n'est pas un jeu très difficile, en ce que vous ne pouvez ni perdre ni mourir et qu'il n'y a pas vraiment d'énigme. Je me suis arrangé pour que le joueur ait une idée de la prochaine action à chaque étape, car une fiction interactive peut être en soi déjà assez déstabilisant comme expérience.
 
 Les commandes dont vous aurez le plus souvent besoin seront: nord, sud, est, ouest, descendre, monter (pour diriger le personnage dans l'univers du jeu), inventaire (pour consulter votre inventaire), annuler (pour annuler la dernière action) parler, examiner [un objet xy], prendre [un objet xy], attendre (pour laisser du temps passer). D'autres commandes seront nécessaires, mais indiquées en cours de jeu ou ne devraient pas être trop difficiles à deviner (du moins j'espère).
