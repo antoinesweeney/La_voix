@@ -153,7 +153,7 @@ Voici les différentes scènes et textes nécessaires pour ma petite histoire (o
 
 Est-ce bien nécessaire de rendre l'obscurité dans la boîte noire? Que se passe-t-il s'il n'y en a pas? Ou plus simplement, au lieu de mettre des objets avec lesquelles le joueur interragit, ça serait que des print_ret?
 
-Coder la rue/l'extérieur aussi, mais rendre cela enfermé: soit je connecte quatre lieux en carré, soit je simule les mouvements par un print_ret. Il n'y aurait rien de particulier dans ce lieux, sinon l'ullustration renforcée de son enfermement.
+Coder la rue/l'extérieur aussi, mais rendre cela enfermé: soit je connecte quatre lieux en carré, soit je simule les mouvements par un print_ret. Il n'y aurait rien de particulier dans ce lieux, sinon l'illustration renforcée de son enfermement.
 
 ### 14 au 21 juin
 
@@ -169,20 +169,76 @@ Mettre des message aléatoires du personnage qui se demande pourquoi elle fait c
 
 ### 22 au 30 juin
 
-ajouter des indicateur de locuteur dans les convos avec collègues + vérifier pour dans l'ensemble du jeu
-
-Ajouter les descriptions de pièces, les couloirs et leurs cadres, les meubles et la déco
-
-coder la mère
-
-Lors de l'hallucination, déplacer temporairement la mère au hangar et place un double maléfique
-
-ajouter le livre 2 seulement dans la description du salon durant le rêve
-
-capturer des actions comme «parler» ou «s'exprimer» dans la salle de conférence. ou diriger le joueur pour que l'action soit évidente
-
-changer la description de la salle d'étude avant et après l'hallucination
+##### La do-to du désespoir (elle amplifie plus qu'elle ne diminue)
 
 ~~Le jeu indique (1x) que le joueur devrait prendre la parole à la conférence de l'université. Or, lorsque le joueur arrive au micro et essaye d'interagir avec l'objet, Caroline a la bouche sèche et ne sait pas quoi dire, on propose alors au joueur d'aller dans les affaires de son père au sous-sol pour avoir plus d'inspiration. Lorsqu'elle retourne dans le sous-sol, elle rencontre son père. Alors il lui donne la parole. Il pourrait jaser avec, lui donner la parole et lorsqu'elle rouvre les yeux, elle est à nouveau devant le micro, cette fois-ci avec la parole dans son inventaire.~~
 
 ~~Avant la scène finale, la salle de conférence est vide. Elle se remplie qu'après la conversation avec la mère.~~
+
+~~Ajouter les descriptions de pièces, les couloirs et leurs cadres, les meubles et la déco~~
+
+~~Donner des noms aux pièces~~
+
+~~Ajouter un vous sortez des souvenirs de Caroline dans la class memory + memory lane hall~~
+
+~~Uniformiser les can't go~~
+
+~~Ajouter une vue par la fenêtre au salon~~
+
+~~Ajouter description des journaux dans les salles + vérifier qu'il n'y ait pas de bruit avec les manipulation de journaux + interdire d'aller à l'université sans son journal.~~
+
+~~Ajout de l'hallucination~~
+    ~~Déplacer temporairement la mère au hangar~~ 
+    ~~Ajouter le livre 2 seulement dans la description du salon durant le rêve~~
+
+~~Mettre le memory lane complètement noir, il faut au joueur une lanterne pour l'éclairer, dans le sous-sol. Bloquer le reste du memory lane depuis le premier souvenir, avec un indice où trouver la lumière.~~
+
+~~Ajouter la description du personnage~~
+
+~~Séparer message objet sing plur depuis la salle études~~
+
+~~Capturer des actions comme «parler» ou «s'exprimer» dans la salle de conférence. ou diriger le joueur pour que l'action soit évidente~~
+
+~~Lorsque le joueur arrive dans la salle de conférence, il faut qu'il soit alors accueilli et on lui propose direct de prendre la parole en oui non, si non, il lui dit de prendre le micro quand il voudra + bloquer ses interaction avec l'environnement~~
+
+~~Changer nom de la lampe au sous-sol + vérifier lampe-torche~~
+
+~~Share fonctionne? + rediriger take mike et share pour print_ret prendre la parole~~
+
+~~Coder la mère + organisateur~~
+    ~~En conversation, elle critique le fait que sa fille étudie les lettres et cite l'exemple de ce cousin xy qui s'est acheté une maison.~~
+---
+
+##### Quality control
+
+~~Tester les couleurs des journaux (pertinents?)~~
+
+~~vérifier les marques de locuteur (y en a-t-il assez?)~~
+
+---
+
+##### Finishing
+
+Redesigner la salle noire et opter pour une séquence prédeterminée avec un ou deux événements aléatoires.
+
+Ajouter des «caroline ne sait pas trop pourquoi elle va dans cette direction, comme si un autre eut décidé pour elle». Si temps est, des fois faire en sorte qu'elle n'écoute pas les intrants de l'utilisateur, elle n'en fait «qu'à sa tête».
+    Implémenter des switch dans des lieux nodaux, avec 1/4 des chances qu'un évènement arrive, il faut qu'au moins un évènement arrive par partie, où Caroline décide de ne pas écouter le joueur. Mettre l'attribut général pour ça. Ou créer une variable locale si general est déjà utilisé dans un point nodal.
+
+~~Voir le scoring (à la fin)~~
+    ~~lire les trois livre (3)~~ 
+    ~~parler à la cliente, sa mère et à l'organisateur (3)~~ 
+    ~~visiter la salle de pause (1)~~ 
+    ~~ordinateur (1)~~
+    ~~la tablette (1)~~ 
+    ~~le miroir feng-shui (1)~~
+    ~~la scène d'alice (1)~~ 
+    ~~pancarte (1)~~ 
+    ~~max 12 points~~
+
+##### Observations
+
+- ~~L'horloge réagit au sommeil~~ x
+- ~~bloquer interaction magasine hallucination~~ x
+- ~~l'ordi ne fonctionne pas toujours~~
+
+- ~~meilleure transition vers le sommeil + écrire que Caroline décide de dormir, comme ça si c'était une autre action ça reste cohérent~~

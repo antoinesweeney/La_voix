@@ -220,3 +220,19 @@ Ses deux collègues, rattrapés par la réalité de la pause qui se termine touj
 
 «Caroline se cogne contre la fenêtre. Elle regarde au loin, par delà la salle d'étude, la montagne qui l'invite à venir la parcourir. Elle laisse une petite buée sur la vitre, puis prend un peu de recul. Soudain, il lui semble que les proportions de la salle changent. La salle grossit, grossit, et ce grossissement prend de la vitesse. Les lignes des meubles filent vers le haut, les formes défilent. Elle se demande si la salle grossit, ou si elle rapetisse, et en vrai n'a aucun moyen de le savoir. Un vent frais passe par la fenêtre entrouverte, et s'engouffre dans l'étroite salle.
 Les piles de papier accumulé sur le bureau cascadent sur Caroline, qui se fait enterrer sous papiers. Elle s'en sort qu'avec difficulté, mais déchante rapidement, car les volumes aussi se mettent à tomber, comme si, animé d'une volonté propre, ils eussent voulu l'assassiner, l'écraser chair et os pour la réduire en une compote organique. Caroline se réfugie sous le bureau, se croyant à tort à l'abri, puisque son souffle lui manque. Elle se prend la gorge à deux mains. Elle n'arrive plus à respirer. L'air ne passe plus. Elle devient toute rouge. Elle enfonce alors une main dans le fond de son gosier, et en ressort une boulette de papier, gluant de salive. Elle tousse de longues minutes, la gorge en feu.  
+
+### Npc
+
+##### Mère
+
+Qu'est-cé qu'y'a? T'est pas supposée être au travail aujourd'hui? ou à l'université? Me semble que les mardis t'est occupée d'habitude.
+
+Hier matante Diane à m'a appelé. Imagines-toi donc que ton cousin, Henry, y vient de s'acheter une maison. Ben oui! une maison toi. Y'é à peine plus vieux que toi. Ça, c'est parce qu'y'é électricien avec sa propre buisness pis c'est vraiment payant. Toi t'a même pas terminé l'école encore pis t'es endettée. Ça sert-tu vraiment à que'que chose donc c'que tu fais? T'as fini quand déjà?
+
+J'suis en train de lire une recette pour le gâteau de fête à Anita.
+
+##### Organisateur
+
+Quoi? Qu'y a-t-il?
+
+Je suis occupé, mais revenez plus tard! 
