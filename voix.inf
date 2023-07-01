@@ -913,9 +913,11 @@ Object flashlight "flashlight" sous_sol
   with description "Une flashlight, pratique pour @'eclairer les coins sombres.",
   before [;
     drop: print_ret "Non! C'est un objet bien trop utile!";
+    SwitchOn: print_ret "La flashlight @'eclaire assez fort.";
+    SwitchOff: print_ret "La flshlight est @'eteinte.";
   ],
   name 'lampe' 'torche' 'flashlight' 'poche',
-  has female;
+  has female switchable;
 
 
 !---------------------Routines---------------------------------------------!
