@@ -912,7 +912,7 @@ Object flashlight "flashlight" sous_sol
   before [;
     drop: print_ret "Non! C'est un objet bien trop utile!";
   ],
-  name 'lampe' 'torche' 'flashlight',
+  name 'lampe' 'torche' 'flashlight' 'poche',
   has female;
 
 
