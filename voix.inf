@@ -47,7 +47,7 @@ Class Room
   with each_turn [;
     Stridescount();
     if (hallucination == true) {
-      print "^Votre m@`ere vous regarde d'un @oeil per@ccant depuis son fauteuil."; }
+      print "^La m@`ere de Caroline la regarde d'un @oeil per@ccant depuis son fauteuil."; }
     ],
     before [;
     go:
