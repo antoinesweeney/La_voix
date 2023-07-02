@@ -1,6 +1,6 @@
 # Instructions
 
-Vous pouvez [jouer en ligne](https://iplayif.com/?story=https%3A%2F%2Fgithub.com%2Fantoinesweeney%2FLa_voix%2Fraw%2Fmaster%2Fvoix-V1-5.z5) ou télécharger [Lectrote](https://github.com/erkyrath/lectrote) et le ficher voix-final.z5 et l'exécuter.
+Vous pouvez [jouer en ligne](https://iplayif.com/?story=https%3A%2F%2Fgithub.com%2Fantoinesweeney%2FLa_voix%2Fraw%2Fmaster%2Fvoix-V1-7.z5) ou télécharger [Lectrote](https://github.com/erkyrath/lectrote) et le ficher voix-final.z5 et l'exécuter.
 
 Ceci n'est pas un jeu très difficile, en ce que vous ne pouvez ni perdre ni mourir et qu'il n'y a pas vraiment d'énigmes. Je me suis arrangé pour que le joueur ait une idée de la prochaine action à chaque étape, car une fiction interactive peut être en soi déjà assez déstabilisant comme expérience. Prenez bien le temps de lire tout ce qui s'affiche à l'écran: si vous sautez du texte le jeu deviendra brouillon et à ce moment plus difficile à comprendre.
 
