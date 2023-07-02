@@ -195,7 +195,7 @@ Room salle_etude "Une salle d'@'etudes"
   ],
   e_to street,
   s_to couloir_uni,
-  cant_go "Caroline se bute contre la fen@^etre.^^Pour rentrer chez elle, elle sait qu'elle devra @`a nouveau refaire le trajet, et retourner au terminus @`a l'ouest.^Au nord et @`a l'est se trouve la montagne, on peut voir ses sentiers, un belv@'ed@`ere, et plusieurs randonneurs s'y prom@`enent. Au sud, elle peut se promener dans son universit@'e.";
+  cant_go "Caroline se bute contre la fen@^etre.^^Pour rentrer chez elle, elle sait qu'elle devra @`a nouveau refaire le trajet, et retourner au terminus @`a l'est.^Au nord et @`a l'est se trouve la montagne, on peut voir ses sentiers, un belv@'ed@`ere, et plusieurs randonneurs s'y prom@`enent. Au sud, elle peut se promener dans son universit@'e.";
 
 Room salle_conferance "Une salle de conf@'erence"
   with description [;
@@ -265,7 +265,7 @@ Room magasin "Le magasin o@`u travaille Caroline"
 Room salle_pause "La salle de pause"
   with description [;
 
-    print "La salle de pause est miteuse, comme bien des salles de pause d'employ@'es pay@'es au salaire minimum. L'endroit est crasseux, et sent le m@'elange malheureux de toutes sortes de nourritures pass@'ees par le four @`a micro-ondes. Il y a une table commune avec des bancs. La salle est vide. La sortie est par les escaliers, @'a l'ouest.^";
+    print "La salle de pause est miteuse, comme bien des salles de pause d'employ@'es pay@'es au salaire minimum. L'endroit est crasseux, et sent le m@'elange malheureux de toutes sortes de nourritures pass@'ees par le four @`a micro-ondes. Il y a une table commune avec des bancs. La salle est vide. La sortie est par les escaliers, @`a l'ouest.^";
 
     if (self hasnt visited) print "Lorsqu'elle arrive dans la salle de pause pour son heure du d@^iner, deux coll@`egues sont d@'ej@`a en train de manger leur lunch et ont une discussion enjou@'ee.^~Ben oui, c'est quoi l'affaire, @cca pas de sens!^- C'est comme si, parce que tu dis que t'es une femme, l@`a tu peux aller dans toilettes des femmes?^- Man, les gens sont rendus fous. Moi j'essaye m@^eme pu de comprendre. ^- Pis l'affaire, c'est qu'y faudrait qu'on embarque l@`a-dedans! C'est comme, y peuvent pas juste vivre leur affaire d'leur c@^ot@'e, faut qu'on participe!^- Pfff. Moi jamais. Si j'vois un client qui m'dis que c'est ~madame~ au lieu de ~monsieur~ hey l@`a, common, tu veux juste savoir sont o@`u les p@^ates genre, s'tu vraiment si important comment j't'appelle?^- En tout cas si j'vois des femmes dans les toilettes des hommes @cca m'd@'erange pas.~^Les deux rient tr@`es forts ensemble.^~ Ben pour les toilettes, avance Caroline tout en d@'epliant les articles de sa bo@^ite @`a lunch, on pourrait pas comme avoir aussi des toilettes neutres individuelles?^- Ah les jeunes! Vous avez r@'eponse @`a toute!^- ~On aurait juste @`a construire des toilettes neutres partout~ fit l'autre en l'imitant avec une voix fluette.^Caroline ignore le commentaire et l'imitation de son coll@`egue, se disant que si elle avait r@'eagi @`a chaque impertinence de ses coll@`egues, elle aurait perdu son emploi de longue date.^- Non ben c'est juste que construire plein de toilettes juste pour des gens un peu crack pot, @cca sert @`a rien continue son coll@`egue.^- Ben oui, c'est quoi la suite, ils vont s'identifier comme des extraterrestres pis l@`a faudra leur construire des ovnis? rench@'erit l'autre. ^Ils repartent de plus belle, et postillonnent un peu de nourriture sur la table dans leur fou rire. Voyant que Caroline reste de marbre, l'un tente alors de l'inclure dans une discussion qui pourrait l'amener @`a ce qu'ils @'echangent.^~Anyway, c'est toute une histoire, c't'affaire-l@`a. @cCa me d@'epasse parce que j'suis un boomer, mais vous les jeunes, la rel@`eve, vous @^etes plus l@`a-dedans, on vous laisse @cca! Parlant de rel@`eve, rappelle-moi, Caroline, tu voulais faire quoi plus tard d@'ej@`a?^- J'pense que j'vais enseigner au C@'egep.^- En quoi donc?^- Ben en litt@'erature, c'est l@`a-d'ans que j'@'etudie.^- Ah ok ok. Pis c'est quoi que tu peux faire @`a part de @cca avec des @'etudes en litt@'erature?^- Pas grand-chose. C'est soit tu vas dans l'enseignement, secondaire, c@'egep ou universit@'e, soit tu vas dans les m@'edias genre pour un journal ou ben le domaine de l'@'edition pour faire des livres. Apr@`es si tu parles d'autres langues, tu peux toujours faire de la traduction, mais j'parle juste fran@ccais. Faque enseignement C@'egep. ^- @cCa pas l'air de te tenter full.~^Elle hausse les @'epaules, parce qu'elle ne sait pas quoi dire sinon que, effectivement, @cca ne lui tente pas ~full~. ^Ses deux coll@`egues, rattrap@'es par la r@'ealit@'e de la pause qui se termine toujours trop vite pour manger et relaxer, lui souhaitent bon app@'etit et retournent en haut travailler, l'un exclame ~bon, faut qu'on y aille! Le devoir nous appelle!~.^^";
 
@@ -274,11 +274,11 @@ Room salle_pause "La salle de pause"
   ],
   before [;
 
-    if (noun ~= w_obj) {print_ret "Caroline n'a pas envie de passer plus de temps en cet hideux endroit, ni pour examiner quoi que ce soit ni pour s'asseoir. Il faut qu'elle remonte les marches @'a l'ouest pour entrer dans ce hachoir qu'est le travail.";}
+    if (noun ~= w_obj) {print_ret "Caroline n'a pas envie de passer plus de temps en cet hideux endroit, ni pour examiner quoi que ce soit ni pour s'asseoir. Il faut qu'elle remonte les marches @`a l'ouest pour entrer dans ce hachoir qu'est le travail.";}
 
   ],
   w_to magasin,
-  cant_go "Il n'y a pas d'issue. Il faut remonter les marches @'a l'ouest et entrer dans ce hachoir qu'est le travail.",
+  cant_go "Il n'y a pas d'issue. Il faut remonter les marches @`a l'ouest et entrer dans ce hachoir qu'est le travail.",
   has scored;
 
 Room salle_a_manger "La salle @`a manger"
@@ -288,7 +288,7 @@ Room salle_a_manger "La salle @`a manger"
     move mother to salon;
     PlayerTo(sous_sol,1);
     hallucination = false;
-    print "^~Qu'est-ce que tu fais!~ Lui crie sa m@`ere.^^Caroline ouvre les yeux. Elle est dans le sous-sol. Comment a-t-elle atterri l@`a? Elle ne s'en souvient plus trop. Comme si un autre avait dirig@'e ses pas. Sa m@`ere se plante dans le cadre de la porte qui m@`ene en bas.^^~Bon c'est quoi, faudra barrer 'a porte astheure? c'est rendu que tu vas dans le bureau la nuit pour fouiller dans ses trucs?^- Ben non maman, j'pense que j'fais du somnambulisme.~ Elle lui fait de gros yeux.^~J'te'l'dis! Genre c'est toi qui m'a r@'eveill@'ee!^- Ben oui c'est @cca, prend moi pour une valise! voyons donc. Y'@'e pus l@`a, y'@'e pus l@`a. Faudrait que tu passes @`a autre chose, Caroline.^- Ben peut-@^etre qu'on pourrait comme vider le sous-sol aussi?^- Eille! On va vider le sous-sol quand je vais d@'ecider qu'on vide le sous-sol. L@`a va te r'coucher, pis arr@^ete d'aller au sous-sol la nuit, tu m'as fait peur.^- Ok j'vais essayer de mettre de quoi devant ma porte pour la bloquer.~^Sa m@`ere roule des yeux pour bien lui faire comprendre qu'elle n'y croit pas du tout. Puis retourne dans son fauteuil en lui disant bonne nuit.~^^";
+    print "^~Qu'est-ce que tu fais!~ Lui crie sa m@`ere.^^Caroline ouvre les yeux. Elle est dans le sous-sol. Comment a-t-elle atterri l@`a? Elle ne s'en souvient plus trop. Comme si un autre avait dirig@'e ses pas. Sa m@`ere se plante dans le cadre de la porte qui m@`ene en bas.^^~Bon c'est quoi, faudra barrer 'a porte astheure? c'est rendu que tu vas dans le bureau la nuit pour fouiller dans ses trucs?^- Ben non maman, j'pense que j'fais du somnambulisme.~ Elle lui fait de gros yeux.^~J'te'l'dis! Genre c'est toi qui m'a r@'eveill@'ee!^- Ben oui c'est @cca, prend moi pour une valise! voyons donc. Y'@'e pus l@`a, y'@'e pus l@`a. Faudrait que tu passes @`a autre chose, Caroline.^- Ben peut-@^etre qu'on pourrait comme vider le sous-sol aussi?^- Eille! On va vider le sous-sol quand je vais d@'ecider qu'on vide le sous-sol. L@`a va te r'coucher, pis arr@^ete d'aller au sous-sol la nuit, tu m'as fait peur.^- Ok j'vais essayer de mettre de quoi devant ma porte pour la bloquer.~^Sa m@`ere roule des yeux pour bien lui faire comprendre qu'elle n'y croit pas du tout. Puis retourne dans son fauteuil.~^^";
     return false; }
 
     if (noun == d_obj && speak == true) {   
@@ -318,7 +318,7 @@ Room street "Les rues du quartier"
         print_ret "Caroline pense que si elle va @`a l'universit@'e, elle aimerait bien avoir son journal avec elle au cas o@`u elle aurait du temps @`a tuer pour @'ecrire.";
 
       }
-      print "Caroline se rend au terminus et embarque dans un bus. Durant le long trajet d'une heure, elle regarde par la fen@^etre et pense @`a sa vie. Une fois arriv@'ee, elle se rend @`a la biblioth@`eque de son universit@'e et passe par une salle d'@'etude o@`u elle s'arr@^ete pour @'ecrire un peu dans son journal.^^Pour rentrer chez elle, elle sait qu'elle devra @`a nouveau refaire le trajet, et retourner au terminus @`a l'ouest.^^";
+      print "Caroline se rend au terminus et embarque dans un bus. Durant le long trajet d'une heure, elle regarde par la fen@^etre et pense @`a sa vie. Une fois arriv@'ee, elle se rend @`a la biblioth@`eque de son universit@'e et passe par une salle d'@'etude o@`u elle s'arr@^ete pour @'ecrire un peu dans son journal.^^Pour rentrer chez elle, elle sait qu'elle devra @`a nouveau refaire le trajet, et retourner au terminus @`a l'est.^^";
       return false; }
 
     if (street hasnt general && mandatory_scenes ~= 2 && hallucination == false){
