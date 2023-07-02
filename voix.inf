@@ -80,7 +80,7 @@ Class Memory
   with before [;
 
     go: if (noun == s_obj) {
-      print "^^Vous sortez des souvenirs de Caroline.^^";
+      print "^^Caroline retrouve son chemin vers le garde-robe en s'aidant de la flashlight, puis l'@'eteint.^Vous sortez des souvenirs de Caroline.^^";
       return false;
     }
 
@@ -410,7 +410,7 @@ Room memory_lane "Au seuil des souvenirs"
 
     if (flashlight notin player && noun ~= s_obj) {print_ret "Impossible d'explorer les souvenirs de Caroline dans cette demi-clart@'e! Il lui faudrait une flashlight.";}
 
-    if (noun == n_obj) {print " ^Vous entrez avec Caroline dans ses souvenirs. Elle peut toujours en ressortir en faisant le chemin arri@`ere, vers le sud et revenir directement dans le garde-robe.^";}
+    if (noun == n_obj) {print " Caroline avance @`a t@^atons en s'aidant de la flashlight.^^Vous entrez avec Caroline dans ses souvenirs. Elle peut toujours en ressortir en faisant le chemin arri@`ere, vers le sud et revenir directement dans le garde-robe.^";}
 
     if (noun == n_obj && memory_visited ~= 0)
       switch (memory_visited) {
@@ -913,8 +913,8 @@ Object flashlight "flashlight" sous_sol
   with description "Une flashlight, pratique pour @'eclairer les coins sombres.",
   before [;
     drop: print_ret "Non! C'est un objet bien trop utile!";
-    SwitchOn: print_ret "La flashlight @'eclaire assez fort.";
-    SwitchOff: print_ret "La flshlight est @'eteinte.";
+    SwitchOn: print_ret "Ne voit pas l'int@'er@^et de l'allumer ici.";
+    SwitchOff: print_ret "La flshlight est d@'ej@`a @'eteinte.";
   ],
   name 'lampe' 'torche' 'flashlight' 'poche',
   has female switchable;
