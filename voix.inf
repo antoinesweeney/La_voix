@@ -176,7 +176,7 @@ Room salle_etude "Une salle d'@'etudes"
   with description [;
 
   if (alice == true) print_ret "La chaise et la table lui semblent des b@^atisses @'enormes et le plafond est difficilement distinguable. Au nord et @`a l'est, un grand mur de verre se dresse @`a port@'ee de regard.";
-  else print "La salle d'@'etude est chiche en mobilier: qu'une chaise en plastique et une table de travail. Mais comme c'est une salle d'@'etudes individuelle, elle y trouve la paix.^^Au nord et @`a l'est se trouve la montagne, on peut voir ses sentiers, un belv@'ed@`ere, et plusieurs randonneurs s'y prom@`enent. Au sud, elle peut se promener dans son universit@'e.";
+  else print "La salle d'@'etude est chiche en mobilier: qu'une chaise en plastique et une table de travail. Mais comme c'est une salle d'@'etudes individuelle, elle y trouve la paix.^^Au nord et @`a l'ouest se trouve la montagne, on peut voir ses sentiers, un belv@'ed@`ere, et plusieurs randonneurs s'y prom@`enent. Au sud, elle peut se promener dans son universit@'e.";
   ],
   before [;
     go: if (alice == false) {
@@ -195,7 +195,7 @@ Room salle_etude "Une salle d'@'etudes"
   ],
   e_to street,
   s_to couloir_uni,
-  cant_go "Caroline se bute contre la fen@^etre.^^Pour rentrer chez elle, elle sait qu'elle devra @`a nouveau refaire le trajet, et retourner au terminus @`a l'est.^Au nord et @`a l'est se trouve la montagne, on peut voir ses sentiers, un belv@'ed@`ere, et plusieurs randonneurs s'y prom@`enent. Au sud, elle peut se promener dans son universit@'e.";
+  cant_go "Caroline se bute contre la fen@^etre.^^Pour rentrer chez elle, elle sait qu'elle devra @`a nouveau refaire le trajet, et retourner au terminus @`a l'est.^Au nord et @`a l'ouest se trouve la montagne, on peut voir ses sentiers, un belv@'ed@`ere, et plusieurs randonneurs s'y prom@`enent. Au sud, elle peut se promener dans son universit@'e.";
 
 Room salle_conferance "Une salle de conf@'erence"
   with description [;
