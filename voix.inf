@@ -97,7 +97,7 @@ Class Book
     
     drop: print_ret "Non! Il est bien trop pr@'ecieux pour @^etre abandonn@'e.";
 
-    read: <<examine self>>;
+    read, open, close: <<examine self>>;
 
   ],
   name 'journal' 'livre' 'carnet',
@@ -107,7 +107,16 @@ Class Book
 ! Définitions des lieux
 
 Room chambre "La chambre de Caroline"
-  with description "La chambre de Caroline est @'etroite, mais elle s'y pla@^it bien tout de m@^eme. Les murs sont couleur cr@`eme, et les accessoires sont vert feuille. Au mur, il y a une photo et une horloge. Sur une tablette, divers troph@'ees sont dispos@'es. Son lit simple est contre le mur, et le reste de l'espace est occup@'e par un bureau en bois contreplaqu@'e, avec son ordinateur et un journal d'@'ecriture dor@'e dessus.^^La porte donne sur un couloir @`a l'est qui communique avec la salle @`a manger. ^Au nord de la chambre, le garde-robe semble @'eclair@'e d'un halo de lumi@`ere.",
+  with description [;
+    
+    print "La chambre de Caroline est @'etroite, mais elle s'y pla@^it bien tout de m@^eme. Les murs sont couleur cr@`eme, et les accessoires sont vert feuille. Au mur, il y a une photo et une horloge. Sur une tablette, divers troph@'ees sont dispos@'es. Son lit simple est contre le mur, et le reste de l'espace est occup@'e par un bureau en bois contreplaqu@'e, avec son ordinateur.";
+
+    if (book1 notin player) {print " Un journal d'@'ecriture dor@'e est pos@'e sur le bureau.";}
+
+    print "^^La porte donne sur un couloir @`a l'est qui communique avec la salle @`a manger. ^Au nord de la chambre, le garde-robe semble @'eclair@'e d'un halo de lumi@`ere.";
+
+
+  ],
   before [;
 
     read: if (noun == book1) {
@@ -216,14 +225,18 @@ Room salle_conferance "Une salle de conf@'erence"
       speak = true;
       print_ret "Caroline prend le micro d'une main h@'esitante. Elle se racle la gorge, qu'elle trouve s@`eche. Elle a un blanc. Elle semble sans voix. Une soixantaine de personnes rivent leurs yeux sur elle, mais elle ne sait pas quoi dire. Que doit-elle dire? L'organisateur la d@'evisage. Elle commence @`a avoir chaud. Elle pense qu'elle devrait peut-@^etre trouver ce qu'elle a vraiment @`a dire avant de prendre le micro. Peut-@^etre que, pour trouver l'inspiration, elle pourrait aller dans le bureau de son p@`ere fouiller un peu?";
     }
-    if (noun == mic && voice in player) {print "Caroline se sent pr@^ete @`a"; style underline; print_ret " prendre la parole.";}
+    if (noun ~=voice && voice in player) {print "Caroline se sent pr@^ete @`a"; style underline; print_ret " prendre la parole.";}
     if (voice == noun && voice in player) {
       print "Caroline est enfin s@^ure d'elle. Elle sait ce qu'elle a @`a dire. Elle se ressaisit, et saisit le micro.^^~Merci de m'accorder la parole, dit-elle en adressant un signe de t@^ete @`a l'organisateur. Mon message vous d@'eplaira peut-@^etre, continue-t-elle en balayant l'auditoire, mais je tiens @`a partager ce que je ressens. C'est une conf@'erence sur la sant@'e mentale et la pers@'ev@'erance @`a l'@'ecole. Bon. Par o@`u commencer... Elle prend une pause pour inspirer, alors que la soixantaine de paires d'yeux, dans cette salle sans fen@^etre et froide de l'universit@'e, sont toujours riv@'ees sur elle. Ben premi@`erement, @cca va faire le brainwashing sur la pers@'ev@'erance. Quand c'est assez dans la vie, c'est assez pis faut savoir arr@^eter. D@'ej@`a je trouve @cca vraiment ironique de mettre ces deux choses-l@`a ensemble, j'veux dire, je pense au contraire que @cca devrait @^etre 'La sant@'e mentale et l'abandon'. Oui oui, vous m'avez compris. L'abandon. Dans la vie, faut savoir l@^acher le morceau, abandonner, l@^acher prise, renoncer. Tu vas pas am@'eliorer ta sant@'e mentale si t'es pris dans une spirale d'obligations scolaires, professionnelles, familiales. Si tu es pris dans l'id@'ee qu'il faut donc absolument que t'ailles une note 'y' dans ton cours 'z', @cca le fera pas.~ @`A ce moment, l'organisateur commence @`a d@'emontrer des signes @'evidents que ce discours va @`a l'encontre de ce qu'il a pr@'evu pour sa conf@'erence, et ses yeux lancent des couteaux. ~Tout @cca, les notes, les dipl@^omes, les titres, les qu'est-ce que tu voudras, c'est valide inque dans le petit monde ferm@'e de l'universit@'e. Moi, je tiens @`a ma sant@'e mentale, alors vous savez ce que j'ai d@'ecid@'e de faire? J'ai d@'ecid@'e de tout quitter. Il est trop tard pour abandonner mes cours qu'on m'a dit par courriel, ben je vais les couler.~";
-      print " L'organisateur s'approche doucement de Caroline, qui d@'ecroche le micro de son support et marche sur la sc@`ene pour le tenir @`a distance. ~Mon emploi de caissi@`ere ou je scanne des produits toute la journ@'ee comme une patate? Fini! Les clients qui me chient dessus parce que je parle pas anglais? Termin@'e! Mon boss qui refuse de me laisser partir @`a maison m@^eme si j'vais pas bien? Qu'i' s@`eche.~ Voyant la tournure injurieuse que prend le discours de Caroline, l'organisateur tente alors de s'imposer plus fermement et d@'eclare ~Oui merci d'avoir partag@'e votre exp@'erience, nous allons maintenant... - L'universit@'e qui refuse que je prenne une session de pause 'parce que la session est trop avanc@'ee'... Ben je vais faire comme Descartes, je vais la quitter, l'universit@'e! Je vais partir loin!~ L'organisateur essaye de prendre le micro des mains de Caroline, qui continue malgr@'e tout. ~Tout ce que je mets de mon argent, de mon temps, de ma sant@'e dans cette business-l@`a, parce qu'on va pas se le cacher, l'universit@'e, c'est juste une grosse business qui sert @`a perp@'etuer les in@'egalit@'es de classes, pour quoi faire en bout de ligne? Pour finir par enseigner moi aussi! Finir dans une @'ecole! Parce que, turns out, en litt@'erature, enseigner c'est comme un des seuls trois d@'ebouch@'es au menu. 20 000 piastres de dettes pour 'ouvrir des portes'... Sont ben ch@`eres, ces trois portes-l@`a. Pis je veux m@^eme pas enseigner, je veux juste partir...~ L'organisateur a d@'ebranch@'e le micro et regarde Caroline d'un @oeil mauvais, l'auditoire est inconfortable. Un homme tousse au fond. Caroline d@'epose le micro au sol, sans bruit, et sort de la salle de conf@'erence.^";
+      print " L'organisateur s'approche doucement de Caroline, qui d@'ecroche le micro de son support et marche sur la sc@`ene pour le tenir @`a distance. ~Mon emploi de caissi@`ere o@`u je scanne des produits toute la journ@'ee comme une patate? Fini! Les clients qui me chient dessus parce que je parle pas anglais? Termin@'e! Mon boss qui refuse de me laisser partir @`a maison m@^eme si j'vais pas bien? Qu'i' s@`eche.~ Voyant la tournure injurieuse que prend le discours de Caroline, l'organisateur tente alors de s'imposer plus fermement et d@'eclare ~Oui merci d'avoir partag@'e votre exp@'erience, nous allons maintenant... - L'universit@'e qui refuse que je prenne une session de pause 'parce que la session est trop avanc@'ee'... Ben je vais faire comme Descartes, je vais la quitter, l'universit@'e! Je vais partir loin!~ L'organisateur essaye de prendre le micro des mains de Caroline, qui continue malgr@'e tout. ~Tout ce que je mets de mon argent, de mon temps, de ma sant@'e dans cette business-l@`a, parce qu'on va pas se le cacher, l'universit@'e, c'est juste une grosse business qui sert @`a perp@'etuer les in@'egalit@'es de classes, pour quoi faire en bout de ligne? Pour finir par enseigner moi aussi! Finir dans une @'ecole! Parce que, turns out, en litt@'erature, enseigner c'est comme un des seuls trois d@'ebouch@'es au menu. 20 000 piastres de dettes pour 'ouvrir des portes'... Sont ben ch@`eres, ces trois portes-l@`a. Pis je veux m@^eme pas enseigner, je veux juste partir...~ L'organisateur a d@'ebranch@'e le micro et regarde Caroline d'un @oeil mauvais, l'auditoire est inconfortable. Un homme tousse au fond. Caroline d@'epose le micro au sol, sans bruit, et sort de la salle de conf@'erence.^";
       print "^^^...^^^";
-      print "Caroline est partie. Elle n'a plus besoin de votre guidance. D@'esormais... il semble n'y avoir plus rien...^^^";
+      print "Caroline est partie. Elle n'a plus besoin de votre guidance. D@'esormais... il semble n'y avoir plus rien... peut-@^etre que vous pourriez vous promener?^^^";
       PlayerTo(blackbox, 2);
       remove voice;
+      remove book1;
+      remove book2;
+      remove book3;
+      remove flashlight;
       return true;
     }
     if (noun == mic) print_ret "Elle ne pense pas que c'est un bon moment pour prendre la parole.";
@@ -376,7 +389,16 @@ Room stairs "escaliers"
   cant_go "Plus en bas se trouve le sous-sol. En haut, la salle @`a manger. ";
 
 Room sous_sol "Le sous-sol"
-  with description "Le sous-sol n'est pas termin@'e, il y des planches de bois au mur et par endroits, on peut m@^eme vois ce qu'il y a derri@`ere: de la mousse isolante rose et des panneaux de gypse. La lumi@`ere pend depuis le plafond. Il y a le bureau du p@`ere @`a Caroline, avec ses tiroirs pleins @`a craquer et ses outils entass@'es p@^ele-m@^ele dans un bac @`a c@^ot@'e. Sur le bureau, il y a un petit livre bleu qui tra@^ine.^^L'escalier m@`ene @`a la salle @`a manger, en haut.",
+  with description [;
+  
+  print "Le sous-sol n'est pas termin@'e, il y des planches de bois au mur et par endroits, on peut m@^eme voir ce qu'il y a derri@`ere: de la mousse isolante rose et des panneaux de gypse. La lumi@`ere pend depuis le plafond. Il y a le bureau du p@`ere @`a Caroline, avec ses tiroirs pleins @`a craquer et ses outils entass@'es p@^ele-m@^ele dans un bac @`a c@^ot@'e";
+
+  if (book3 notin player) {print " Sur le bureau, il y a un petit livre bleu qui tra@^ine";}
+  
+  print "^^L'escalier m@`ene @`a la salle @`a manger, en haut.";
+
+  ],
+
   before [;
 
     read: if (noun == book3) {
@@ -619,7 +641,7 @@ Furniture magasines "magasines et livres" salon
   print_ret "Caroline est sur le point de prendre un magasine pour l'observer, mais sa m@`ere intervient ~Je peux t'aider?~, demande-t-elle, soucieuse, en d@'evisageant sa fille.";}
   else print_ret "Caroline ferait mieux de laisser les affaires de sa m@`ere tranquille. ";
   ],
-  name 'magasines//p' 'magasine',
+  name 'magasines//p' 'magasine' 'magazine' 'magazines//p',
   has male;
 
 Furniture window "baie-vitr@'e" salon
@@ -726,7 +748,7 @@ Furniture chairs_uni "chaises" salle_conferance
 
 Furniture listeners "auditeurs" salle_conferance
   with description "Des gens de tous les horizons, tous les @^ages et de style vestimentaire diff@'erent.",
-  name 'auditeurs//p' 'gens//p' 'spectateurs//p' 'conferenciers//p' 'auditeur' 'personne',
+  name 'auditeurs//p' 'gens//p' 'spectateurs//p' 'conferenciers//p' 'auditeur' 'personne' 'public',
   has animate male;
 
 Furniture intangible "les choses du c@oeur" salle_conferance
@@ -768,7 +790,7 @@ Npc mother "la m@`ere de Caroline" salon
    life [;
     Talk, Ask, Tell: self.times_spoken_to = self.times_spoken_to + 1;
     switch (self.times_spoken_to) {
-    1: print_ret "~Qu'est-c@'e qu'y'a? T'est pas suppos@'ee @^etre au travail aujourd'hui? ou @`a l'universit@'e? Me semble que les mardis t'est occup@'ee d'habitude.~";
+    1: print_ret "~Qu'est-c@'e qu'y'a? T'es pas suppos@'ee @^etre au travail aujourd'hui? ou @`a l'universit@'e? Me semble que les mardis t'es occup@'ee d'habitude.~";
     2: score = score + 1; 
     print_ret "~Hier matante Diane @`a m'a appel@'e. Imagines-toi donc que ton cousin, Henry, y vient de s'acheter une maison. Ben oui! une maison toi. Y'@'e @`a peine plus vieux que toi. @cCa, c'est parce qu'y'@'e @'electricien avec sa propre buisness pis c'est vraiment payant. Toi t'as m@^eme pas termin@'e l'@'ecole encore pis t'es endett@'ee. @cCa sert-tu vraiment @`a que'que chose donc c'que tu fais? T'as fini quand d@'ej@`a?~";
     default: if (conversation ~= true) print_ret "~J'suis en train de lire une recette pour le g@^ateau de f@^ete @`a Anita.~";
@@ -789,7 +811,7 @@ Npc organiser "l'organisateur de la conf@'erence" salle_conferance
   has male proper;
 
 Npc client "cliente" magasin
-  with description "Une cliente. Clairement un Karen.",
+  with description "Une cliente. Clairement une Karen.",
   life [;
     remove client;
     score = score + 1;
@@ -822,7 +844,7 @@ Memory souvenir0 "Dans un jardin"
 
 
 Memory souvenir1 "Les cours de piano"
-  with description "Je ha@:issais mes cours de piano. Ma professeure, madame Beaumont, @'etait une vieille femme s@`eche et s@'ev@`ere. C'@'etait un personnage tout droit sorti d'une @'emission sans budget d'un r@'ealisateur en manque d'inspiration. Elle portait toujours la m@^eme jupe, o@`u du moins le m@^eme mod@`ele, advenant qu'elle en e@^ut plusieurs identiques, les m@^emes souliers noirs @`a talon, et avait de ces tics insupportables: elle claquait de la langue et disait toujours ~pla@^it-il~ avec l'accent tonique mis sur ~ai~. Sa d@'emarche, ses gestes, son humeur: tout @'etait carr@'e. Comme la r@'egularit@'e des gammes qu'elle nous faisait pratiquer. Dans sa t@^ete @cca devait @^etre noir et blanc comme les touches du piano. Il y a avait les bons et les mauvais @'el@`eves. Moi j'@'etais dans la partie noire de sa t@^ete. Elle m'avait prise en grippe. Une fois, alors que mon p@`ere passait me chercher en revenant du travail, j'ai @'eclat@'e en larmes dans la voiture. Mes parents savaient d@'ej@`a que je n'aimais pas ces cours, mais ils pensaient que c'@'etait une bonne chose que je m'y pratique. @cCa me faisait ~sortir de la maison~. Je pense qu'il avaient sous-estim@'e ma sinc@'erit@'e quand je me plaignais de Mme Beaumont. En tout cas, ce fut mon dernier cours, ce jour-l@`a.^^@`A l'est se trouve un souvenir sur un road trip, @`a l'ouest un souvenir sur une visite au mus@'ee.",
+  with description "Je ha@:issais mes cours de piano. Ma professeure, madame Beaumont, @'etait une vieille femme s@`eche et s@'ev@`ere. C'@'etait un personnage tout droit sorti d'une @'emission sans budget d'un r@'ealisateur en manque d'inspiration. Elle portait toujours la m@^eme jupe, ou du moins le m@^eme mod@`ele, advenant qu'elle en e@^ut plusieurs identiques, les m@^emes souliers noirs @`a talon, et avait de ces tics insupportables: elle claquait de la langue et disait toujours ~pla@^it-il~ avec l'accent tonique mis sur ~ai~. Sa d@'emarche, ses gestes, son humeur: tout @'etait carr@'e. Comme la r@'egularit@'e des gammes qu'elle nous faisait pratiquer. Dans sa t@^ete @cca devait @^etre noir et blanc comme les touches du piano. Il y a avait les bons et les mauvais @'el@`eves. Moi j'@'etais dans la partie noire de sa t@^ete. Elle m'avait prise en grippe. Une fois, alors que mon p@`ere passait me chercher en revenant du travail, j'ai @'eclat@'e en larmes dans la voiture. Mes parents savaient d@'ej@`a que je n'aimais pas ces cours, mais ils pensaient que c'@'etait une bonne chose que je m'y pratique. @cCa me faisait ~sortir de la maison~. Je pense qu'il avaient sous-estim@'e ma sinc@'erit@'e quand je me plaignais de Mme Beaumont. En tout cas, ce fut mon dernier cours, ce jour-l@`a.^^@`A l'est se trouve un souvenir sur un road trip, @`a l'ouest un souvenir sur une visite au mus@'ee.",
   before [;
   go:
   if (noun == w_obj) {
