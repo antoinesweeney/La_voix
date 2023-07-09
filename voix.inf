@@ -58,13 +58,14 @@ Class Room
       if (player in street && noun ~= n_obj) {SceneMotherTalk(); return true;}
       }
       if (metalepse == 0 && mandatory_scenes ~= 2) {
+        if (noun == s_obj || noun == n_obj || noun == e_obj || noun == w_obj ) {
     switch (random(50)) {
       1: metalepse = 1;
       print "^^Caroline se demande pourquoi elle fait tout @cca, toute cette agitation, il lui semble qu'elle n'est qu'un pantin vid@'e de ses capacit@'es d'action sur le monde, qu'un autre fait les actions @`a sa place. Elle ne comprend pas ses propres motivations profondes ni n'arrive @`a en anticiper les superficielles. Elle aimerait mieux tout abandonner que de faire semblant, que ~de jouer le jeu~. Chaque action qu'elle fait, prise individuellement, lui semble insignifiante, et mise ensemble, donne un charabia ind@'echiffrable. ^^";
       return false;
       50: print_ret "Cela ne lui tente pas pr@'esentement. Essayez un peu plus tard.";
       default: return false;
-    }}
+    }}}
 
     sleep: if (player notin chambre) print_ret "Caroline aimerait @^etre dans son lit pour dormir, comme tout le monde.";
   ],
@@ -308,8 +309,8 @@ Room salle_a_manger "La salle @`a manger"
       print "Vous vous affairez @`a patenter un r@'efrig@'erateur cass@'e du voisin, c'est assez difficile puisque le probl@`eme provient du compresseur, et vous pensez que de le d@'emonter permettrait d'identifier s'il est r@'ecup@'erable. Sur votre bureau, vos tournevis sont align@'es, ainsi que toutes les vis d@'eviss@'ees. Vous entendez des pas incertains dans l'escalier. C'est Caroline. ~Ah, Caro, comment a @'et@'e ta journ@'ee aujourd'hui? lui lancez-vous en lui souriant.~ Elle vous regarde, bl@^eme, et bouche b@'ee.^~Bah quoi, tu viens de te rappeler qu'il fallait que tu donnes un lift @`a Isabelle? Tu l'a oubli@'e? continuez-vous. ^- Non non. J'avais pas de lift @`a donner @`a personne aujourd'hui, dit-elle d'un ton presque inaudible.^- R'garde, viens voir. Caroline s'approche de vous. C'est le frigo @`a Marco, mais j'pense que l'compresseur est kaput. ^- Tu vas-tu pouvoir le r@'eparer? vous r@'epond-elle. ^- Hum... J'pas s@^ur. Ts@'e, des fois, quand le probl@`eme est trop compliqu@'e, c'est mieux d'abandonner. Hein hein, fais-moi pas ces yeux-l@`a! Acheter des nouvelles pi@`eces pour r@'eparer le compresseur, @cca va co@^uter @`a peine moins cher qu'un frigo neuf. @cCa vaut juste pas le trouble. Pis c'est pas une mauvaise chose, des fois, de l@^acher la patate, tu devrais essayer. On peut pas toute faire dans vie, parce qu'on est des @^etres limit@'es, faque on fait c'qu'on peut pis d'notre mieux pis ben c'est d@'ej@`a @cca. Ts@'e Caroline, j'aimerais @cca pouvoir t'aider plus que @cca, lui dites-vous en posant votre main sur son @'epaule, mais j'pense que @cca serait le meilleur conseil que j'peux te donner.~ Vous l'encouragez avec un sourire, avant de poursuivre ~t'as pas rien @`a prouver @`a personne. Tes notes, ton argent, ton r@^ole au travail, c'est pas toi, c'est pas ta vie. @cCa aide les gens @`a se faire une id@'ee de t'es qui... mais quand tu vas rencontrer des gens qui comptent vraiment, tes vrais amis l@`a, ton chum: ton argent, tes dipl@^omes, ou ben savoir si t'es manager ou caissi@`ere, @cca va leur passer dix pieds au-dessus d'leu' t@^etes!~ Vous marquez une pause de quelques secondes. ~En tout cas, j'suis ben content de t'revoir.~^^Vous vous levez afin d'@'etreindre Caroline. Puis vous la regardez droit dans les yeux. ^^~@cCa pas l'air d'aller fort fort.~ Caroline secoue la t@^ete, @'emotive.^~Ben dans des moments comme @cca, c'est important que tu dises comment tu te sentes, faut pas que tu gardes toute @cca @`a l'int@'erieur. Qu'est-ce que t'as qui va pas? Qu'est-ce que t'as @`a dire? J'te donne la parole. Prends-la.~^^Caroline re@ccoit la parole (disponible depuis l'inventaire).^^";
       move voice to player;
       PlayerTo(salle_conferance, 1);
-      print "^^Caroline rouvre les yeux, elle se trouve @`a nouveau devant le micro de la salle de conf@'erance, devant les auditeurs.";
-      return true;
+      print "^^Caroline rouvre les yeux, elle se trouve @`a nouveau devant le micro de la salle de conf@'erance, devant les auditeurs. ";
+      print " Elle se sent pr@^ete @`a"; style underline; print_ret " prendre la parole.";
     }
   
   ],
@@ -342,6 +343,9 @@ Room street "Les rues du quartier"
       PlayerTo(memory_lane,2);
       return true;
       default: return false;}}}
+
+    if (noun == s_obj && street has visited)
+      print_ret "Caroline n'a plus envie de passer plus de temps en cet hideux endroit.";
 
   ],
   n_to salle_a_manger,
@@ -382,7 +386,7 @@ Room salon "Le salon"
   s_to salle_a_manger,
   cant_go "Au sud se trouve la salle @`a manger.";
 
-Room stairs "escaliers"
+Room stairs "Les escaliers"
   with description "L'escalier qui m@`ene au sous-sol permet d@'ej@`a de sentir toute l'humidit@'e de ce dernier. C'est un vieil escalier en bois qui g@'emit @`a chaque marche.^^Plus en bas se trouve le sous-sol. En haut, la salle @`a manger.",
   u_to salle_a_manger,
   d_to sous_sol,
@@ -423,7 +427,7 @@ Room sous_sol "Le sous-sol"
   cant_go "L'escalier m@`ene @`a la salle @`a manger, en haut.";
 
 Room memory_lane "Au seuil des souvenirs"
-  with description "Dans le garde-robe, il y a plusieurs bacs qui contiennent des photos, des souvenirs de voyages, des vieux v@^etements, etc.^^Au-del@`a de ses bacs, encore au nord, au fond du garde-robe, une entr@'ee d@'erob@'ee m@`ene vers d'autres souvenirs. Au sud, Caroline revient dans son garde-robe.",
+  with description "Dans le garde-robe, il y a plusieurs bacs qui contiennent des photos, des souvenirs de voyages, des vieux v@^etements, etc.^^Au-del@`a de ses bacs, encore au nord, au fond du garde-robe, une entr@'ee d@'erob@'ee m@`ene vers d'autres souvenirs. Au sud, Caroline revient dans sa chambre.",
   before [;
 
   if (noun == container) print_ret "";
@@ -467,10 +471,10 @@ Object blackbox "Enferm@'e"
 
      go:
 
-     if (self.turns_move == 12){
+     if (self.turns_move == 8){
         print "Vous croyez apercevoir une lumi@`ere bleue se profiler @`a l'horizon. Et vous sentez un courant d'air passer. ";}
 
-      if (self.turns_move == 15){
+      if (self.turns_move == 12){
         print "La lumi@`ere que vous aviez aper@ccue grossit de pas en pas. Le vent que vous aviez senti se fait plus fort. @`A mesure que vous vous dirigez vers cette lumi@`ere, vous vous couvrez les yeux. Vous voyez... Vous voyez votre fille? Que fait-elle dans un endroit pareil? Non... elle semble... ailleurs, et heureuse. Vous la voyez distinctement d@'esormais.^^^Caroline ne regrette pas son choix: le Chili @'etait sur sa liste depuis des ann@'ees. Elle grimpe les derniers m@`etres du sentier, les jambes en compote et inspire une bonne bouff@'ee d'air chaud et sec. Elle pourrait penser @`a ce moment @`a matante Diane qui doit appeler sa m@`ere chaque soir pour s'assurer que tout va bien, @`a sa m@`ere qui a p@'et@'e une crise de nerfs lorsqu'elle apprit les intentions de sa fille, @`a ses professeurs d'universit@'e ou @`a sa gestionnaire de dossier qui lui @'ecrivent des courriels pour savoir o@`u elle est pass@'ee, ou encore @`a Ryan qui ne sait rien de son d@'epart: Caroline a tout simplement disparu. Mais elle ne pense @`a rien de tout cela, non. Elle ne fait que sentir ses muscles qui br@^ulent, sa gorge s@`eche, ses yeux @'eblouis par un soleil implacable et les bretelles de son sac @`a dos qui @'eraflent sa peau meurtrie par les coups de soleil et cette irr@'esistible libert@'e. Elle marche encore quelques foul@'ees, sifflotant 'Mrs. Robinson'. Au sommet du plateau de la montagne, elle peut enfin apercevoir tout d'un coup: l'oc@'ean, le ciel bleu, les cr@^etes de la cha@^ine: l'infiniment vaste. Mais avant d'@^etre absorb@'ee par ces visions vertigineuses, elle remarque une fleur, seule. ~Ce qu'elle est unique~, murmure-t-elle. Puis elle se sourit @`a elle-m@^eme, d'un sourire complice.^^";
         if (score >= 9 && score ~=12) print "Avec ce score, vous @^etes un v@'eritable curieux!";
         if (score == 12) print "Vous avez un score parfait! Vous @^etes une v@'eritable fouine!";
@@ -502,8 +506,8 @@ Object blackbox "Enferm@'e"
     switch (self.turns_wait) {
 
       2: print_ret "Vous vous impatientez.";
-      4: print_ret "Vous avez plut@^ot envie d'explorer.";
-      6: print_ret "Comme vous avez vraiment envie de bouger, vous faites le choix judicieux d'aller au nord.^^Vous marchez quelques pas au nord.";
+      3: print_ret "Vous avez plut@^ot envie d'explorer.";
+      4: print_ret "Comme vous avez vraiment envie de bouger, vous faites le choix judicieux d'aller au nord.^^Vous marchez quelques pas au nord.";
     }
     
   ], 
